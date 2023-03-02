@@ -8,7 +8,7 @@ export class User {
     Object.assign(this, user);
   }
 
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id?: number;
 
   @Column()

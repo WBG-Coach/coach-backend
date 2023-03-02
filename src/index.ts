@@ -1,1 +1,3 @@
-console.log("Coach SL API v1");
+import CoachServer from "./server";
+
+CoachServer.start();

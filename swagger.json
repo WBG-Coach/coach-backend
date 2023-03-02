@@ -1,0 +1,14 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Nome da API",
+    "description": "Descrição da API",
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {},
+  "definitions": {}
+}

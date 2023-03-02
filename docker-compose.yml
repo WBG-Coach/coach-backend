@@ -1,19 +1,7 @@
-version: '3.3'
+version: "3.3"
 
 services:
-  postgres:
-    image: postgres
-    hostname: postgres
-    ports:
-      - '${POSTGRES_PORT}:5432'
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DATABASE}
-    restart: unless-stopped
   node-web-app:
-    depends_on:
-      - postgres
-    ports:
-      - '10100:8080'
     image: coach-backend-sl
+    ports:
+      - "3000:3000"

@@ -12,10 +12,10 @@ export default class DBConnector {
     this.connector = new DataSource({
       ...database,
       logging: true,
-      migrations: [],
       subscribers: [],
       type: "postgres",
       synchronize: true,
+      migrations: ["src/migrations/*.ts"],
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
     });
   };

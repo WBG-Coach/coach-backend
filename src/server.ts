@@ -4,7 +4,7 @@ import cors from "cors";
 import Routes from "./routes";
 import config from "./config";
 import { Server } from "http";
-const { env, port } = config;
+const { port } = config;
 
 const CoachServer = {
   start: (): Application => {
