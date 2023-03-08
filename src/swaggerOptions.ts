@@ -502,6 +502,146 @@ export default {
         },
       },
     },
+    "/teacher": {
+      post: {
+        tags: ["Teacher"],
+        summary: "Create a new teacher",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/TeacherSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/TeacherSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      put: {
+        tags: ["Teacher"],
+        summary: "Update teacher",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/TeacherSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+      get: {
+        tags: ["Teacher"],
+        summary: "Get all teachers",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/TeacherSchema",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/teacher/{id}": {
+      get: {
+        tags: ["Teacher"],
+        summary: "Get one teacher by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "Teacher id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/TeacherSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      delete: {
+        tags: ["Teacher"],
+        summary: "Delete teacher by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "Teacher id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -575,6 +715,18 @@ export default {
         },
       },
       SchoolSchema: {
+        properties: {
+          id: {
+            type: "string",
+            example: "uuid",
+          },
+          name: {
+            type: "string",
+            example: "School name",
+          },
+        },
+      },
+      TeacherSchema: {
         properties: {
           id: {
             type: "string",
