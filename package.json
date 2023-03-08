@@ -7,6 +7,7 @@
     "start:dev": "npx nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
+    "build-docker": "docker build -t coach-backend-sl .",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -d ./src/database/config/ormconfig.ts",
     "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:create ./src/database/migrations/Update_Invite",
     "migration:generate": "npm run typeorm -- migration:generate ./src/migrations/$migration_name",

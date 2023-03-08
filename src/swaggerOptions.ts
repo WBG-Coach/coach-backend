@@ -782,6 +782,146 @@ export default {
         },
       },
     },
+    "/session": {
+      post: {
+        tags: ["Session"],
+        summary: "Create a new session",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/SessionSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/SessionSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      put: {
+        tags: ["Session"],
+        summary: "Update session",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/SessionSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+      get: {
+        tags: ["Session"],
+        summary: "Get all sessions",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/SessionSchema",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/session/{id}": {
+      get: {
+        tags: ["Session"],
+        summary: "Get one session by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "Session id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/SessionSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      delete: {
+        tags: ["Session"],
+        summary: "Delete session by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "Session id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -891,6 +1031,38 @@ export default {
           active: {
             type: "boolean",
             example: true,
+          },
+        },
+      },
+      SessionSchema: {
+        properties: {
+          id: {
+            type: "string",
+            example: "uuid",
+          },
+          status: {
+            type: "string",
+            example: "Questionnaire name",
+          },
+          applicationDate: {
+            type: "date",
+            example: new Date(),
+          },
+          questionnaire: {
+            type: "object",
+            example: { id: "uuid" },
+          },
+          coache: {
+            type: "object",
+            example: { id: "uuid" },
+          },
+          school: {
+            type: "object",
+            example: { id: "uuid" },
+          },
+          teacher: {
+            type: "object",
+            example: { id: "uuid" },
           },
         },
       },

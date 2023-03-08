@@ -5,9 +5,10 @@ import swaggerOptions from "./swaggerOptions";
 import authRouter from "./modules/auth/routes";
 import userRouter from "./modules/user/router";
 import guideRouter from "./modules/guide/routes";
-import competenceRouter from "./modules/competencies/routes";
 import schoolRouter from "./modules/school/routes";
 import teacherRouter from "./modules/teacher/routes";
+import sessionRouter from "./modules/session/routes";
+import competenceRouter from "./modules/competencies/routes";
 import questionnaireRouter from "./modules/questionnaire/routes";
 
 const packageJson: any = require("../package.json");
@@ -18,6 +19,7 @@ const Routes = {
     userRouter(app);
     guideRouter(app);
     schoolRouter(app);
+    sessionRouter(app);
     teacherRouter(app);
     competenceRouter(app);
     questionnaireRouter(app);

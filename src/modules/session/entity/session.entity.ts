@@ -17,7 +17,7 @@ export class Session {
   }
 
   @PrimaryGeneratedColumn("uuid")
-  id?: number;
+  id?: string;
 
   @Column()
   status?: string;
