@@ -1,5 +1,7 @@
 # Coache digital SL API
 
+### [Api docs](http://44.213.115.141:3000/api-docs)
+
 ## Setup dev
 
   - Copy .env.example to .env
