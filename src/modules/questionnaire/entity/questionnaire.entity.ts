@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Guide } from "../../guide/entity/guide.entity";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Questionnaire {
@@ -14,7 +7,7 @@ export class Questionnaire {
   }
 
   @PrimaryGeneratedColumn("uuid")
-  id?: number;
+  id?: string;
 
   @Column()
   title?: string;

@@ -642,6 +642,146 @@ export default {
         },
       },
     },
+    "/questionnaire": {
+      post: {
+        tags: ["Questionnaire"],
+        summary: "Create a new questionnaire",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/QuestionnaireSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/QuestionnaireSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      put: {
+        tags: ["Questionnaire"],
+        summary: "Update questionnaire",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/QuestionnaireSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+      get: {
+        tags: ["Questionnaire"],
+        summary: "Get all questionnaires",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/QuestionnaireSchema",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/questionnaire/{id}": {
+      get: {
+        tags: ["Questionnaire"],
+        summary: "Get one questionnaire by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "Questionnaire id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/QuestionnaireSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      delete: {
+        tags: ["Questionnaire"],
+        summary: "Delete questionnaire by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "Questionnaire id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -735,6 +875,22 @@ export default {
           name: {
             type: "string",
             example: "School name",
+          },
+        },
+      },
+      QuestionnaireSchema: {
+        properties: {
+          id: {
+            type: "string",
+            example: "uuid",
+          },
+          title: {
+            type: "string",
+            example: "Questionnaire name",
+          },
+          active: {
+            type: "boolean",
+            example: true,
           },
         },
       },
