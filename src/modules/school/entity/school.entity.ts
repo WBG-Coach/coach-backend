@@ -7,7 +7,7 @@ export class School {
   }
 
   @PrimaryGeneratedColumn("uuid")
-  id?: number;
+  id?: string;
 
   @Column()
   name?: string;

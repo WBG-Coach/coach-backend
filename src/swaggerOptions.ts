@@ -362,6 +362,146 @@ export default {
         },
       },
     },
+    "/school": {
+      post: {
+        tags: ["School"],
+        summary: "Create a new school",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/SchoolSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/SchoolSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      put: {
+        tags: ["School"],
+        summary: "Update school",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/SchoolSchema",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+      get: {
+        tags: ["School"],
+        summary: "Get all schools",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    $ref: "#/components/schemas/SchoolSchema",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/school/{id}": {
+      get: {
+        tags: ["School"],
+        summary: "Get one school by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "School id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/SchoolSchema",
+                },
+              },
+            },
+          },
+        },
+      },
+      delete: {
+        tags: ["School"],
+        summary: "Delete school by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "School id to delete",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -431,6 +571,18 @@ export default {
           guide: {
             type: "object",
             example: { id: "uuid" },
+          },
+        },
+      },
+      SchoolSchema: {
+        properties: {
+          id: {
+            type: "string",
+            example: "uuid",
+          },
+          name: {
+            type: "string",
+            example: "School name",
           },
         },
       },

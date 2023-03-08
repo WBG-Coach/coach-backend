@@ -6,6 +6,7 @@ import authRouter from "./modules/auth/routes";
 import userRouter from "./modules/user/router";
 import guideRouter from "./modules/guide/routes";
 import competenceRouter from "./modules/competencies/routes";
+import schoolRouter from "./modules/school/routes";
 const packageJson: any = require("../package.json");
 
 const Routes = {
@@ -14,6 +15,7 @@ const Routes = {
     userRouter(app);
     guideRouter(app);
     competenceRouter(app);
+    schoolRouter(app);
 
     app.get("/", (_req: Request, res: Response) => {
       res.send(`Coach API v${packageJson?.version} is running.`);
