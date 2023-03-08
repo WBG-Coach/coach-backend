@@ -14,7 +14,7 @@ export class Competence {
   }
 
   @PrimaryGeneratedColumn("uuid")
-  id?: number;
+  id?: string;
 
   @Column()
   title?: string;

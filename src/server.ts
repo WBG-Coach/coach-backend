@@ -4,7 +4,6 @@ import cors from "cors";
 import Routes from "./routes";
 import config from "./config";
 import { Server } from "http";
-import dataSource from "./database/config/ormconfig";
 const { port } = config;
 
 const CoachServer = {
