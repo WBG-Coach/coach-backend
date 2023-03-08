@@ -29,7 +29,7 @@ export class Session {
   @JoinColumn({ name: "questionnaire_id" })
   questionnaire?: Questionnaire;
 
-  @ManyToOne(() => User, (coach) => coach.id)
+  @ManyToOne(() => User, (coach: User) => coach.id)
   @JoinColumn({ name: "coach_id" })
   coache?: User;
 

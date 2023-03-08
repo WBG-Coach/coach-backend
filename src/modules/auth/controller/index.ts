@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { UserService } from "../../user/service";
 import { constants } from "http2";
 const { HTTP_STATUS_OK } = constants;
 import Authentication from "../service";

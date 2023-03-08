@@ -31,7 +31,8 @@ let User = class User {
     }
     verifyIsSamePassword(password) {
         return __awaiter(this, void 0, void 0, function* () {
-            const hash = yield controller_1.default.encrypt(password, config_1.default.secret).catch((error) => Promise.reject(error));
+            const hash = yield controller_1.default.encrypt(password, config_1.default.salt).catch((error) => Promise.reject(error));
+            console.log(hash);
             if (hash === this.password)
                 return Promise.resolve();
             return Promise.reject();

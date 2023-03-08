@@ -21,9 +21,10 @@ export class User {
   password?: string;
 
   async verifyIsSamePassword(password: string): Promise<void> {
-    const hash = await Encryption.encrypt(password, config.secret).catch(
+    const hash = await Encryption.encrypt(password, config.salt).catch(
       (error) => Promise.reject(error)
     );
+    console.log(hash);
     if (hash === this.password) return Promise.resolve();
     return Promise.reject();
   }

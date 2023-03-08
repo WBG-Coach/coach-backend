@@ -14,6 +14,7 @@ const config = {
         ? process.env.ALLOWED_ORIGINS.split(",")
         : constants_1.allowedOrigins,
     secret: process.env.JWT_SECRET || "",
+    salt: process.env.PASSWORD_SALT || "",
     database: {
         port: parseInt(process.env.DB_PORT || "5432", 10),
         host: process.env.DB_HOST || "",

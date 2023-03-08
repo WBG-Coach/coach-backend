@@ -14,16 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-const db_connector_1 = __importDefault(require("../../../db-connector"));
+const ormconfig_1 = __importDefault(require("../../../database/config/ormconfig"));
+const entity_1 = require("../entity");
 class UserService {
 }
 exports.UserService = UserService;
 _a = UserService;
 UserService.findUserByID = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const userRepository = yield db_connector_1.default.getUserRepository();
+    const userRepository = yield ormconfig_1.default.getRepository(entity_1.User);
     return userRepository.findOne({ where: { id } });
 });
 UserService.findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const userRepository = yield db_connector_1.default.getUserRepository();
+    const userRepository = yield ormconfig_1.default.getRepository(entity_1.User);
     return userRepository.findOne({ where: { email } });
 });

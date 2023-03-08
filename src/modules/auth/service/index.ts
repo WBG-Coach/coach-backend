@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { User } from "../../user/entity";
 import config from "../../../config";
 import { constants } from "http2";
 import jwt from "jsonwebtoken";
 import UnauthorizedException from "../../helpers/errors/unauthorized-exception";
-import DBConnector from "../../../db-connector";
 import InternalServerError from "../../helpers/errors/internal-server-error";
+import { User } from "../../user/entity/user.entity";
+import dataSource from "../../../database/config/ormconfig";
 
 const { HTTP_STATUS_INTERNAL_SERVER_ERROR, HTTP_STATUS_UNAUTHORIZED } =
   constants;
@@ -20,8 +20,8 @@ export default class Authentication {
     }
   };
 
-  private static verifyJWT = (token: string) => {
-    return jwt.verify(token, secret);
+  private static verifyJWT = (token: string): { email: string } => {
+    return jwt.verify(token, secret) as { email: string };
   };
 
   public static unauthorize = (res: Response, error: any): void => {
@@ -42,7 +42,8 @@ export default class Authentication {
     }
 
     try {
-      const userRepository = await DBConnector.getUserRepository();
+      const userRepository = await dataSource.getRepository(User);
+
       const user = await userRepository.findOne({
         where: { email },
       });
@@ -61,19 +62,24 @@ export default class Authentication {
           );
         });
     } catch (error) {
+      console.log({ error });
       return Promise.reject(new InternalServerError("Internal server error."));
     }
   };
 
-  private static getAuthenticatedUser = async (id: number): Promise<User> => {
-    const userRepository = await DBConnector.getUserRepository();
-    const user = await userRepository.findOne({ where: { id } });
+  private static getAuthenticatedUser = async (
+    email: string
+  ): Promise<User> => {
+    const userRepository = await dataSource.getRepository(User);
+    const user = await userRepository.findOne({ where: { email } });
 
     if (!user) {
       throw new UnauthorizedException("Invalid token");
     }
 
-    return user;
+    const { password, ...userWithoutPassword } = user;
+
+    return new User(userWithoutPassword);
   };
 
   public static signUser = (user: User, res: Response): void => {
@@ -91,29 +97,30 @@ export default class Authentication {
     res: Response,
     next: () => void
   ) => {
-    const token = Authentication.getBearerToken(req);
+    try {
+      const token = Authentication.getBearerToken(req);
 
-    if (!token)
-      return Authentication.unauthorize(
-        res,
-        new UnauthorizedException("Token didn't send.")
-      );
+      if (!token)
+        return Authentication.unauthorize(
+          res,
+          new UnauthorizedException("Token didn't send.")
+        );
 
-    const id = Authentication.verifyJWT(token);
+      const user = Authentication.verifyJWT(token);
 
-    if (!id)
+      Authentication.getAuthenticatedUser(user.email)
+        .then((user: User) => {
+          res.locals.authUser = user;
+          next();
+        })
+        .catch((error) => {
+          return Authentication.unauthorize(res, error);
+        });
+    } catch (error) {
       return Authentication.unauthorize(
         res,
         new UnauthorizedException("Invalid token.")
       );
-
-    Authentication.getAuthenticatedUser(parseInt(id as string, 10))
-      .then((user: User) => {
-        res.locals.authUser = user;
-        next();
-      })
-      .catch((error) => {
-        return Authentication.unauthorize(res, error);
-      });
+    }
   };
 }
