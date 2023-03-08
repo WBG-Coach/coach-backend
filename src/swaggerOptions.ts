@@ -922,6 +922,44 @@ export default {
         },
       },
     },
+    "/session/{session-id}/answer": {
+      post: {
+        tags: ["Session"],
+        summary: "Get one questionnaire by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "session-id",
+            in: "path",
+            description: "Session id",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+    },
+    "/app/sync": {
+      post: {
+        tags: ["App"],
+        summary: "Sync data with APP",
+        responses: {
+          "200": {
+            description: "Success",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
