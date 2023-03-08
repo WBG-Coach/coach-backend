@@ -7,7 +7,7 @@ export class Guide {
   }
 
   @PrimaryGeneratedColumn("uuid")
-  id?: number;
+  id?: string;
 
   @Column()
   content?: string;

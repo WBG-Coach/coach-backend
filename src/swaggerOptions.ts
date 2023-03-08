@@ -4,8 +4,6 @@ export default {
     title: "REST API for Coach digital SL",
     version: "1.0.0",
   },
-  schemes: ["http"],
-  servers: [{ url: "http://localhost:3000/" }],
   paths: {
     "/auth": {
       post: {
@@ -55,6 +53,11 @@ export default {
       get: {
         tags: ["Auth"],
         summary: "Get logged user",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         responses: {
           "200": {
             description: "Success",
@@ -131,6 +134,14 @@ export default {
             example: "email@example.com",
           },
         },
+      },
+    },
+
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
       },
     },
   },
