@@ -1,4 +1,4 @@
-name: remote ssh command
+name: Deploy
 
 on:
   push:
@@ -7,9 +7,10 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Deploy to server
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v0.1.8
         with:
