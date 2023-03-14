@@ -6,6 +6,8 @@ FROM node:16
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && apt-get update && apt-get install -y yarn 
+
 COPY package*.json ./
 
 RUN npm install
@@ -16,4 +18,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start:dev" ]
