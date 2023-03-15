@@ -7,14 +7,16 @@ import { Server } from "http";
 const { port } = config;
 
 const CoachServer = {
-  start: (): Application => {
+  start: (): { app: Application; server: Server } => {
     const app: Application = express();
     CoachServer.config(app);
     Routes.setupRoutes(app);
 
-    app.listen(port, () => console.log(`Listening on port ${port}...`));
+    const server = app.listen(port, () =>
+      console.log(`Listening on port ${port}...`)
+    );
 
-    return app;
+    return { server, app };
   },
 
   config: (app: Application): void => {
