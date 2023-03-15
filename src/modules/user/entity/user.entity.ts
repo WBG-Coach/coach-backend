@@ -25,7 +25,6 @@ export class User {
       (error) => Promise.reject(error)
     );
 
-    console.log({ hash });
     if (hash === this.password) return Promise.resolve();
     return Promise.reject();
   }
