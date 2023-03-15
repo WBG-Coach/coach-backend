@@ -1,6 +1,6 @@
 import { Application } from "express";
 import { Server } from "http";
-import request, { Test } from "supertest";
+import request from "supertest";
 import CoachServer from "../../../server";
 import { User } from "../../user/entity";
 
