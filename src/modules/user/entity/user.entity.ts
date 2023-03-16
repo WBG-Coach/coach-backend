@@ -24,7 +24,6 @@ export class User {
     const hash = await Encryption.encrypt(password, config.salt).catch(
       (error) => Promise.reject(error)
     );
-
     if (hash === this.password) return Promise.resolve();
     return Promise.reject();
   }

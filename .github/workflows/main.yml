@@ -16,13 +16,12 @@ jobs:
       DB_PASSWORD: ""
       DB_DATABASE: ""
       PASSWORD_SALT: ""
-      JWT_SECRET: ""
+      JWT_SECRET: "secret"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: "npm"
       - run: npm install
       - run: npm run test
       - name: executing remote ssh commands using ssh key
