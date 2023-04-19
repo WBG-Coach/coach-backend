@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Competence } from "../../competencies/entity/competence.entity";
-import { Questionnaire } from "./questionnaire.entity";
 
 @Entity()
 export class Question {
@@ -15,14 +14,13 @@ export class Question {
   }
 
   @PrimaryGeneratedColumn("uuid")
-  id?: number;
+  id?: string;
 
   @Column()
   title?: string;
 
-  @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.id)
-  @JoinColumn({ name: "questionnaire_id" })
-  questionnaire?: Questionnaire;
+  @Column()
+  description?: string;
 
   @ManyToOne(() => Competence, (competence) => competence.id)
   @JoinColumn({ name: "competence_id" })

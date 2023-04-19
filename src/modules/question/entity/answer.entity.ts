@@ -5,21 +5,26 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Session } from "../../session/entity/session.entity";
 import { Question } from "./question.entity";
 
 @Entity()
-export class Option {
-  constructor(option?: Partial<Option>) {
-    Object.assign(this, option);
+export class Answer {
+  constructor(answer?: Partial<Answer>) {
+    Object.assign(this, answer);
   }
 
   @PrimaryGeneratedColumn("uuid")
   id?: number;
 
   @Column()
-  title?: string;
+  value?: string;
 
   @ManyToOne(() => Question, (question) => question.id)
   @JoinColumn({ name: "question_id" })
   question?: Question;
+
+  @ManyToOne(() => Session, (session) => session.id)
+  @JoinColumn({ name: "session_id" })
+  session?: Session;
 }

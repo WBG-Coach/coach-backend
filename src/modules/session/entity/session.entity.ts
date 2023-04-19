@@ -5,7 +5,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Questionnaire } from "../../questionnaire/entity/questionnaire.entity";
 import { School } from "../../school/entity/school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { User } from "../../user/entity";
@@ -24,10 +23,6 @@ export class Session {
 
   @Column()
   applicationDate?: Date;
-
-  @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.id)
-  @JoinColumn({ name: "questionnaire_id" })
-  questionnaire?: Questionnaire;
 
   @ManyToOne(() => User, (coach: User) => coach.id)
   @JoinColumn({ name: "coach_id" })
