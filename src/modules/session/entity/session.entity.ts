@@ -1,11 +1,13 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  OneToMany,
   ManyToOne,
+  JoinColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { School } from "../../school/entity/school.entity";
+import { Answer } from "../../question/entity/answer.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { User } from "../../user/entity";
 
@@ -22,11 +24,32 @@ export class Session {
   status?: string;
 
   @Column()
+  howManyStudents?: number;
+
+  @Column()
+  howManyBoys?: number;
+
+  @Column()
+  howManyGirls?: number;
+
+  @Column()
+  subject?: string;
+
+  @Column()
+  howLongTime?: number;
+
+  @Column()
+  objective?: string;
+
+  @Column()
+  keyPoints?: string;
+
+  @Column()
   applicationDate?: Date;
 
   @ManyToOne(() => User, (coach: User) => coach.id)
   @JoinColumn({ name: "coach_id" })
-  coache?: User;
+  coach?: User;
 
   @ManyToOne(() => School, (school) => school.id)
   @JoinColumn({ name: "school_id" })
@@ -35,4 +58,7 @@ export class Session {
   @ManyToOne(() => Teacher, (teacher) => teacher.id)
   @JoinColumn({ name: "teacher_id" })
   teacher?: Teacher;
+
+  @OneToMany(() => Answer, (answer) => answer.session)
+  answers?: Answer[];
 }

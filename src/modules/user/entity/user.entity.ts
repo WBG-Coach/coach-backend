@@ -1,6 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import config from "../../../config";
 import Encryption from "../../encryption/controller";
+import { School } from "../../school/entity/school.entity";
+import { Teacher } from "../../teacher/entity/teacher.entity";
 
 @Entity()
 export class User {
@@ -19,6 +28,13 @@ export class User {
 
   @Column()
   password?: string;
+
+  @ManyToOne(() => School, (school) => school.id)
+  @JoinColumn({ name: "school_id" })
+  school?: School;
+
+  @OneToMany(() => Teacher, (teacher) => teacher.coach)
+  teachers?: Teacher[];
 
   async verifyIsSamePassword(password: string): Promise<void> {
     const hash = await Encryption.encrypt(password, config.salt).catch(

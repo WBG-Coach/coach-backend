@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { User } from "../../user/entity";
 
 @Entity()
 export class Teacher {
@@ -11,4 +18,8 @@ export class Teacher {
 
   @Column()
   name?: string;
+
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: "coach_id" })
+  coach?: User;
 }
