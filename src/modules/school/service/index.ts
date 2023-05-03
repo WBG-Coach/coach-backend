@@ -1,35 +1,63 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { School } from "../entity/school.entity";
+import { DataSync } from "../../sync/controller/types";
 
 export class SchoolService {
   static create = async (data: School): Promise<School> => {
-    const userRepository = await dataSource.getRepository(School);
+    const schoolRepository = await dataSource.getRepository(School);
 
-    return userRepository.save(data);
+    return schoolRepository.save(data);
   };
 
   static update = async (id: string, data: School): Promise<UpdateResult> => {
-    const userRepository = await dataSource.getRepository(School);
+    const schoolRepository = await dataSource.getRepository(School);
 
-    return userRepository.update(id, data);
+    return schoolRepository.update(id, data);
   };
 
   static delete = async (id: string): Promise<DeleteResult> => {
-    const userRepository = await dataSource.getRepository(School);
+    const schoolRepository = await dataSource.getRepository(School);
 
-    return userRepository.delete(id);
+    return schoolRepository.delete(id);
   };
 
   static findByID = async (id: string): Promise<School | null> => {
-    const userRepository = await dataSource.getRepository(School);
+    const schoolRepository = await dataSource.getRepository(School);
 
-    return userRepository.findOne({ where: { id } });
+    return schoolRepository.findOne({ where: { id } });
   };
 
   static findAll = async (): Promise<School[]> => {
-    const userRepository = await dataSource.getRepository(School);
+    const schoolRepository = await dataSource.getRepository(School);
 
-    return userRepository.find();
+    return schoolRepository.find();
+  };
+
+  static sync = async (changes: DataSync<School>): Promise<void> => {
+    const repository = await dataSource.getRepository(School);
+
+    await Promise.all(
+      changes.created.map(
+        async (item) =>
+          await repository.save({ ...item, createdAt: new Date() })
+      )
+    );
+
+    await Promise.all(
+      changes.created.map(
+        async (item) =>
+          item.id &&
+          (await repository.update(item.id, { ...item, updatedAt: new Date() }))
+      )
+    );
+
+    await Promise.all(
+      changes.created.map(
+        async (item) =>
+          item.id &&
+          (await repository.update(item.id, { ...item, deletedAt: new Date() }))
+      )
+    );
   };
 }

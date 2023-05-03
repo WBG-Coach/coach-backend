@@ -10,11 +10,13 @@ import teacherRouter from "./modules/teacher/routes";
 import sessionRouter from "./modules/session/routes";
 import questionRouter from "./modules/question/routes";
 import competenceRouter from "./modules/competencies/routes";
+import syncRouter from "./modules/sync/routes";
 
 const packageJson: any = require("../package.json");
 
 const Routes = {
   setupRoutes: (app: Application): void => {
+    syncRouter(app);
     authRouter(app);
     userRouter(app);
     guideRouter(app);

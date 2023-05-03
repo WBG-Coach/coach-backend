@@ -1,12 +1,12 @@
+import { Question } from "../../question/entity/question.entity";
+import { Session } from "../../session/entity/session.entity";
 import {
   Column,
   Entity,
-  JoinColumn,
   ManyToOne,
+  JoinColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Session } from "../../session/entity/session.entity";
-import { Question } from "./question.entity";
 
 @Entity()
 export class Answer {
@@ -20,6 +20,12 @@ export class Answer {
   @Column()
   value?: string;
 
+  @Column()
+  question_id?: string;
+
+  @Column()
+  session_id?: string;
+
   @ManyToOne(() => Question, (question) => question.id)
   @JoinColumn({ name: "question_id" })
   question?: Question;
@@ -27,4 +33,13 @@ export class Answer {
   @ManyToOne(() => Session, (session) => session.id)
   @JoinColumn({ name: "session_id" })
   session?: Session;
+
+  @Column()
+  createdAt?: Date;
+
+  @Column()
+  updatedAt?: Date;
+
+  @Column()
+  deletedAt?: Date;
 }

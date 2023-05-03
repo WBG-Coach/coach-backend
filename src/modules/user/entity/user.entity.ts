@@ -29,12 +29,24 @@ export class User {
   @Column()
   password?: string;
 
+  @Column()
+  school_id?: string;
+
   @ManyToOne(() => School, (school) => school.id)
   @JoinColumn({ name: "school_id" })
   school?: School;
 
   @OneToMany(() => Teacher, (teacher) => teacher.coach)
   teachers?: Teacher[];
+
+  @Column()
+  createdAt?: Date;
+
+  @Column()
+  updatedAt?: Date;
+
+  @Column()
+  deletedAt?: Date;
 
   async verifyIsSamePassword(password: string): Promise<void> {
     const hash = await Encryption.encrypt(password, config.salt).catch(

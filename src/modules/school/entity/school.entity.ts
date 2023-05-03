@@ -15,4 +15,13 @@ export class School {
 
   @OneToMany(() => User, (user) => user.school)
   coaches?: User[];
+
+  @Column()
+  createdAt?: Date;
+
+  @Column()
+  updatedAt?: Date;
+
+  @Column()
+  deletedAt?: Date;
 }

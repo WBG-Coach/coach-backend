@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { School } from "../../school/entity/school.entity";
-import { Answer } from "../../question/entity/answer.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { User } from "../../user/entity";
+import { Answer } from "../../answer/entity/answer.entity";
 
 @Entity()
 export class Session {
@@ -24,19 +24,16 @@ export class Session {
   status?: string;
 
   @Column()
-  howManyStudents?: number;
+  boys_count?: string;
 
   @Column()
-  howManyBoys?: number;
-
-  @Column()
-  howManyGirls?: number;
+  girls_count?: string;
 
   @Column()
   subject?: string;
 
   @Column()
-  howLongTime?: number;
+  lesson_time?: string;
 
   @Column()
   objective?: string;
@@ -46,6 +43,15 @@ export class Session {
 
   @Column()
   applicationDate?: Date;
+
+  @Column()
+  coach_id?: string;
+
+  @Column()
+  school_id?: string;
+
+  @Column()
+  teacher_id?: string;
 
   @ManyToOne(() => User, (coach: User) => coach.id)
   @JoinColumn({ name: "coach_id" })
