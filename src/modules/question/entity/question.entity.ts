@@ -22,6 +22,15 @@ export class Question {
   @Column()
   description?: string;
 
+  @Column()
+  tooltip_data?: string;
+
+  @Column()
+  type?: string;
+
+  @Column()
+  competence_id?: string;
+
   @ManyToOne(() => Competence, (competence) => competence.id)
   @JoinColumn({ name: "competence_id" })
   competence?: Competence;

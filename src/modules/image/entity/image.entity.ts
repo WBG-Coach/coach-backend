@@ -10,5 +10,8 @@ export class Image {
   id?: string;
 
   @Column()
+  name?: string;
+
+  @Column()
   data?: string;
 }

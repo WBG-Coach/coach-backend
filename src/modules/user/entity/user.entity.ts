@@ -24,6 +24,9 @@ export class User {
   name?: string;
 
   @Column()
+  type?: string;
+
+  @Column()
   email?: string;
 
   @Column()
@@ -32,21 +35,21 @@ export class User {
   @Column()
   school_id?: string;
 
-  @ManyToOne(() => School, (school) => school.id)
-  @JoinColumn({ name: "school_id" })
-  school?: School;
+  @Column()
+  created_at?: Date;
+
+  @Column()
+  updated_at?: Date;
+
+  @Column()
+  deleted_at?: Date;
 
   @OneToMany(() => Teacher, (teacher) => teacher.coach)
   teachers?: Teacher[];
 
-  @Column()
-  createdAt?: Date;
-
-  @Column()
-  updatedAt?: Date;
-
-  @Column()
-  deletedAt?: Date;
+  @ManyToOne(() => School, (school) => school.id)
+  @JoinColumn({ name: "school_id" })
+  school?: School;
 
   async verifyIsSamePassword(password: string): Promise<void> {
     const hash = await Encryption.encrypt(password, config.salt).catch(

@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Guide } from "../../guide/entity/guide.entity";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Competence {
@@ -18,8 +11,4 @@ export class Competence {
 
   @Column()
   title?: string;
-
-  @ManyToOne(() => Guide, (guide) => guide.id)
-  @JoinColumn({ name: "guide_id" })
-  guide?: Guide;
 }

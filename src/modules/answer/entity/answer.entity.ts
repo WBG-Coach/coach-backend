@@ -35,11 +35,11 @@ export class Answer {
   session?: Session;
 
   @Column()
-  createdAt?: Date;
+  created_at?: Date;
 
   @Column()
-  updatedAt?: Date;
+  updated_at?: Date;
 
   @Column()
-  deletedAt?: Date;
+  deleted_at?: Date;
 }

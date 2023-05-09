@@ -21,7 +21,7 @@ export class Session {
   id?: string;
 
   @Column()
-  status?: string;
+  session_status?: string;
 
   @Column()
   boys_count?: string;
@@ -67,4 +67,13 @@ export class Session {
 
   @OneToMany(() => Answer, (answer) => answer.session)
   answers?: Answer[];
+
+  @Column()
+  created_at?: Date;
+
+  @Column()
+  updated_at?: Date;
+
+  @Column()
+  deleted_at?: Date;
 }
