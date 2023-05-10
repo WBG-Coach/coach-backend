@@ -53,15 +53,15 @@ export class Session {
   @Column({ nullable: true })
   teacher_id?: string;
 
-  @ManyToOne(() => User, (coach: User) => coach.id)
+  @ManyToOne(() => User, (coach: User) => coach.id, { eager: true })
   @JoinColumn({ name: "coach_id" })
   coach?: User;
 
-  @ManyToOne(() => School, (school) => school.id)
+  @ManyToOne(() => School, (school) => school.id, { eager: true })
   @JoinColumn({ name: "school_id" })
   school?: School;
 
-  @ManyToOne(() => Teacher, (teacher) => teacher.id)
+  @ManyToOne(() => Teacher, (teacher) => teacher.id, { eager: true })
   @JoinColumn({ name: "teacher_id" })
   teacher?: Teacher;
 
