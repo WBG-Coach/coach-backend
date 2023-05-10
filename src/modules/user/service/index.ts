@@ -8,10 +8,10 @@ export class UserService {
     return userRepository.findOne({ where: { id } });
   };
 
-  static findAll = async (): Promise<User[]> => {
+  static findAllCoaches = async (): Promise<User[]> => {
     const userRepository = await dataSource.getRepository(User);
 
-    return userRepository.find();
+    return userRepository.find({ where: { type: undefined } });
   };
 
   static findUserByEmail = async (email: string): Promise<User | null> => {
