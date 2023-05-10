@@ -9,15 +9,15 @@ export class Sync {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   model?: string;
 
-  @Column()
+  @Column({ nullable: true })
   deviceId?: string;
 
-  @Column()
+  @Column({ nullable: true })
   apiLevel?: number;
 
-  @Column()
+  @Column({ nullable: true })
   lastPulledAt?: Date;
 }

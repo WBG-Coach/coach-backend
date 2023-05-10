@@ -16,8 +16,11 @@ export class Feedback {
   @PrimaryGeneratedColumn("uuid")
   id?: number;
 
-  @Column()
+  @Column({ nullable: true })
   value?: string;
+
+  @Column({ nullable: true })
+  session_id?: string;
 
   @ManyToOne(() => Session, (session) => session.id)
   @JoinColumn({ name: "session_id" })

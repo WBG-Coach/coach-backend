@@ -17,13 +17,13 @@ export class Answer {
   @PrimaryGeneratedColumn("uuid")
   id?: number;
 
-  @Column()
+  @Column({ nullable: true })
   value?: string;
 
-  @Column()
+  @Column({ nullable: true })
   question_id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   session_id?: string;
 
   @ManyToOne(() => Question, (question) => question.id)
@@ -34,12 +34,12 @@ export class Answer {
   @JoinColumn({ name: "session_id" })
   session?: Session;
 
-  @Column()
+  @Column({ nullable: true })
   created_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updated_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   deleted_at?: Date;
 }

@@ -20,36 +20,33 @@ export class Teacher {
   @JoinColumn({ name: "coach_id" })
   coach?: User;
 
-  @Column()
+  @Column({ nullable: true })
   name?: string;
 
-  @Column()
+  @Column({ nullable: true })
   surname?: string;
 
-  @Column()
+  @Column({ nullable: true })
   emis_number?: string;
 
-  @Column()
+  @Column({ nullable: true })
   subject?: string;
 
-  @Column()
+  @Column({ nullable: true })
   birthdate?: string;
 
-  @Column()
+  @Column({ nullable: true })
   school_id?: string;
 
-  @Column()
-  coach_id?: string;
-
-  @Column()
+  @Column({ nullable: true })
   image_id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   created_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updated_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   deleted_at?: Date;
 }

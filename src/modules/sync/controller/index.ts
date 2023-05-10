@@ -14,7 +14,6 @@ export default class SyncController {
           school: { created: [], deleted: [], updated: [] },
           user: { created: [], deleted: [], updated: [] },
           image: { created: [], deleted: [], updated: [] },
-          guide: { created: [], deleted: [], updated: [] },
           competence: { created: [], deleted: [], updated: [] },
           question: { created: [], deleted: [], updated: [] },
           answer: { created: [], deleted: [], updated: [] },

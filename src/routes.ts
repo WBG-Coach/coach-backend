@@ -4,7 +4,6 @@ import swaggerOptions from "./swaggerOptions";
 
 import authRouter from "./modules/auth/routes";
 import userRouter from "./modules/user/router";
-import guideRouter from "./modules/guide/routes";
 import schoolRouter from "./modules/school/routes";
 import teacherRouter from "./modules/teacher/routes";
 import sessionRouter from "./modules/session/routes";
@@ -19,7 +18,6 @@ const Routes = {
     syncRouter(app);
     authRouter(app);
     userRouter(app);
-    guideRouter(app);
     schoolRouter(app);
     sessionRouter(app);
     teacherRouter(app);

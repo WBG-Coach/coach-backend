@@ -16,7 +16,7 @@ export class Documentation {
   @PrimaryGeneratedColumn("uuid")
   id?: number;
 
-  @Column()
+  @Column({ nullable: true })
   value?: string;
 
   @ManyToOne(() => Session, (session) => session.id)

@@ -10,18 +10,18 @@ export class School {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   name?: string;
 
   @OneToMany(() => User, (user) => user.school)
   coaches?: User[];
 
-  @Column()
+  @Column({ nullable: true })
   created_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updated_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   deleted_at?: Date;
 }

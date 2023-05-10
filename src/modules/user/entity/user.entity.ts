@@ -20,28 +20,28 @@ export class User {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   name?: string;
 
-  @Column()
+  @Column({ nullable: true })
   type?: string;
 
-  @Column()
+  @Column({ nullable: true })
   email?: string;
 
-  @Column()
+  @Column({ nullable: true })
   password?: string;
 
-  @Column()
+  @Column({ nullable: true })
   school_id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   created_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updated_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   deleted_at?: Date;
 
   @OneToMany(() => Teacher, (teacher) => teacher.coach)

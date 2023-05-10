@@ -16,19 +16,19 @@ export class Question {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   title?: string;
 
-  @Column()
+  @Column({ nullable: true })
   description?: string;
 
-  @Column()
+  @Column({ nullable: true })
   tooltip_data?: string;
 
-  @Column()
+  @Column({ nullable: true })
   type?: string;
 
-  @Column()
+  @Column({ nullable: true })
   competence_id?: string;
 
   @ManyToOne(() => Competence, (competence) => competence.id)

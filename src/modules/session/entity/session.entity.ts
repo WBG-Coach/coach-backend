@@ -20,37 +20,37 @@ export class Session {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   session_status?: string;
 
-  @Column()
+  @Column({ nullable: true })
   boys_count?: string;
 
-  @Column()
+  @Column({ nullable: true })
   girls_count?: string;
 
-  @Column()
+  @Column({ nullable: true })
   subject?: string;
 
-  @Column()
+  @Column({ nullable: true })
   lesson_time?: string;
 
-  @Column()
+  @Column({ nullable: true })
   objective?: string;
 
-  @Column()
+  @Column({ nullable: true })
   keyPoints?: string;
 
-  @Column()
+  @Column({ nullable: true })
   applicationDate?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   coach_id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   school_id?: string;
 
-  @Column()
+  @Column({ nullable: true })
   teacher_id?: string;
 
   @ManyToOne(() => User, (coach: User) => coach.id)
@@ -68,12 +68,12 @@ export class Session {
   @OneToMany(() => Answer, (answer) => answer.session)
   answers?: Answer[];
 
-  @Column()
+  @Column({ nullable: true })
   created_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updated_at?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   deleted_at?: Date;
 }

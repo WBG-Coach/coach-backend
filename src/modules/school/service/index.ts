@@ -1,7 +1,6 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { School } from "../entity/school.entity";
-import { DataSync } from "../../sync/controller/types";
 
 export class SchoolService {
   static create = async (data: School): Promise<School> => {
@@ -32,32 +31,5 @@ export class SchoolService {
     const schoolRepository = await dataSource.getRepository(School);
 
     return schoolRepository.find();
-  };
-
-  static sync = async (changes: DataSync<School>): Promise<void> => {
-    const repository = await dataSource.getRepository(School);
-
-    await Promise.all(
-      changes.created.map(
-        async (item) =>
-          await repository.save({ ...item, createdAt: new Date() })
-      )
-    );
-
-    await Promise.all(
-      changes.created.map(
-        async (item) =>
-          item.id &&
-          (await repository.update(item.id, { ...item, updatedAt: new Date() }))
-      )
-    );
-
-    await Promise.all(
-      changes.created.map(
-        async (item) =>
-          item.id &&
-          (await repository.update(item.id, { ...item, deletedAt: new Date() }))
-      )
-    );
   };
 }

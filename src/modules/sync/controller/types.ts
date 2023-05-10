@@ -1,11 +1,12 @@
 import { Competence } from "../../competencies/entity/competence.entity";
 import { Question } from "../../question/entity/question.entity";
 import { School } from "../../school/entity/school.entity";
-import { Guide } from "../../guide/entity";
 import { Image } from "../../image/entity";
 import { User } from "../../user/entity";
 import { Answer } from "../../answer/entity/answer.entity";
 import { Session } from "../../session/entity/session.entity";
+import { Teacher } from "../../teacher/entity/teacher.entity";
+import { Feedback } from "../../session/entity/feedback.entity";
 
 export type DataSync<T> = {
   created: T[];
@@ -16,8 +17,9 @@ export type DataSync<T> = {
 export type DataModel = {
   school: DataSync<School>;
   user: DataSync<User>;
+  teacher: DataSync<Teacher>;
   image: DataSync<Image>;
-  guide: DataSync<Guide>;
+  feedback: DataSync<Feedback>;
   competence: DataSync<Competence>;
   question: DataSync<Question>;
   answer: DataSync<Answer>;
