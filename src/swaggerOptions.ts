@@ -163,65 +163,6 @@ export default {
         },
       },
     },
-    "/guide/{id}": {
-      get: {
-        tags: ["Guide"],
-        summary: "Get one guide by ID",
-        security: [
-          {
-            bearerAuth: [],
-          },
-        ],
-        parameters: [
-          {
-            name: "id",
-            in: "path",
-            description: "Guide id to delete",
-            required: true,
-            schema: {
-              type: "string",
-            },
-          },
-        ],
-        responses: {
-          "200": {
-            description: "Success",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/GuideSchema",
-                },
-              },
-            },
-          },
-        },
-      },
-      delete: {
-        tags: ["Guide"],
-        summary: "Delete guide by ID",
-        security: [
-          {
-            bearerAuth: [],
-          },
-        ],
-        parameters: [
-          {
-            name: "id",
-            in: "path",
-            description: "Guide id to delete",
-            required: true,
-            schema: {
-              type: "string",
-            },
-          },
-        ],
-        responses: {
-          "200": {
-            description: "Success",
-          },
-        },
-      },
-    },
     "/competence": {
       post: {
         tags: ["Competence"],
