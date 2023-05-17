@@ -2,6 +2,6 @@ version: "3.3"
 
 services:
   node-web-app:
-    image: coach-backend-sl
+    image: coachsl-api
     ports:
-      - "3000:3000"
+      - "4000:3000"
