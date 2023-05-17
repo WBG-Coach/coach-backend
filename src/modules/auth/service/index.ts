@@ -53,6 +53,8 @@ export default class Authentication {
           new UnauthorizedException("Email or password is invalid.")
         );
 
+      console.log({ user });
+
       return user
         .verifyIsSamePassword(password)
         .then(() => user)

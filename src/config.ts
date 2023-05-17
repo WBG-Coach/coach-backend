@@ -25,6 +25,12 @@ const config = {
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_DATABASE || "",
   },
+  supertset: {
+    host: process.env.SUPERSET_HOST || "",
+    user: process.env.SUPERSET_USER || "",
+    password: process.env.SUPERSET_PASSWORD || "",
+    dashboard: process.env.SUPERSET_DASHBOARD_ID || "",
+  },
 };
 
 export default config;

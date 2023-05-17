@@ -30,11 +30,13 @@ export default class SyncController {
   public static push = async (req: Request, res: Response): Promise<any> => {
     try {
       const body: WatermelonData = req.body;
+      console.log({ body });
 
       await SyncService.sync(body);
 
       return res.status(HTTP_STATUS_OK);
     } catch (error) {
+      console.log({ error });
       return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send();
     }
   };
