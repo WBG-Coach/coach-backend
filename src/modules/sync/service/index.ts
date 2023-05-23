@@ -1,4 +1,11 @@
-import { EntityTarget, ObjectLiteral } from "typeorm";
+import {
+  And,
+  EntityTarget,
+  IsNull,
+  MoreThan,
+  Not,
+  ObjectLiteral,
+} from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { DataSync, WatermelonData } from "../controller/types";
 import { Sync } from "../entity";
@@ -22,7 +29,6 @@ export class SyncService {
   }: WatermelonData): Promise<void> => {
     const syncRepository = await dataSource.getRepository(Sync);
 
-    console.log({ apiLevel, deviceId, lastPulledAt, model });
     try {
       await syncRepository.save({
         apiLevel,
@@ -31,26 +37,62 @@ export class SyncService {
         model,
       });
 
-      console.log({ lastPulledAt });
+      await this.saveSyncByEntity(School, changes.school);
+      await this.saveSyncByEntity(User, changes.user);
+      await this.saveSyncByEntity(Competence, changes.competence);
+      await this.saveSyncByEntity(Question, changes.question);
+      await this.saveSyncByEntity(Teacher, changes.teacher);
 
-      console.log({ Session: changes.session });
-
-      await this.syncByEntity(School, changes.school);
-      await this.syncByEntity(User, changes.user);
-      await this.syncByEntity(Competence, changes.competence);
-      await this.syncByEntity(Question, changes.question);
-      await this.syncByEntity(Teacher, changes.teacher);
-
-      await this.syncByEntity(Session, changes.session);
-      await this.syncByEntity(Answer, changes.answer);
-      await this.syncByEntity(Image, changes.image);
-      await this.syncByEntity(Feedback, changes.feedback);
+      await this.saveSyncByEntity(Session, changes.session);
+      await this.saveSyncByEntity(Answer, changes.answer);
+      await this.saveSyncByEntity(Image, changes.image);
+      await this.saveSyncByEntity(Feedback, changes.feedback);
     } catch (err) {
       console.log({ err });
     }
   };
 
-  static syncByEntity = async (
+  static getSyncByEntity = async <Entity extends ObjectLiteral>(
+    EntityClass: EntityTarget<Entity>,
+    lastUpdate?: Date
+  ) => {
+    const repository = await dataSource.getRepository<any>(EntityClass);
+
+    const select = repository.metadata.ownColumns
+      .map((column) => column.propertyName)
+      .filter(
+        (column) => !["created_at", "updated_at", "deleted_at"].includes(column)
+      );
+
+    const created = await repository.find(
+      lastUpdate
+        ? {
+            select,
+            where: { created_at: And(Not(IsNull()), MoreThan(lastUpdate)) },
+          }
+        : { select, where: { created_at: Not(IsNull()) } }
+    );
+    const updated = await repository.find(
+      lastUpdate
+        ? {
+            select,
+            where: { updated_at: And(Not(IsNull()), MoreThan(lastUpdate)) },
+          }
+        : { select, where: { updated_at: Not(IsNull()) } }
+    );
+    const deleted = await repository.find(
+      lastUpdate
+        ? {
+            select,
+            where: { deleted_at: And(Not(IsNull()), MoreThan(lastUpdate)) },
+          }
+        : { select, where: { deleted_at: Not(IsNull()) } }
+    );
+
+    return { created, updated, deleted };
+  };
+
+  static saveSyncByEntity = async (
     Entity: EntityTarget<ObjectLiteral>,
     changes: DataSync<any>
   ) => {

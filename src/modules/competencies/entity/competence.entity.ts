@@ -11,4 +11,13 @@ export class Competence {
 
   @Column({ nullable: true })
   title?: string;
+
+  @Column({ nullable: true })
+  created_at?: Date;
+
+  @Column({ nullable: true })
+  updated_at?: Date;
+
+  @Column({ nullable: true })
+  deleted_at?: Date;
 }

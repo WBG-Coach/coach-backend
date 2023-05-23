@@ -22,4 +22,13 @@ export class Documentation {
   @ManyToOne(() => Session, (session) => session.id)
   @JoinColumn({ name: "session_id" })
   session?: Session;
+
+  @Column({ nullable: true })
+  created_at?: Date;
+
+  @Column({ nullable: true })
+  updated_at?: Date;
+
+  @Column({ nullable: true })
+  deleted_at?: Date;
 }

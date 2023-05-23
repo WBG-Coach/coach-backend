@@ -34,4 +34,13 @@ export class Question {
   @ManyToOne(() => Competence, (competence) => competence.id)
   @JoinColumn({ name: "competence_id" })
   competence?: Competence;
+
+  @Column({ nullable: true })
+  created_at?: Date;
+
+  @Column({ nullable: true })
+  updated_at?: Date;
+
+  @Column({ nullable: true })
+  deleted_at?: Date;
 }
