@@ -10,6 +10,7 @@ import { School } from "../../school/entity/school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { User } from "../../user/entity";
 import { Answer } from "../../answer/entity/answer.entity";
+import { Coach } from "../../coach/entity/coach.entity";
 
 @Entity()
 export class Session {
@@ -53,9 +54,9 @@ export class Session {
   @Column({ nullable: true })
   teacher_id?: string;
 
-  @ManyToOne(() => User, (coach: User) => coach.id, { eager: true })
+  @ManyToOne(() => Coach, (coach: Coach) => coach.id, { eager: true })
   @JoinColumn({ name: "coach_id" })
-  coach?: User;
+  coach?: Coach;
 
   @ManyToOne(() => School, (school) => school.id, { eager: true })
   @JoinColumn({ name: "school_id" })

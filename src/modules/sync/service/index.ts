@@ -12,12 +12,12 @@ import { Sync } from "../entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { Question } from "../../question/entity/question.entity";
 import { Competence } from "../../competencies/entity/competence.entity";
-import { User } from "../../user/entity";
 import { School } from "../../school/entity/school.entity";
 import { Answer } from "../../answer/entity/answer.entity";
 import { Session } from "../../session/entity/session.entity";
 import { Image } from "../../image/entity";
 import { Feedback } from "../../session/entity/feedback.entity";
+import { Coach } from "../../coach/entity/coach.entity";
 
 export class SyncService {
   static sync = async ({
@@ -37,15 +37,14 @@ export class SyncService {
         model,
       });
 
-      await this.saveSyncByEntity(School, changes.school);
-      await this.saveSyncByEntity(User, changes.user);
+      await this.saveSyncByEntity(Image, changes.image);
       await this.saveSyncByEntity(Competence, changes.competence);
       await this.saveSyncByEntity(Question, changes.question);
+      await this.saveSyncByEntity(School, changes.school);
       await this.saveSyncByEntity(Teacher, changes.teacher);
-
+      await this.saveSyncByEntity(Coach, changes.user);
       await this.saveSyncByEntity(Session, changes.session);
       await this.saveSyncByEntity(Answer, changes.answer);
-      await this.saveSyncByEntity(Image, changes.image);
       await this.saveSyncByEntity(Feedback, changes.feedback);
     } catch (err) {
       console.log({ err });

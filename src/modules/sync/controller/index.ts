@@ -6,6 +6,12 @@ import { Teacher } from "../../teacher/entity/teacher.entity";
 import { Session } from "../../session/entity/session.entity";
 import { School } from "../../school/entity/school.entity";
 import { Image } from "../../image/entity";
+import { Feedback } from "../../session/entity/feedback.entity";
+import { Answer } from "../../answer/entity/answer.entity";
+import { Question } from "../../question/entity/question.entity";
+import { Competence } from "../../competencies/entity/competence.entity";
+import { User } from "../../user/entity";
+import { Coach } from "../../coach/entity/coach.entity";
 const { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = constants;
 
 export default class SyncController {
@@ -23,11 +29,14 @@ export default class SyncController {
           session: await SyncService.getSyncByEntity(Session, dateToFilter),
           image: await SyncService.getSyncByEntity(Image, dateToFilter),
           school: await SyncService.getSyncByEntity(School, dateToFilter),
-          user: { created: [], deleted: [], updated: [] },
-          competence: { created: [], deleted: [], updated: [] },
-          question: { created: [], deleted: [], updated: [] },
-          answer: { created: [], deleted: [], updated: [] },
-          feedback: { created: [], deleted: [], updated: [] },
+          user: await SyncService.getSyncByEntity(Coach, dateToFilter),
+          competence: await SyncService.getSyncByEntity(
+            Competence,
+            dateToFilter
+          ),
+          question: await SyncService.getSyncByEntity(Question, dateToFilter),
+          answer: await SyncService.getSyncByEntity(Answer, dateToFilter),
+          feedback: await SyncService.getSyncByEntity(Feedback, dateToFilter),
         },
         timestamp: Date.now(),
       });
