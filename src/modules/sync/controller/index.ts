@@ -10,7 +10,6 @@ import { Feedback } from "../../session/entity/feedback.entity";
 import { Answer } from "../../answer/entity/answer.entity";
 import { Question } from "../../question/entity/question.entity";
 import { Competence } from "../../competencies/entity/competence.entity";
-import { User } from "../../user/entity";
 import { Coach } from "../../coach/entity/coach.entity";
 const { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = constants;
 
@@ -23,7 +22,7 @@ export default class SyncController {
         ? new Date(Number(last_pulled_at))
         : undefined;
 
-      return res.status(HTTP_STATUS_OK).send({
+      const response = {
         changes: {
           teacher: await SyncService.getSyncByEntity(Teacher, dateToFilter),
           session: await SyncService.getSyncByEntity(Session, dateToFilter),
@@ -39,7 +38,9 @@ export default class SyncController {
           feedback: await SyncService.getSyncByEntity(Feedback, dateToFilter),
         },
         timestamp: Date.now(),
-      });
+      };
+
+      return res.status(HTTP_STATUS_OK).send(response);
     } catch (error) {
       console.log({ error });
       return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send(error);

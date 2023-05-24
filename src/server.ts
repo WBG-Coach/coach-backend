@@ -20,7 +20,7 @@ const CoachServer = {
   },
 
   config: (app: Application): void => {
-    app.use(bodyParser.json({ limit: "100mb" }));
+    app.use(bodyParser.json({ limit: "50mb" }));
 
     app.use(
       cors({

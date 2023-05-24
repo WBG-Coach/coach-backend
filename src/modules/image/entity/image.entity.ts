@@ -12,8 +12,8 @@ export class Image {
   @Column({ nullable: true })
   name?: string;
 
-  @Column({ nullable: true })
-  data?: string;
+  @Column({ nullable: true, length: 1000000 })
+  value?: string;
 
   @Column({ nullable: true })
   created_at?: Date;
