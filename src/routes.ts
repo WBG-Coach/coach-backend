@@ -11,15 +11,17 @@ import questionRouter from "./modules/question/routes";
 import competenceRouter from "./modules/competencies/routes";
 import syncRouter from "./modules/sync/routes";
 import coachRouter from "./modules/coach/routes";
+import imageRouter from "./modules/image/routes";
 
 const packageJson: any = require("../package.json");
 
 const Routes = {
   setupRoutes: (app: Application): void => {
-    coachRouter(app);
     syncRouter(app);
     authRouter(app);
     userRouter(app);
+    imageRouter(app);
+    coachRouter(app);
     schoolRouter(app);
     sessionRouter(app);
     teacherRouter(app);

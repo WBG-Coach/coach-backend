@@ -20,6 +20,12 @@ import { Feedback } from "../../session/entity/feedback.entity";
 import { Coach } from "../../coach/entity/coach.entity";
 
 export class SyncService {
+  static findAll = async (): Promise<Teacher[]> => {
+    const userRepository = await dataSource.getRepository(Sync);
+
+    return userRepository.find();
+  };
+
   static sync = async ({
     apiLevel,
     deviceId,

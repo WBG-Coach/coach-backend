@@ -14,6 +14,21 @@ import { Coach } from "../../coach/entity/coach.entity";
 const { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = constants;
 
 export default class SyncController {
+  public static findAll = async (
+    _req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const list = await SyncService.findAll();
+      return res.status(HTTP_STATUS_OK).send(list);
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
   public static pull = async (req: Request, res: Response): Promise<any> => {
     try {
       const { last_pulled_at } = req.query;
