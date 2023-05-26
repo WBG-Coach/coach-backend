@@ -65,9 +65,7 @@ export class SyncService {
 
     const select = repository.metadata.ownColumns
       .map((column) => column.propertyName)
-      .filter(
-        (column) => !["created_at", "updated_at", "deleted_at"].includes(column)
-      );
+      .filter((column) => !["updated_at", "deleted_at"].includes(column));
 
     const created = await repository.find(
       lastUpdate
@@ -108,7 +106,6 @@ export class SyncService {
         async (item) =>
           await repository.save({
             ...item,
-            created_at: new Date(),
             updated_at: undefined,
             deleted_at: undefined,
           })
@@ -118,7 +115,6 @@ export class SyncService {
     await Promise.all(
       changes.updated.map(async (item) => {
         const { updated_at, created_at, deleted_at, ...otherProps } = item;
-        console.log(updated_at, created_at, deleted_at);
 
         await repository.update(item.id, {
           ...otherProps,

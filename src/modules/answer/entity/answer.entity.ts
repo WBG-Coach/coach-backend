@@ -18,7 +18,7 @@ export class Answer {
   id?: string;
 
   @Column({ nullable: true })
-  value?: string;
+  value?: number;
 
   @Column({ nullable: true })
   question_id?: string;
