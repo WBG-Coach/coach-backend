@@ -22,6 +22,12 @@ export class Sync {
   lastPulledAt?: Date;
 
   @Column({ nullable: true })
+  latitude?: number;
+
+  @Column({ nullable: true })
+  longitude?: number;
+
+  @Column({ nullable: true })
   created_at?: Date;
 
   @Column({ nullable: true })

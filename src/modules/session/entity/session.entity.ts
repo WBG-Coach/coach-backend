@@ -54,6 +54,12 @@ export class Session {
   @Column({ nullable: true })
   teacher_id?: string;
 
+  @Column({ nullable: true })
+  latitude?: number;
+
+  @Column({ nullable: true })
+  longitude?: number;
+
   @ManyToOne(() => Coach, (coach: Coach) => coach.id, { eager: true })
   @JoinColumn({ name: "coach_id" })
   coach?: Coach;
