@@ -43,8 +43,6 @@ export class SyncService {
         model,
       });
 
-      console.log(changes.image);
-
       await this.saveSyncByEntity(Image, changes.image);
       await this.saveSyncByEntity(Competence, changes.competence);
       await this.saveSyncByEntity(Question, changes.question);
@@ -108,6 +106,7 @@ export class SyncService {
         async (item) =>
           await repository.save({
             ...item,
+            created_at: new Date(item.created_at).toJSON(),
             updated_at: undefined,
             deleted_at: undefined,
           })
@@ -116,18 +115,13 @@ export class SyncService {
 
     await Promise.all(
       changes.updated.map(async (item) => {
-        const {
-          _status,
-          _changed,
-          updated_at,
-          created_at,
-          deleted_at,
-          ...otherProps
-        } = item;
+        const { _status, _changed, created_at, updated_at, ...otherProps } =
+          item;
 
         await repository.update(item.id, {
           ...otherProps,
-          updated_at: new Date(),
+          created_at: new Date(created_at).toJSON(),
+          updated_at: new Date(updated_at).toJSON(),
         });
       })
     );
@@ -137,7 +131,7 @@ export class SyncService {
         async (item) =>
           item.id &&
           (await repository.update(item.id, {
-            deleted_at: new Date(),
+            deleted_at: new Date().toJSON(),
           }))
       )
     );
