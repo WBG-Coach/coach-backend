@@ -16,6 +16,8 @@ const CoachServer = {
       console.log(`Listening on port ${port}...`)
     );
 
+    server.setTimeout(500000);
+
     return { server, app };
   },
 
