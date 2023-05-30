@@ -10,6 +10,9 @@ export class Image {
   id?: string;
 
   @Column({ nullable: true })
+  external_id?: string;
+
+  @Column({ nullable: true })
   name?: string;
 
   @Column({ nullable: true, length: 1000000 })

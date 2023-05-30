@@ -43,6 +43,8 @@ export class SyncService {
         model,
       });
 
+      console.log(changes.image);
+
       await this.saveSyncByEntity(Image, changes.image);
       await this.saveSyncByEntity(Competence, changes.competence);
       await this.saveSyncByEntity(Question, changes.question);
