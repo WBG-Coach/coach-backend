@@ -116,7 +116,14 @@ export class SyncService {
 
     await Promise.all(
       changes.updated.map(async (item) => {
-        const { updated_at, created_at, deleted_at, ...otherProps } = item;
+        const {
+          _status,
+          _changed,
+          updated_at,
+          created_at,
+          deleted_at,
+          ...otherProps
+        } = item;
 
         await repository.update(item.id, {
           ...otherProps,
