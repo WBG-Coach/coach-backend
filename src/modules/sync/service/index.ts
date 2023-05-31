@@ -71,9 +71,12 @@ export class SyncService {
       lastUpdate
         ? {
             select,
-            where: { created_at: And(Not(IsNull()), MoreThan(lastUpdate)) },
+            where: {
+              created_at: And(Not(IsNull()), MoreThan(lastUpdate)),
+              updated_at: IsNull(),
+            },
           }
-        : { select, where: { created_at: Not(IsNull()) } }
+        : { select, where: { created_at: Not(IsNull()), updated_at: IsNull() } }
     );
     const updated = await repository.find(
       lastUpdate
