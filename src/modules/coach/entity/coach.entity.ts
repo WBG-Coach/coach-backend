@@ -13,6 +13,9 @@ export class Coach {
   name?: string;
 
   @Column({ nullable: true })
+  surname?: string;
+
+  @Column({ nullable: true })
   image_id?: string;
 
   @Column({ nullable: true })

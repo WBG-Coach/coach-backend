@@ -29,6 +29,9 @@ export class Question {
   type?: string;
 
   @Column({ nullable: true })
+  scale?: number;
+
+  @Column({ nullable: true })
   competence_id?: string;
 
   @ManyToOne(() => Competence, (competence) => competence.id)

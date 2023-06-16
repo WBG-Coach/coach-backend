@@ -8,7 +8,6 @@ import {
 } from "typeorm";
 import { School } from "../../school/entity/school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
-import { User } from "../../user/entity";
 import { Answer } from "../../answer/entity/answer.entity";
 import { Coach } from "../../coach/entity/coach.entity";
 
@@ -25,10 +24,7 @@ export class Session {
   session_status?: string;
 
   @Column({ nullable: true })
-  boys_count?: string;
-
-  @Column({ nullable: true })
-  girls_count?: string;
+  students_count?: string;
 
   @Column({ nullable: true })
   subject?: string;

@@ -27,9 +27,6 @@ export class Teacher {
   surname?: string;
 
   @Column({ nullable: true })
-  emis_number?: string;
-
-  @Column({ nullable: true })
   subject?: string;
 
   @Column({ nullable: true })
