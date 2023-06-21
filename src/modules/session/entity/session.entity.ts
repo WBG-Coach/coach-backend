@@ -50,10 +50,10 @@ export class Session {
   @Column({ nullable: true })
   teacher_id?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "float8" })
   latitude?: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "float8" })
   longitude?: number;
 
   @ManyToOne(() => Coach, (coach: Coach) => coach.id, { eager: true })
