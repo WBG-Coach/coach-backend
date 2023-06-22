@@ -68,7 +68,7 @@ export default class SyncController {
 
       await SyncService.sync(body);
 
-      return res.status(HTTP_STATUS_OK);
+      return res.status(HTTP_STATUS_OK).send();
     } catch (error) {
       console.log({ error });
       return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send();
