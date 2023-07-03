@@ -7,29 +7,21 @@ import { Answer } from "../../answer/entity/answer.entity";
 import { Session } from "../../session/entity/session.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { Feedback } from "../../session/entity/feedback.entity";
+import { Coach } from "../../coach/entity/coach.entity";
 
-export type DataSync<T> = {
-  created: T[];
-  updated: T[];
-  deleted: T[];
+export type DataChanges = {
+  images?: Image[];
+  coaches?: Coach[];
+  teachers?: Teacher[];
+  sessions?: Session[];
+  answers?: Answer[];
+  feedbacks?: Feedback[];
 };
 
-export type DataModel = {
-  school: DataSync<School>;
-  user: DataSync<User>;
-  teacher: DataSync<Teacher>;
-  image: DataSync<Image>;
-  feedback: DataSync<Feedback>;
-  competence: DataSync<Competence>;
-  question: DataSync<Question>;
-  answer: DataSync<Answer>;
-  session: DataSync<Session>;
-};
-
-export type WatermelonData = {
+export type DataToSync = {
   model: string;
   deviceId: string;
   apiLevel: number;
-  changes: DataModel;
+  changes: DataChanges;
   lastPulledAt: number;
 };

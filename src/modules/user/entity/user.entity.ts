@@ -9,7 +9,6 @@ import {
 import config from "../../../config";
 import Encryption from "../../encryption/controller";
 import { School } from "../../school/entity/school.entity";
-import { Teacher } from "../../teacher/entity/teacher.entity";
 
 @Entity()
 export class User {
@@ -43,9 +42,6 @@ export class User {
 
   @Column({ nullable: true })
   deleted_at?: Date;
-
-  @OneToMany(() => Teacher, (teacher) => teacher.coach)
-  teachers?: Teacher[];
 
   @ManyToOne(() => School, (school) => school.id)
   @JoinColumn({ name: "school_id" })

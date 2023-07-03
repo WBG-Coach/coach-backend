@@ -19,6 +19,12 @@ export class Coach {
   image_id?: string;
 
   @Column({ nullable: true })
+  username?: string;
+
+  @Column({ nullable: true })
+  password?: string;
+
+  @Column({ nullable: true })
   created_at?: Date;
 
   @Column({ nullable: true })

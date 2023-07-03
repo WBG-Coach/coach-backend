@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { User } from "../../user/entity";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Teacher {
@@ -16,10 +9,6 @@ export class Teacher {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @ManyToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: "coach_id" })
-  coach?: User;
-
   @Column({ nullable: true })
   name?: string;
 
@@ -27,16 +16,19 @@ export class Teacher {
   surname?: string;
 
   @Column({ nullable: true })
-  subject?: string;
+  birthdate?: Date;
 
   @Column({ nullable: true })
-  birthdate?: string;
+  subject?: string;
 
   @Column({ nullable: true })
   school_id?: string;
 
   @Column({ nullable: true })
   image_id?: string;
+
+  @Column({ nullable: true })
+  emis_number?: string;
 
   @Column({ nullable: true })
   created_at?: Date;

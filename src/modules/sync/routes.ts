@@ -5,7 +5,6 @@ import Authentication from "../auth/service";
 const SyncRouter = (app: Application): void => {
   app.get("/sync/list", Authentication.authenticate, SyncController.findAll);
   app.post("/sync", SyncController.push);
-  app.get("/sync", SyncController.pull);
 };
 
 export default SyncRouter;

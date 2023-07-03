@@ -36,7 +36,7 @@ export class Session {
   objective?: string;
 
   @Column({ nullable: true })
-  keyPoints?: string;
+  key_points?: string;
 
   @Column({ nullable: true })
   applicationDate?: Date;
