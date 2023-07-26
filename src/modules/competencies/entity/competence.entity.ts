@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Question } from "../../question/entity/question.entity";
 
 @Entity()
 export class Competence {
@@ -11,6 +12,9 @@ export class Competence {
 
   @Column({ nullable: true })
   title?: string;
+
+  @OneToMany(() => Question, (question) => question.competence)
+  questions?: Question[];
 
   @Column({ nullable: true })
   created_at?: Date;

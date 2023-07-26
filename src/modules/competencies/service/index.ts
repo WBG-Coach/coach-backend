@@ -33,6 +33,6 @@ export class CompetenceService {
   static findAll = async (): Promise<Competence[]> => {
     const userRepository = await dataSource.getRepository(Competence);
 
-    return userRepository.find();
+    return userRepository.find({ relations: ["questions"] });
   };
 }
