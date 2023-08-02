@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import { UserService } from "../service";
 import { constants } from "http2";
 
-const { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = constants;
+const {
+  HTTP_STATUS_OK,
+  HTTP_STATUS_INTERNAL_SERVER_ERROR,
+  HTTP_STATUS_CREATED,
+} = constants;
 
 export default class UserController {
   public static findAllCoaches = async (
@@ -27,6 +31,66 @@ export default class UserController {
     try {
       const list = await UserService.findAllAdmins();
       return res.status(HTTP_STATUS_OK).send(list);
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
+  public static updateAdmin = async (
+    _req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const { user_id } = _req.params;
+      const newUser = _req.body;
+      if (!user_id) {
+        throw new Error("Identifier of user not found.");
+      }
+
+      await UserService.updateAdmin(user_id, newUser);
+
+      return res.status(HTTP_STATUS_OK).send({});
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
+  public static signUpAdmin = async (
+    _req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const newUser = _req.body;
+
+      return res
+        .status(HTTP_STATUS_CREATED)
+        .send(UserService.signUpAdmin(newUser));
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
+  public static removeAdmin = async (
+    _req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const { user_id } = _req.params;
+      if (!user_id) {
+        throw new Error("Identifier of user not found.");
+      }
+
+      await UserService.removeAdmin(user_id);
+      return res.status(HTTP_STATUS_OK).send({});
     } catch (error) {
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
         error: HTTP_STATUS_INTERNAL_SERVER_ERROR,

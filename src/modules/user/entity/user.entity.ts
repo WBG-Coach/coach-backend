@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import config from "../../../config";
 import Encryption from "../../encryption/controller";
 
@@ -36,8 +36,17 @@ export class User {
     const hash = await Encryption.encrypt(password, config.salt).catch(
       (error) => Promise.reject(error)
     );
-    console.log({ hash });
     if (hash === this.password) return Promise.resolve();
     return Promise.reject();
+  }
+
+  @BeforeInsert()
+  async hashPassword() {
+    const newPassword = await Encryption.encrypt(
+      this.password as string,
+      config.salt
+    ).catch((error) => Promise.reject(error));
+
+    this.password = newPassword;
   }
 }

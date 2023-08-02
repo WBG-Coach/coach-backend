@@ -14,12 +14,13 @@ export default class AuthenticationController {
       res.locals.authUser = user;
       Authentication.signUser(user, res);
 
-      const { id, name, email } = user;
+      const { id, name, email, role } = user;
 
       const result = {
         id,
         name,
         email,
+        role,
       };
 
       return res.status(HTTP_STATUS_OK).send(result);
