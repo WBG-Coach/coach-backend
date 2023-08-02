@@ -1,14 +1,6 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  JoinColumn,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import config from "../../../config";
 import Encryption from "../../encryption/controller";
-import { School } from "../../school/entity/school.entity";
 
 @Entity()
 export class User {
@@ -22,10 +14,7 @@ export class User {
   @Column({ nullable: true })
   name?: string;
 
-  @Column({ nullable: true })
-  type?: string;
-
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: "analist" })
   role?: string;
 
   @Column({ nullable: true })
@@ -35,9 +24,6 @@ export class User {
   password?: string;
 
   @Column({ nullable: true })
-  school_id?: string;
-
-  @Column({ nullable: true })
   created_at?: Date;
 
   @Column({ nullable: true })
@@ -45,10 +31,6 @@ export class User {
 
   @Column({ nullable: true })
   deleted_at?: Date;
-
-  @ManyToOne(() => School, (school) => school.id)
-  @JoinColumn({ name: "school_id" })
-  school?: School;
 
   async verifyIsSamePassword(password: string): Promise<void> {
     const hash = await Encryption.encrypt(password, config.salt).catch(

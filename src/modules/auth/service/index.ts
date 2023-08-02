@@ -6,6 +6,7 @@ import UnauthorizedException from "../../helpers/errors/unauthorized-exception";
 import InternalServerError from "../../helpers/errors/internal-server-error";
 import { User } from "../../user/entity/user.entity";
 import dataSource from "../../../database/config/ormconfig";
+import { LogsService } from "../../logs/service";
 
 const { HTTP_STATUS_INTERNAL_SERVER_ERROR, HTTP_STATUS_UNAUTHORIZED } =
   constants;
@@ -53,8 +54,6 @@ export default class Authentication {
           new UnauthorizedException("Email or password is invalid.")
         );
 
-      console.log({ user });
-
       return user
         .verifyIsSamePassword(password)
         .then(() => user)
@@ -94,7 +93,7 @@ export default class Authentication {
     res.setHeader("Access-Control-Expose-Headers", "token");
   };
 
-  public static authenticate = (
+  public static authenticate = async (
     req: Request,
     res: Response,
     next: () => void
@@ -108,16 +107,12 @@ export default class Authentication {
           new UnauthorizedException("Token didn't send.")
         );
 
-      const user = Authentication.verifyJWT(token);
+      const { email } = Authentication.verifyJWT(token);
 
-      Authentication.getAuthenticatedUser(user.email)
-        .then((user: User) => {
-          res.locals.authUser = user;
-          next();
-        })
-        .catch((error) => {
-          return Authentication.unauthorize(res, error);
-        });
+      const user = await Authentication.getAuthenticatedUser(email);
+      await LogsService.create(user, req.path);
+      res.locals.authUser = user;
+      next();
     } catch (error) {
       return Authentication.unauthorize(
         res,

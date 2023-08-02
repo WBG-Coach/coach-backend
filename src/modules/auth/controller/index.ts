@@ -4,11 +4,13 @@ const { HTTP_STATUS_OK } = constants;
 import Authentication from "../service";
 import axios from "axios";
 import config from "../../../config";
+import { LogsService } from "../../logs/service";
 
 export default class AuthenticationController {
   public static login = async (req: Request, res: Response): Promise<any> => {
     try {
       const user = await Authentication.authenticateUser(req);
+      await LogsService.create(user, "login");
       res.locals.authUser = user;
       Authentication.signUser(user, res);
 
@@ -63,7 +65,6 @@ export default class AuthenticationController {
         )
       ).data;
 
-      console.log({ token });
       return res.status(HTTP_STATUS_OK).send(token);
     } catch (error) {
       Authentication.unauthorize(res, error);

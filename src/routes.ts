@@ -12,6 +12,7 @@ import competenceRouter from "./modules/competencies/routes";
 import syncRouter from "./modules/sync/routes";
 import coachRouter from "./modules/coach/routes";
 import imageRouter from "./modules/image/routes";
+import logRouter from "./modules/logs/routes";
 
 const packageJson: any = require("../package.json");
 
@@ -27,6 +28,7 @@ const Routes = {
     teacherRouter(app);
     questionRouter(app);
     competenceRouter(app);
+    logRouter(app);
 
     app.get("/", (_req: Request, res: Response) => {
       res.send(`Coach API v${packageJson?.version} is running.`);
