@@ -34,7 +34,7 @@ export class Question {
   @Column({ nullable: true })
   competence_id?: string;
 
-  @ManyToOne(() => Competence, (competence) => competence.id)
+  @ManyToOne(() => Competence, (competence) => competence.id, { eager: true })
   @JoinColumn({ name: "competence_id" })
   competence?: Competence;
 
