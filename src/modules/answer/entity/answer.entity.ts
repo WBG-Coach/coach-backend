@@ -26,7 +26,7 @@ export class Answer {
   @Column({ nullable: true })
   session_id?: string;
 
-  @ManyToOne(() => Question, (question) => question.id)
+  @ManyToOne(() => Question, (question) => question.id, { eager: true })
   @JoinColumn({ name: "question_id" })
   question?: Question;
 

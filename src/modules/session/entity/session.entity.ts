@@ -10,6 +10,7 @@ import { School } from "../../school/entity/school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { Answer } from "../../answer/entity/answer.entity";
 import { Coach } from "../../coach/entity/coach.entity";
+import { Feedback } from "./feedback.entity";
 
 @Entity()
 export class Session {
@@ -68,8 +69,11 @@ export class Session {
   @JoinColumn({ name: "teacher_id" })
   teacher?: Teacher;
 
-  @OneToMany(() => Answer, (answer) => answer.session)
+  @OneToMany(() => Answer, (answer) => answer.session, { eager: true })
   answers?: Answer[];
+
+  @OneToMany(() => Feedback, (feedback) => feedback.session, { eager: true })
+  feedbacks?: Feedback[];
 
   @Column({ nullable: true })
   created_at?: Date;
