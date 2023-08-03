@@ -1,4 +1,10 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import config from "../../../config";
 import Encryption from "../../encryption/controller";
 
@@ -40,6 +46,7 @@ export class User {
     return Promise.reject();
   }
 
+  @BeforeUpdate()
   @BeforeInsert()
   async hashPassword() {
     const newPassword = await Encryption.encrypt(

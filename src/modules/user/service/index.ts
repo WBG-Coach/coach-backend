@@ -31,10 +31,23 @@ export class UserService {
 
   static updateAdmin = async (
     user_id: User["id"],
-    newUser: Partial<User>
+    newUser: Partial<User & { currentPassword?: string }>
   ): Promise<void> => {
     const userRepository = dataSource.getRepository(User);
-    await userRepository.update({ id: user_id }, newUser);
+    try {
+      if (!!newUser.currentPassword) {
+        const userDb = await userRepository.findOne({ where: { id: user_id } });
+        if (!userDb) throw new Error("User not found");
+        await userDb.verifyIsSamePassword(newUser.currentPassword);
+        userDb.password = newUser.password;
+        await userRepository.update(user_id as string, userDb);
+        return;
+      }
+    } catch (err) {
+      throw new Error("Current password wrong.");
+    }
+
+    await userRepository.update(user_id as string, newUser);
   };
 
   static signUpAdmin = async (newUser: Partial<User>): Promise<User> => {
