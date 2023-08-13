@@ -15,6 +15,11 @@ const schoolRouter = (app: Application): void => {
     Authentication.authenticate,
     SchoolController.findById
   );
+  app.get(
+    "/school/qrcode/:id",
+    Authentication.authenticate,
+    SchoolController.generateKey
+  );
   app.get("/school", Authentication.authenticate, SchoolController.findAll);
 };
 

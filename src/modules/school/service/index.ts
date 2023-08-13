@@ -1,6 +1,10 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { School } from "../entity/school.entity";
+import crypto from "crypto";
+import config from "../../../config";
+
+const algorithm = "aes-256-ecb";
 
 export class SchoolService {
   static create = async (data: School): Promise<School> => {
@@ -31,5 +35,27 @@ export class SchoolService {
     const schoolRepository = await dataSource.getRepository(School);
 
     return schoolRepository.find();
+  };
+
+  static encryptId = (id: string): string => {
+    const cipher = crypto.createCipheriv(
+      algorithm,
+      Buffer.from(config.secret),
+      null
+    );
+    let encrypted = cipher.update(id, "utf8", "hex");
+    encrypted += cipher.final("hex");
+    return encrypted;
+  };
+
+  static decryptId = async (key: string): Promise<string> => {
+    const decipher = crypto.createDecipheriv(
+      algorithm,
+      Buffer.from(config.secret),
+      null
+    );
+    let decrypted = decipher.update(key, "hex", "utf8");
+    decrypted += decipher.final("utf8");
+    return decrypted;
   };
 }
