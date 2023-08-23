@@ -48,7 +48,7 @@ export class SchoolService {
     return encrypted;
   };
 
-  static decryptId = async (key: string): Promise<string> => {
+  static decryptId = (key: string): string => {
     const decipher = crypto.createDecipheriv(
       algorithm,
       Buffer.from(config.secret),

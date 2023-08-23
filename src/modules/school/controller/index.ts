@@ -93,7 +93,6 @@ export default class SchoolController {
       const key = SchoolService.encryptId(req.params.id);
       return res.status(HTTP_STATUS_OK).send(key);
     } catch (error) {
-      console.log("ERROR", JSON.stringify(error));
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
         error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
         message: (error as any).message,

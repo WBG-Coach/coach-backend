@@ -20,8 +20,20 @@ export type DataChanges = {
 
 export type DataToSync = {
   model: string;
+  lastSync?: string;
   deviceId: string;
   apiLevel: number;
   changes: DataChanges;
   lastPulledAt: number;
+};
+
+export type SyncData = {
+  coaches: Coach[];
+  sessions: Session[];
+  questions: Question[];
+  schools: School[];
+  teachers: Teacher[];
+  feedbacks: Feedback[];
+
+  total: number;
 };

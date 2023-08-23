@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { constants } from "http2";
 import { DataToSync } from "./types";
 import { SyncService } from "../service";
+import { SchoolService } from "../../school/service";
+import { School } from "../../school/entity/school.entity";
 const { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = constants;
 
 export default class SyncController {
@@ -23,10 +25,17 @@ export default class SyncController {
   public static push = async (req: Request, res: Response): Promise<any> => {
     try {
       const body: DataToSync = req.body;
+      const token: any = req.headers.token;
+      let school: School | null = null;
 
-      await SyncService.sync(body);
+      if (token) {
+        const id = SchoolService.decryptId(token);
+        school = await SchoolService.findByID(id);
+      }
 
-      return res.status(HTTP_STATUS_OK).send();
+      const response = await SyncService.sync(body, school);
+
+      return res.status(HTTP_STATUS_OK).send(response);
     } catch (error) {
       console.log({ error });
       return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send();
