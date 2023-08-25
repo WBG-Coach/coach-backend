@@ -12,16 +12,16 @@
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('07c0cdd5-55a9-4dcf-a2dc-54bd80f7f98e', 'Brima', 'Alicious', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('9d9d3b6f-90d8-4231-8e55-cc1fa5605621', 'Saidu', 'Samai', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
     
-    INSERT INTO coach (id, name, surname) VALUES ('6c87dab6-ec36-4bf4-a7dc-088eab22e6fb', 'Osman M.', 'Sawi');
-    INSERT INTO coach (id, name, surname) VALUES ('7cf5d746-c321-4c54-8a24-4c0b7e8c2d98', 'John Musa', 'Kamara');
-    INSERT INTO coach (id, name, surname) VALUES ('6b7d0f29-18bc-49cf-a800-c3c4957421d9', 'Richard Musa', 'Aruna');
-    INSERT INTO coach (id, name, surname) VALUES ('512672cf-7cd3-4070-a198-3f1f4a267bd8', 'Junisa Musa', 'Semabu');
-    INSERT INTO coach (id, name, surname) VALUES ('44e094fa-6d69-481f-9143-9a1a4f067786', 'Lansana', 'Morie');
-    INSERT INTO coach (id, name, surname) VALUES ('8853cb55-f12d-4764-948a-62a85ec86ab7', 'Bockarie', 'Jimmy');
-    INSERT INTO coach (id, name, surname) VALUES ('d944f4fd-394c-49b5-b605-27bdd09e796c', 'ARUNA', 'FRANCIS');
-    INSERT INTO coach (id, name, surname) VALUES ('c282d6dc-a634-4bc9-bc37-09dd1b6a6de7', 'Sahr', 'Brima');
-    INSERT INTO coach (id, name, surname) VALUES ('0b3647ad-f3a6-4c9d-bd07-35729b0bd956', 'Joseph', 'Brima');
-    INSERT INTO coach (id, name, surname) VALUES ('ec4a41b1-eb96-4eeb-9799-b52e9ddb9f6e', 'Isatu', 'Jalloh');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('6c87dab6-ec36-4bf4-a7dc-088eab22e6fb', 'Osman M.', 'Sawi', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('7cf5d746-c321-4c54-8a24-4c0b7e8c2d98', 'John Musa', 'Kamara', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('6b7d0f29-18bc-49cf-a800-c3c4957421d9', 'Richard Musa', 'Aruna', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('512672cf-7cd3-4070-a198-3f1f4a267bd8', 'Junisa Musa', 'Semabu', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('44e094fa-6d69-481f-9143-9a1a4f067786', 'Lansana', 'Morie', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('8853cb55-f12d-4764-948a-62a85ec86ab7', 'Bockarie', 'Jimmy', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('d944f4fd-394c-49b5-b605-27bdd09e796c', 'ARUNA', 'FRANCIS', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('c282d6dc-a634-4bc9-bc37-09dd1b6a6de7', 'Sahr', 'Brima', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('0b3647ad-f3a6-4c9d-bd07-35729b0bd956', 'Joseph', 'Brima', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('ec4a41b1-eb96-4eeb-9799-b52e9ddb9f6e', 'Isatu', 'Jalloh', 'c76072ea-a75d-4bfd-a9fc-23c4b389b9aa');
   
   INSERT INTO school (id, name) VALUES ('31221893-8c71-439a-b44f-37e127261838', 'ROMAN CATHOLIC PRIMARY SCHOOL');
     
@@ -36,16 +36,16 @@
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('77c0b2d7-eac7-4ba4-a969-249d1bfd9ebe', 'Swaliho L.', 'Lahun', '31221893-8c71-439a-b44f-37e127261838');
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('defbc635-3cbc-420a-bdae-1f3faf4ded98', 'Kosia', 'Alhaji', '31221893-8c71-439a-b44f-37e127261838');
     
-    INSERT INTO coach (id, name, surname) VALUES ('1d71ef42-d9fc-4683-832e-389e27b27b8c', 'Momoh', 'Sei');
-    INSERT INTO coach (id, name, surname) VALUES ('48465ee3-785b-492f-859c-b94c1e6f64bd', 'Momoh', 'Senesie');
-    INSERT INTO coach (id, name, surname) VALUES ('20b50023-2c74-4599-9619-36ce83e29211', 'Ensah', 'Lebbie');
-    INSERT INTO coach (id, name, surname) VALUES ('77538cb6-6a0f-40e4-ab40-2a986bb424ca', 'Edward Fallah', 'Lansana');
-    INSERT INTO coach (id, name, surname) VALUES ('e9315b81-59b1-4013-8695-0368bd847ee3', 'Charles Fayia', 'Braima');
-    INSERT INTO coach (id, name, surname) VALUES ('f6f599a5-c237-4d42-aa61-1c530699a762', 'Anthony Sahr', 'Brima');
-    INSERT INTO coach (id, name, surname) VALUES ('12dc354a-1fa3-40aa-9b77-4f3f7fa4da51', 'Abu', 'Senesie');
-    INSERT INTO coach (id, name, surname) VALUES ('59af3ba8-1675-4ae9-a9e0-166130fbb573', 'Michael', 'Ndulu');
-    INSERT INTO coach (id, name, surname) VALUES ('d51c2529-19b3-4b51-a3ec-c0f616f1f48e', 'DYFAN MOSES', 'MUSA');
-    INSERT INTO coach (id, name, surname) VALUES ('cd21a5d1-322f-404c-9895-8048083ed506', 'Patrick', 'Vandi');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('1d71ef42-d9fc-4683-832e-389e27b27b8c', 'Momoh', 'Sei', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('48465ee3-785b-492f-859c-b94c1e6f64bd', 'Momoh', 'Senesie', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('20b50023-2c74-4599-9619-36ce83e29211', 'Ensah', 'Lebbie', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('77538cb6-6a0f-40e4-ab40-2a986bb424ca', 'Edward Fallah', 'Lansana', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('e9315b81-59b1-4013-8695-0368bd847ee3', 'Charles Fayia', 'Braima', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('f6f599a5-c237-4d42-aa61-1c530699a762', 'Anthony Sahr', 'Brima', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('12dc354a-1fa3-40aa-9b77-4f3f7fa4da51', 'Abu', 'Senesie', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('59af3ba8-1675-4ae9-a9e0-166130fbb573', 'Michael', 'Ndulu', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('d51c2529-19b3-4b51-a3ec-c0f616f1f48e', 'DYFAN MOSES', 'MUSA', '31221893-8c71-439a-b44f-37e127261838');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('cd21a5d1-322f-404c-9895-8048083ed506', 'Patrick', 'Vandi', '31221893-8c71-439a-b44f-37e127261838');
   
   INSERT INTO school (id, name) VALUES ('05c3c35c-2b54-4e86-abdf-b4b8e377fdb0', 'NASRUDEEN ISLAMIC PRIMARY SCHOOL');
     
@@ -60,9 +60,9 @@
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('b4cf24c8-e6d1-47ed-9c30-83ebddfa0f01', 'Sheku', 'Kanneh', '05c3c35c-2b54-4e86-abdf-b4b8e377fdb0');
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('30a14895-e902-4d40-8cc1-146eb41094c5', 'Allieu', 'Kallon', '05c3c35c-2b54-4e86-abdf-b4b8e377fdb0');
     
-    INSERT INTO coach (id, name, surname) VALUES ('21b5f5fc-9036-43a5-9d78-881b9715e04f', 'Sualoho', 'Luckay');
-    INSERT INTO coach (id, name, surname) VALUES ('f9a86b00-8696-4ac2-ba29-31213746354d', 'Ibrahim Alpha', 'Konneh');
-    INSERT INTO coach (id, name, surname) VALUES ('c3f221ff-b428-46ef-a94a-7e3c3760526b', 'Jusu', 'Turay');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('21b5f5fc-9036-43a5-9d78-881b9715e04f', 'Sualoho', 'Luckay', '05c3c35c-2b54-4e86-abdf-b4b8e377fdb0');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('f9a86b00-8696-4ac2-ba29-31213746354d', 'Ibrahim Alpha', 'Konneh', '05c3c35c-2b54-4e86-abdf-b4b8e377fdb0');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('c3f221ff-b428-46ef-a94a-7e3c3760526b', 'Jusu', 'Turay', '05c3c35c-2b54-4e86-abdf-b4b8e377fdb0');
   
   INSERT INTO school (id, name) VALUES ('0df5bbcc-4224-4441-9491-2dc2305d609d', 'PROVINCIAL ISLAMIC PRIMARY SCHOOL');
     
@@ -77,16 +77,16 @@
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('63bd4807-57ff-41de-adf2-4a25c4a47df9', 'Alusine A', 'Kawa', '0df5bbcc-4224-4441-9491-2dc2305d609d');
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('2f8014ea-2a25-4f5c-825e-9f2b2289e8a6', 'Junisa', 'Kawa', '0df5bbcc-4224-4441-9491-2dc2305d609d');
     
-    INSERT INTO coach (id, name, surname) VALUES ('46a5bb1a-3246-4f53-9312-aaff7577edbe', 'Mambu', 'Aruna');
-    INSERT INTO coach (id, name, surname) VALUES ('df45102d-1085-4fd6-bde7-2c6bbab73e2d', 'Sallu Brima', 'Sheriff');
-    INSERT INTO coach (id, name, surname) VALUES ('145aae18-5465-4fe7-b901-c037005b049f', 'Martin S.', 'Kutubu');
-    INSERT INTO coach (id, name, surname) VALUES ('1fc74a01-3b1e-46ff-b0a4-f28368705608', 'Mustapha S', 'Kanneh');
-    INSERT INTO coach (id, name, surname) VALUES ('82173475-8deb-4b6f-9f9b-1e77f68b572c', 'Ibrahim Mustapha', 'Sheriff');
-    INSERT INTO coach (id, name, surname) VALUES ('4020cc95-ec06-4a61-8b24-c9a2e59b61f9', 'Senesie', 'Musa');
-    INSERT INTO coach (id, name, surname) VALUES ('8ee8925e-c5bc-40b1-aeb8-5c642cee7458', 'Bockarie Sylvester', 'Keifala');
-    INSERT INTO coach (id, name, surname) VALUES ('7cae1fd6-4338-4c58-b969-bd71c3bc648d', 'Abdul Karim', 'Koroma');
-    INSERT INTO coach (id, name, surname) VALUES ('a08ccb98-8b0d-4031-b259-c8c6eb065497', 'Bockarie', 'Samuka');
-    INSERT INTO coach (id, name, surname) VALUES ('46c4fb3e-f6ff-4241-989e-da2bcd946a1f', 'Lamin G.', 'Momoh');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('46a5bb1a-3246-4f53-9312-aaff7577edbe', 'Mambu', 'Aruna', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('df45102d-1085-4fd6-bde7-2c6bbab73e2d', 'Sallu Brima', 'Sheriff', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('145aae18-5465-4fe7-b901-c037005b049f', 'Martin S.', 'Kutubu', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('1fc74a01-3b1e-46ff-b0a4-f28368705608', 'Mustapha S', 'Kanneh', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('82173475-8deb-4b6f-9f9b-1e77f68b572c', 'Ibrahim Mustapha', 'Sheriff', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('4020cc95-ec06-4a61-8b24-c9a2e59b61f9', 'Senesie', 'Musa', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('8ee8925e-c5bc-40b1-aeb8-5c642cee7458', 'Bockarie Sylvester', 'Keifala', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('7cae1fd6-4338-4c58-b969-bd71c3bc648d', 'Abdul Karim', 'Koroma', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('a08ccb98-8b0d-4031-b259-c8c6eb065497', 'Bockarie', 'Samuka', '0df5bbcc-4224-4441-9491-2dc2305d609d');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('46c4fb3e-f6ff-4241-989e-da2bcd946a1f', 'Lamin G.', 'Momoh', '0df5bbcc-4224-4441-9491-2dc2305d609d');
   
   INSERT INTO school (id, name) VALUES ('e4354849-ad98-4f60-97f4-4747af9406b1', 'NATIONAL ISALIMIC PRIMARY SCHOOL');
     
@@ -101,16 +101,16 @@
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('72fe3e4f-6079-4531-a0a4-bfa531eb8a33', 'Nyuma Alpha.', 'W', 'e4354849-ad98-4f60-97f4-4747af9406b1');
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('9a53a567-2fb2-4673-b658-d7bf545f85af', 'Rebecca A', 'Yatta', 'e4354849-ad98-4f60-97f4-4747af9406b1');
     
-    INSERT INTO coach (id, name, surname) VALUES ('2b720614-a494-47b5-9257-b95d420cc6b6', 'Abu Ngowah', 'Lamin');
-    INSERT INTO coach (id, name, surname) VALUES ('0dec9caf-a8e8-4399-a0ea-0d3ad767767a', 'Mustapha', 'Hakawa');
-    INSERT INTO coach (id, name, surname) VALUES ('c649fec8-5a32-4d4e-97a7-1a6921d6f9d3', 'Malikie M', 'Fheriff');
-    INSERT INTO coach (id, name, surname) VALUES ('5f4fb8ed-fa4e-4b31-bf49-a74d56e52491', 'Abubakarr', 'Damagara');
-    INSERT INTO coach (id, name, surname) VALUES ('b13f423d-3ca3-4220-b4a9-9c441b02620f', 'Ibrahim', 'jalloh');
-    INSERT INTO coach (id, name, surname) VALUES ('a4b04a07-44f4-46c7-bf66-46ae8b937ddc', 'Sumaila', 'Vandy');
-    INSERT INTO coach (id, name, surname) VALUES ('c2a4b19a-4af4-412d-b8cd-5eb18182a6ad', 'Mohamed Sungawo', 'Kamara');
-    INSERT INTO coach (id, name, surname) VALUES ('1efd228e-eb10-44e1-a777-5b5e1cf8db18', 'Abdulai', 'Sheriff');
-    INSERT INTO coach (id, name, surname) VALUES ('75f4c549-2368-4c9d-9bf5-50afc46ec4c0', 'Abdulai', 'Sheriff');
-    INSERT INTO coach (id, name, surname) VALUES ('4fdb0eb9-d8dc-4bd8-9994-de5d28bcfdb8', 'Kamara Ibrahim', 'Nasiru');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('2b720614-a494-47b5-9257-b95d420cc6b6', 'Abu Ngowah', 'Lamin', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('0dec9caf-a8e8-4399-a0ea-0d3ad767767a', 'Mustapha', 'Hakawa', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('c649fec8-5a32-4d4e-97a7-1a6921d6f9d3', 'Malikie M', 'Fheriff', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('5f4fb8ed-fa4e-4b31-bf49-a74d56e52491', 'Abubakarr', 'Damagara', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('b13f423d-3ca3-4220-b4a9-9c441b02620f', 'Ibrahim', 'jalloh', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('a4b04a07-44f4-46c7-bf66-46ae8b937ddc', 'Sumaila', 'Vandy', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('c2a4b19a-4af4-412d-b8cd-5eb18182a6ad', 'Mohamed Sungawo', 'Kamara', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('1efd228e-eb10-44e1-a777-5b5e1cf8db18', 'Abdulai', 'Sheriff', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('75f4c549-2368-4c9d-9bf5-50afc46ec4c0', 'Abdulai', 'Sheriff', 'e4354849-ad98-4f60-97f4-4747af9406b1');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('4fdb0eb9-d8dc-4bd8-9994-de5d28bcfdb8', 'Kamara Ibrahim', 'Nasiru', 'e4354849-ad98-4f60-97f4-4747af9406b1');
   
   INSERT INTO school (id, name) VALUES ('5959b8d5-0f1f-4fba-a17e-93b8378d8041', 'KAILAHUN DISTRICT EDUCATION COMMITTEE PRIMARY SCHOOL');
     
@@ -125,16 +125,16 @@
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('21a96933-b988-4ca1-a249-b763a31d53ba', 'Sahr Andrew', 'Thomas', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('0c35b9f0-1f51-4bb1-9b45-b31a423b9ddb', 'Philip', 'Lahai', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
     
-    INSERT INTO coach (id, name, surname) VALUES ('b2a26dbc-11e6-4617-b80b-29124a74e76f', 'Abdul', 'Momoh');
-    INSERT INTO coach (id, name, surname) VALUES ('18bfe1af-828e-4659-9066-228f9e8cea9e', 'Patrick S.', 'Fofana');
-    INSERT INTO coach (id, name, surname) VALUES ('18cfb8b4-af45-44a4-91da-b1fe43265890', 'Mustapha', 'Moinina');
-    INSERT INTO coach (id, name, surname) VALUES ('f4bc6913-ccdd-4af6-ba45-317d07c56c40', 'Jabaty', 'Lahai');
-    INSERT INTO coach (id, name, surname) VALUES ('03500969-0a8e-4d12-a50c-52c2e9f6d317', 'Alfred', 'Fatorma');
-    INSERT INTO coach (id, name, surname) VALUES ('06e3f8be-296b-4e95-a6e1-8a6427cc7d6f', 'Brima', 'Amara');
-    INSERT INTO coach (id, name, surname) VALUES ('b37f57ad-fa5d-41d5-a32c-ed706647ada4', 'Fomba', 'Jinah');
-    INSERT INTO coach (id, name, surname) VALUES ('86b36719-33c4-4dff-b55c-a248968318d2', 'Abdulai Steven', 'Vandi');
-    INSERT INTO coach (id, name, surname) VALUES ('6df51904-8688-4e73-aa44-4d52ac79a30b', 'Baindu', 'Lossie');
-    INSERT INTO coach (id, name, surname) VALUES ('033f7964-1aad-458c-b8a5-46e0491fe0c2', 'MUSA BOBOR', 'SAO');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('b2a26dbc-11e6-4617-b80b-29124a74e76f', 'Abdul', 'Momoh', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('18bfe1af-828e-4659-9066-228f9e8cea9e', 'Patrick S.', 'Fofana', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('18cfb8b4-af45-44a4-91da-b1fe43265890', 'Mustapha', 'Moinina', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('f4bc6913-ccdd-4af6-ba45-317d07c56c40', 'Jabaty', 'Lahai', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('03500969-0a8e-4d12-a50c-52c2e9f6d317', 'Alfred', 'Fatorma', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('06e3f8be-296b-4e95-a6e1-8a6427cc7d6f', 'Brima', 'Amara', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('b37f57ad-fa5d-41d5-a32c-ed706647ada4', 'Fomba', 'Jinah', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('86b36719-33c4-4dff-b55c-a248968318d2', 'Abdulai Steven', 'Vandi', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('6df51904-8688-4e73-aa44-4d52ac79a30b', 'Baindu', 'Lossie', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('033f7964-1aad-458c-b8a5-46e0491fe0c2', 'MUSA BOBOR', 'SAO', '5959b8d5-0f1f-4fba-a17e-93b8378d8041');
   
   INSERT INTO school (id, name) VALUES ('c522d572-1acd-41fc-836a-1e9ea5a75e37', 'AL-QUDUS ISLAMIC PRIMARY SCHOOL');
     
@@ -149,16 +149,16 @@
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('bdbff1e5-253d-4814-8897-31153d607984', 'Keifa', 'Kanneh', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
     INSERT INTO teacher (id, name, surname, school_id) VALUES ('2219d630-aa86-4c4b-b95e-a537be855efe', 'Abubakarr', 'Sovula', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
     
-    INSERT INTO coach (id, name, surname) VALUES ('0fc87df6-4488-47d1-beb8-db783d332c52', 'William', 'Moigboi');
-    INSERT INTO coach (id, name, surname) VALUES ('c6dd93ab-566d-4427-81a6-3781f1af25de', 'Amara', 'Njalloh');
-    INSERT INTO coach (id, name, surname) VALUES ('ce25cf0a-9b15-4519-8998-47aa48da3b41', 'Mustapha', 'Keikula');
-    INSERT INTO coach (id, name, surname) VALUES ('f08153a2-ba59-4088-b9c6-3881b654890d', 'Shiek Ahmed', 'M Bah');
-    INSERT INTO coach (id, name, surname) VALUES ('70463c6a-8753-4757-b7ce-65bb65c2ed4d', 'Fadilu M', 'Kpaka');
-    INSERT INTO coach (id, name, surname) VALUES ('8003ed56-7331-4cd5-b2c9-c983e3a0bda3', 'Foday', 'Conteh');
-    INSERT INTO coach (id, name, surname) VALUES ('9b331923-bf87-47a6-8a08-6c85f29bbd9d', 'Rahmatu', 'Conteh');
-    INSERT INTO coach (id, name, surname) VALUES ('9f8d8d8d-b3da-4ad1-8992-4b8e983b472f', 'Keifala', 'Yayah');
-    INSERT INTO coach (id, name, surname) VALUES ('5f25a457-b126-457d-87ce-4665c3a3b638', 'Tatugba Phedesco', 'S');
-    INSERT INTO coach (id, name, surname) VALUES ('53952b6f-013d-413a-b86d-cf0cc5ee81f8', 'Momoh Amara', 'Saffa');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('0fc87df6-4488-47d1-beb8-db783d332c52', 'William', 'Moigboi', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('c6dd93ab-566d-4427-81a6-3781f1af25de', 'Amara', 'Njalloh', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('ce25cf0a-9b15-4519-8998-47aa48da3b41', 'Mustapha', 'Keikula', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('f08153a2-ba59-4088-b9c6-3881b654890d', 'Shiek Ahmed', 'M Bah', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('70463c6a-8753-4757-b7ce-65bb65c2ed4d', 'Fadilu M', 'Kpaka', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('8003ed56-7331-4cd5-b2c9-c983e3a0bda3', 'Foday', 'Conteh', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('9b331923-bf87-47a6-8a08-6c85f29bbd9d', 'Rahmatu', 'Conteh', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('9f8d8d8d-b3da-4ad1-8992-4b8e983b472f', 'Keifala', 'Yayah', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('5f25a457-b126-457d-87ce-4665c3a3b638', 'Tatugba Phedesco', 'S', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
+    INSERT INTO coach (id, name, surname, school_id) VALUES ('53952b6f-013d-413a-b86d-cf0cc5ee81f8', 'Momoh Amara', 'Saffa', 'c522d572-1acd-41fc-836a-1e9ea5a75e37');
   
   INSERT INTO school (id, name) VALUES ('f1e2a98d-257d-44c0-b825-7d70cbd7e45c', 'RICHARD ORMSBY PRIMARY SCHOOL');
     

@@ -34,6 +34,6 @@ export type SyncData = {
   schools: School[];
   teachers: Teacher[];
   feedbacks: Feedback[];
-
+  answers: Answer[];
   total: number;
 };

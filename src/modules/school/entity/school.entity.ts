@@ -1,6 +1,4 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "../../user/entity";
-import { Coach } from "../../coach/entity/coach.entity";
 
 @Entity()
 export class School {
@@ -13,6 +11,12 @@ export class School {
 
   @Column({ nullable: true })
   name?: string;
+
+  @Column({ nullable: true })
+  region?: string;
+
+  @Column({ nullable: true })
+  emis_number?: string;
 
   @Column({ nullable: true })
   created_at?: Date;

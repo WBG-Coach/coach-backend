@@ -46,27 +46,31 @@ export class SyncService {
           schools: [],
           sessions: [],
           teachers: [],
+          answers: [],
           total: 0,
         };
       } else {
-        const coaches = await this.getDataToSync(Coach, lastSync);
-        const feedbacks = await this.getDataToSync(Feedback, lastSync);
         const questions = await this.getDataToSync(Question, lastSync);
-        const schools = await this.getDataToSync(School, lastSync);
-        const sessions = await this.getDataToSync(Session, lastSync, school);
+        const coaches = await this.getDataToSync(Coach, lastSync, school);
         const teachers = await this.getDataToSync(Teacher, lastSync, school);
+        const sessions = await this.getDataToSync(Session, lastSync, school);
+        const answers = await this.getDataToSync(Answer, lastSync, school);
+        const feedbacks = await this.getDataToSync(Feedback, lastSync, school);
+
+        console.log("COACHES => ", coaches.length);
+
         return {
           coaches,
           feedbacks,
           questions,
-          schools,
+          schools: [],
           sessions,
           teachers,
+          answers,
           total:
             coaches.length +
             feedbacks.length +
             questions.length +
-            schools.length +
             sessions.length +
             teachers.length,
         };

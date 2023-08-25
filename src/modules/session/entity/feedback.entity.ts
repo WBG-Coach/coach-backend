@@ -22,6 +22,9 @@ export class Feedback {
   @Column({ nullable: true })
   session_id?: string;
 
+  @Column({ nullable: true })
+  school_id?: string;
+
   @ManyToOne(() => Session, (session) => session.id)
   @JoinColumn({ name: "session_id" })
   session?: Session;

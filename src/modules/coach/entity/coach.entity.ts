@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { School } from "../../school/entity/school.entity";
 
 @Entity()
 export class Coach {
@@ -19,10 +26,11 @@ export class Coach {
   image_id?: string;
 
   @Column({ nullable: true })
-  username?: string;
+  school_id?: string;
 
-  @Column({ nullable: true })
-  password?: string;
+  @ManyToOne(() => School, (school) => school.id)
+  @JoinColumn({ name: "school_id" })
+  school?: School;
 
   @Column({ nullable: true })
   created_at?: Date;
