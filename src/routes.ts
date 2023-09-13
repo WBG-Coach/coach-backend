@@ -13,6 +13,7 @@ import syncRouter from "./modules/sync/routes";
 import coachRouter from "./modules/coach/routes";
 import imageRouter from "./modules/image/routes";
 import logRouter from "./modules/logs/routes";
+import dashboardRouter from "./modules/dashboard/routes";
 
 const packageJson: any = require("../package.json");
 
@@ -27,6 +28,7 @@ const Routes = {
     sessionRouter(app);
     teacherRouter(app);
     questionRouter(app);
+    dashboardRouter(app);
     competenceRouter(app);
     logRouter(app);
 

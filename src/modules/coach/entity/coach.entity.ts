@@ -3,9 +3,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { School } from "../../school/entity/school.entity";
+import { CoachSchool } from "./coach-school.entity";
 
 @Entity()
 export class Coach {
@@ -23,14 +25,16 @@ export class Coach {
   surname?: string;
 
   @Column({ nullable: true })
-  image_id?: string;
+  pin?: string;
 
   @Column({ nullable: true })
-  school_id?: string;
+  nin?: string;
 
-  @ManyToOne(() => School, (school) => school.id)
-  @JoinColumn({ name: "school_id" })
-  school?: School;
+  @Column({ nullable: true })
+  image_id?: string;
+
+  @OneToMany(() => CoachSchool, (coachSchool) => coachSchool.coach)
+  coachSchools?: CoachSchool[];
 
   @Column({ nullable: true })
   created_at?: Date;

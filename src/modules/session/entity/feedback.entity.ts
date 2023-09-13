@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Session } from "./session.entity";
+import { Competence } from "../../competencies/entity/competence.entity";
 
 @Entity()
 export class Feedback {
@@ -23,11 +24,15 @@ export class Feedback {
   session_id?: string;
 
   @Column({ nullable: true })
-  school_id?: string;
+  competence_id?: string;
 
   @ManyToOne(() => Session, (session) => session.id)
   @JoinColumn({ name: "session_id" })
   session?: Session;
+
+  @ManyToOne(() => Competence, (competence) => competence.id)
+  @JoinColumn({ name: "competence_id" })
+  competence?: Competence;
 
   @Column({ nullable: true })
   created_at?: Date;

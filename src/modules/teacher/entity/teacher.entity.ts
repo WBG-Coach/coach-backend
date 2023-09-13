@@ -31,6 +31,12 @@ export class Teacher {
   emis_number?: string;
 
   @Column({ nullable: true })
+  pin?: string;
+
+  @Column({ nullable: true })
+  nin?: string;
+
+  @Column({ nullable: true })
   created_at?: Date;
 
   @Column({ nullable: true })

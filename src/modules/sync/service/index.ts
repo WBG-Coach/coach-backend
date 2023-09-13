@@ -31,6 +31,8 @@ export class SyncService {
         model,
       });
 
+      console.log(changes.feedbacks);
+
       await this.saveSyncByEntity(Coach, changes.coaches || []);
       await this.saveSyncByEntity(Image, changes.images || []);
       await this.saveSyncByEntity(Teacher, changes.teachers || []);
@@ -55,7 +57,7 @@ export class SyncService {
         const teachers = await this.getDataToSync(Teacher, lastSync, school);
         const sessions = await this.getDataToSync(Session, lastSync, school);
         const answers = await this.getDataToSync(Answer, lastSync, school);
-        const feedbacks = await this.getDataToSync(Feedback, lastSync, school);
+        const feedbacks = await this.getFeedbackToSync(lastSync, school);
 
         console.log("COACHES => ", coaches.length);
 
@@ -124,6 +126,22 @@ export class SyncService {
             deleted_at: MoreThan(new Date(lastSync)),
           },
         ],
+      });
+    }
+  };
+
+  static getFeedbackToSync = async (lastSync?: string, school?: School) => {
+    const repository = await dataSource.getRepository(Feedback);
+    if (!lastSync) {
+      return await repository.find(
+        school ? { where: { session: { school_id: school.id } } } : undefined
+      );
+    } else {
+      return await repository.find({
+        where: {
+          session: { school_id: school?.id },
+          created_at: MoreThan(new Date(lastSync)),
+        },
       });
     }
   };
