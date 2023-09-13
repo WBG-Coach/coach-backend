@@ -27,7 +27,7 @@ export class CoachSchool {
   @JoinColumn({ name: "school_id" })
   school?: School;
 
-  @ManyToOne(() => Coach, (coach) => coach.id)
+  @ManyToOne(() => Coach, (coach) => coach.id, { eager: true })
   @JoinColumn({ name: "coach_id" })
   coach?: Coach;
 

@@ -10,6 +10,7 @@ import { Image } from "../../image/entity";
 import { Sync } from "../entity";
 import { School } from "../../school/entity/school.entity";
 import { Question } from "../../question/entity/question.entity";
+import { CoachSchool } from "../../coach/entity/coach-school.entity";
 
 export class SyncService {
   static findAll = async (): Promise<Teacher[]> => {
@@ -31,9 +32,8 @@ export class SyncService {
         model,
       });
 
-      console.log(changes.feedbacks);
-
       await this.saveSyncByEntity(Coach, changes.coaches || []);
+      await this.saveSyncByEntity(CoachSchool, changes.coachSchools || []);
       await this.saveSyncByEntity(Image, changes.images || []);
       await this.saveSyncByEntity(Teacher, changes.teachers || []);
       await this.saveSyncByEntity(Session, changes.sessions || []);
@@ -42,6 +42,7 @@ export class SyncService {
 
       if (!school) {
         return {
+          coachSchools: [],
           coaches: [],
           feedbacks: [],
           questions: [],
@@ -53,16 +54,15 @@ export class SyncService {
         };
       } else {
         const questions = await this.getDataToSync(Question, lastSync);
-        const coaches = await this.getDataToSync(Coach, lastSync, school);
+        const { coaches, coachSchools } = await this.getCoachDataToSync(school);
         const teachers = await this.getDataToSync(Teacher, lastSync, school);
         const sessions = await this.getDataToSync(Session, lastSync, school);
         const answers = await this.getDataToSync(Answer, lastSync, school);
-        const feedbacks = await this.getFeedbackToSync(lastSync, school);
-
-        console.log("COACHES => ", coaches.length);
+        const feedbacks = await this.getFeedbackToSync(school, lastSync);
 
         return {
           coaches,
+          coachSchools,
           feedbacks,
           questions,
           schools: [],
@@ -130,7 +130,23 @@ export class SyncService {
     }
   };
 
-  static getFeedbackToSync = async (lastSync?: string, school?: School) => {
+  static getCoachDataToSync = async (
+    school: School
+  ): Promise<{ coaches: Coach[]; coachSchools: CoachSchool[] }> => {
+    const coachSchoolRepository = await dataSource.getRepository(CoachSchool);
+    const coachSchools = await coachSchoolRepository.find({
+      where: {
+        school_id: school.id,
+      },
+    });
+
+    return {
+      coachSchools,
+      coaches: coachSchools.map((item) => item.coach) as Coach[],
+    };
+  };
+
+  static getFeedbackToSync = async (school: School, lastSync?: string) => {
     const repository = await dataSource.getRepository(Feedback);
     if (!lastSync) {
       return await repository.find(
