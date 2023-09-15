@@ -1,4 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { CoachSchool } from "../../coach/entity/coach-school.entity";
+import { Teacher } from "../../teacher/entity/teacher.entity";
 
 @Entity()
 export class School {
@@ -20,6 +22,12 @@ export class School {
 
   @Column({ nullable: true })
   created_at?: Date;
+
+  @OneToMany(() => CoachSchool, (coachSchool) => coachSchool.school)
+  coachSchools?: CoachSchool[];
+
+  @OneToMany(() => Teacher, (teacher) => teacher.school)
+  teachers?: Teacher[];
 
   @Column({ nullable: true })
   updated_at?: Date;

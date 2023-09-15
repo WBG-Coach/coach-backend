@@ -37,9 +37,12 @@ export default class SyncController {
       const body: DataToSync = req.body;
       const id = SchoolService.decryptId(token);
       const school = await SchoolService.findByID(id);
-      const response = await SyncService.sync(body, school);
-
-      return res.status(HTTP_STATUS_OK).send(response);
+      if (school) {
+        const response = await SyncService.sync(body, school);
+        return res.status(HTTP_STATUS_OK).send(response);
+      } else {
+        return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send();
+      }
     } catch (error) {
       return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send();
     }

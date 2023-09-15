@@ -17,10 +17,10 @@ export class CoachSchool {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column()
+  @Column({ type: "uuid" })
   school_id?: string;
 
-  @Column()
+  @Column({ type: "uuid" })
   coach_id?: string;
 
   @ManyToOne(() => School, (school) => school.id)

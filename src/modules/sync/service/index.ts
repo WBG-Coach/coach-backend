@@ -21,7 +21,7 @@ export class SyncService {
 
   static sync = async (
     { apiLevel, deviceId, lastPulledAt, model, changes, lastSync }: DataToSync,
-    school: School | null
+    school: School
   ): Promise<SyncData> => {
     const syncRepository = await dataSource.getRepository(Sync);
     try {
@@ -40,43 +40,31 @@ export class SyncService {
       await this.saveSyncByEntity(Answer, changes.answers || []);
       await this.saveSyncByEntity(Feedback, changes.feedbacks || []);
 
-      if (!school) {
-        return {
-          coachSchools: [],
-          coaches: [],
-          feedbacks: [],
-          questions: [],
-          schools: [],
-          sessions: [],
-          teachers: [],
-          answers: [],
-          total: 0,
-        };
-      } else {
-        const questions = await this.getDataToSync(Question, lastSync);
-        const { coaches, coachSchools } = await this.getCoachDataToSync(school);
-        const teachers = await this.getDataToSync(Teacher, lastSync, school);
-        const sessions = await this.getDataToSync(Session, lastSync, school);
-        const answers = await this.getDataToSync(Answer, lastSync, school);
-        const feedbacks = await this.getFeedbackToSync(school, lastSync);
+      const questions = await this.getDataToSync(Question, lastSync);
+      const { coaches, coachSchools } = await this.getCoachDataToSync(school);
+      const teachers = await this.getDataToSync(Teacher, undefined, school);
+      const sessions = await this.getDataToSync(Session, lastSync, school);
+      const answers = await this.getDataToSync(Answer, lastSync, school);
+      const feedbacks = await this.getFeedbackToSync(school, lastSync);
 
-        return {
-          coaches,
-          coachSchools,
-          feedbacks,
-          questions,
-          schools: [],
-          sessions,
-          teachers,
-          answers,
-          total:
-            coaches.length +
-            feedbacks.length +
-            questions.length +
-            sessions.length +
-            teachers.length,
-        };
-      }
+      console.log(teachers.length);
+
+      return {
+        coaches,
+        coachSchools,
+        feedbacks,
+        questions,
+        schools: [],
+        sessions,
+        teachers,
+        answers,
+        total:
+          coaches.length +
+          feedbacks.length +
+          questions.length +
+          sessions.length +
+          teachers.length,
+      };
     } catch (err) {
       throw new Error(err as any);
     }

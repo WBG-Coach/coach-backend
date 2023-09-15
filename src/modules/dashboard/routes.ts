@@ -8,10 +8,10 @@ const dashboardRouter = (app: Application): void => {
     Authentication.authenticate,
     DashboardController.getData
   );
-  app.post(
+  app.get(
     "/dashboard/insert-mock",
     // Authentication.authenticate,
-    DashboardController.getData
+    DashboardController.insertMock
   );
 };
 

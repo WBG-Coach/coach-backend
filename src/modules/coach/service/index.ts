@@ -30,6 +30,6 @@ export class CoachService {
   static findAll = async (): Promise<Coach[]> => {
     const userRepository = await dataSource.getRepository(Coach);
 
-    return userRepository.find();
+    return userRepository.find({ relations: { coachSchools: true } });
   };
 }

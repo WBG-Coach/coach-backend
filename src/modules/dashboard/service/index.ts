@@ -36,7 +36,7 @@ export class DashboardService {
         COUNT(DISTINCT s.coach_id)::integer AS active_coaches ,
         COUNT(DISTINCT s.teacher_id)::integer as teachers_coached,
         COUNT(*)::integer as coaching_sessions,
-        10 as coaching_session_per_teacher_goal,
+        5 as coaching_session_per_teacher_goal,
         (
           SELECT AVG(num_sessions) 
           FROM (
@@ -58,7 +58,16 @@ export class DashboardService {
     `);
 
     const teachingPracticesResult = await dataSource.query(`
-    SELECT c.title as name FROM competence AS c WHERE c.deleted_at IS null
+     SELECT c.title as name 
+          ,	(SELECT COUNT(*) FROM question AS q INNER JOIN answer AS a ON a.question_id = q.id WHERE q.competence_id = c.id AND a.value = 1)::integer as needs_work
+          ,	(SELECT COUNT(*) FROM question AS q INNER JOIN answer AS a ON a.question_id = q.id WHERE q.competence_id = c.id AND a.value = 2)::integer as keep_working
+          ,	(SELECT COUNT(*) FROM question AS q INNER JOIN answer AS a ON a.question_id = q.id WHERE q.competence_id = c.id AND a.value = 3)::integer as needs_attention
+          ,	(SELECT COUNT(*) FROM question AS q INNER JOIN answer AS a ON a.question_id = q.id WHERE q.competence_id = c.id AND a.value = 4)::integer as almost_there
+          ,	(SELECT COUNT(*) FROM question AS q INNER JOIN answer AS a ON a.question_id = q.id WHERE q.competence_id = c.id AND a.value = 5)::integer as doing_great
+          ,	(SELECT COUNT(s.teacher_id) FROM feedback AS f INNER JOIN session AS s ON s.id = f.session_id WHERE f.competence_id = c.id )::integer as teachers
+          ,	(SELECT COUNT(*) FROM session AS s LEFT JOIN feedback AS f ON s.id = f.session_id WHERE f.session_id IS NULL)::integer as without_feedback
+       FROM	competence AS c 
+      WHERE	c.deleted_at IS null
     `);
 
     return {
@@ -66,15 +75,15 @@ export class DashboardService {
         name: item.name,
         data: {
           stars: {
-            needsWork: 20,
-            keepWorking: 30,
-            needsAttention: 45,
-            almostThere: 25,
-            doingGreat: 35,
+            needsWork: item.needs_work,
+            keepWorking: item.keep_working,
+            needsAttention: item.needs_attention,
+            almostThere: item.almost_there,
+            doingGreat: item.doing_great,
           },
-          teachers: 40,
-          teachersShowingImprovement: 25,
-          teacherWithoutFeedback: 35,
+          teachers: item.teachers,
+          teachersShowingImprovement: 0,
+          teacherWithoutFeedback: item.without_feedback,
         },
       })),
       engagement: {

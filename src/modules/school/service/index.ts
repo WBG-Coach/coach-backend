@@ -34,7 +34,12 @@ export class SchoolService {
   static findAll = async (): Promise<School[]> => {
     const schoolRepository = await dataSource.getRepository(School);
 
-    return schoolRepository.find();
+    return schoolRepository.find({
+      relations: {
+        teachers: true,
+        coachSchools: true,
+      },
+    });
   };
 
   static encryptId = (id: string): string => {

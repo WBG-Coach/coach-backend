@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { School } from "../../school/entity/school.entity";
 
 @Entity()
 export class Teacher {
@@ -35,6 +42,10 @@ export class Teacher {
 
   @Column({ nullable: true })
   nin?: string;
+
+  @ManyToOne(() => School, (school) => school.id)
+  @JoinColumn({ name: "school_id" })
+  school?: School;
 
   @Column({ nullable: true })
   created_at?: Date;
