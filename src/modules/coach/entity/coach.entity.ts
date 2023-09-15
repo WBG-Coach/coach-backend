@@ -23,6 +23,9 @@ export class Coach {
   nin?: string;
 
   @Column({ nullable: true })
+  birthdate?: Date;
+
+  @Column({ nullable: true })
   image_id?: string;
 
   @OneToMany(() => CoachSchool, (coachSchool) => coachSchool.coach)
