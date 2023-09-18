@@ -47,8 +47,6 @@ export class SyncService {
       const answers = await this.getDataToSync(Answer, lastSync, school);
       const feedbacks = await this.getFeedbackToSync(school, lastSync);
 
-      console.log(teachers.length);
-
       return {
         coaches,
         coachSchools,
