@@ -25,6 +25,12 @@ export class SchoolService {
     return schoolRepository.delete(id);
   };
 
+  static findByRegion = async (region: School["region"]): Promise<School[]> => {
+    const schoolRepository = await dataSource.getRepository(School);
+
+    return schoolRepository.find({ where: { region }, order: { name: "ASC" } });
+  };
+
   static findByID = async (id: string): Promise<School | null> => {
     const schoolRepository = await dataSource.getRepository(School);
 
