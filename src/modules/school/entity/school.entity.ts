@@ -15,7 +15,7 @@ export class School {
   name?: string;
 
   @Column({ nullable: true })
-  region?: string;
+  region?: "EASTERN" | "NORTHERN" | "NORTH WESTERN" | "WESTERN" | "SOUTHERN";
 
   @Column({ nullable: true })
   emis_number?: string;
