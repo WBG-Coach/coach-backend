@@ -1,4 +1,5 @@
 import { Question } from "../../question/entity/question.entity";
+import { Feedback } from "../../session/entity/feedback.entity";
 import { Session } from "../../session/entity/session.entity";
 import {
   Column,
@@ -6,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from "typeorm";
 
 @Entity()
@@ -29,14 +31,6 @@ export class Answer {
   @Column({ nullable: true })
   school_id?: string;
 
-  @ManyToOne(() => Question, (question) => question.id, { eager: true })
-  @JoinColumn({ name: "question_id" })
-  question?: Question;
-
-  @ManyToOne(() => Session, (session) => session.id)
-  @JoinColumn({ name: "session_id" })
-  session?: Session;
-
   @Column({ nullable: true })
   created_at?: Date;
 
@@ -45,4 +39,15 @@ export class Answer {
 
   @Column({ nullable: true })
   deleted_at?: Date;
+
+  @ManyToOne(() => Question, (question) => question.id, { eager: true })
+  @JoinColumn({ name: "question_id" })
+  question?: Question;
+
+  @ManyToOne(() => Session, (session) => session.id)
+  @JoinColumn({ name: "session_id" })
+  session?: Session;
+
+  @OneToMany(() => Feedback, (feedback) => feedback.answer)
+  feedback?: Feedback[];
 }

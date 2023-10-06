@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { Session } from "./session.entity";
 import { Competence } from "../../competencies/entity/competence.entity";
+import { Answer } from "../../answer/entity/answer.entity";
 
 @Entity()
 export class Feedback {
@@ -21,18 +22,7 @@ export class Feedback {
   value?: string;
 
   @Column({ nullable: true })
-  session_id?: string;
-
-  @Column({ nullable: true })
-  competence_id?: string;
-
-  @ManyToOne(() => Session, (session) => session.id)
-  @JoinColumn({ name: "session_id" })
-  session?: Session;
-
-  @ManyToOne(() => Competence, (competence) => competence.id)
-  @JoinColumn({ name: "competence_id" })
-  competence?: Competence;
+  answer_id?: string;
 
   @Column({ nullable: true })
   created_at?: Date;
@@ -42,4 +32,8 @@ export class Feedback {
 
   @Column({ nullable: true })
   deleted_at?: Date;
+
+  @ManyToOne(() => Answer, (answer) => answer.id)
+  @JoinColumn({ name: "answer_id" })
+  answer?: Answer;
 }

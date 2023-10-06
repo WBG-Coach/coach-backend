@@ -72,9 +72,6 @@ export class Session {
   @OneToMany(() => Answer, (answer) => answer.session, { eager: true })
   answers?: Answer[];
 
-  @OneToMany(() => Feedback, (feedback) => feedback.session, { eager: true })
-  feedbacks?: Feedback[];
-
   @Column({ nullable: true })
   created_at?: Date;
 
