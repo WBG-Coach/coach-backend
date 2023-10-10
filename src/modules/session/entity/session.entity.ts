@@ -25,6 +25,9 @@ export class Session {
   session_status?: string;
 
   @Column({ nullable: true })
+  feedback_id?: string;
+
+  @Column({ nullable: true })
   students_count?: string;
 
   @Column({ nullable: true })
@@ -68,6 +71,10 @@ export class Session {
   @ManyToOne(() => Teacher, (teacher) => teacher.id, { eager: true })
   @JoinColumn({ name: "teacher_id" })
   teacher?: Teacher;
+
+  @ManyToOne(() => Feedback, (feedback) => feedback.id, { eager: true })
+  @JoinColumn({ name: "feedback_id" })
+  feedback?: Feedback;
 
   @OneToMany(() => Answer, (answer) => answer.session, { eager: true })
   answers?: Answer[];
