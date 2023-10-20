@@ -20,7 +20,7 @@ export class User {
   @Column({ nullable: true })
   name?: string;
 
-  @Column({ nullable: true, default: "analist" })
+  @Column({ nullable: true, default: "analyst" })
   role?: string;
 
   @Column({ nullable: true })
@@ -28,6 +28,12 @@ export class User {
 
   @Column({ nullable: true })
   password?: string;
+
+  @Column({ nullable: true })
+  region?: string;
+
+  @Column({ nullable: true })
+  district?: string;
 
   @Column({ nullable: true })
   created_at?: Date;

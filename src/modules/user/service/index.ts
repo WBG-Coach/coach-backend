@@ -18,9 +18,7 @@ export class UserService {
   static findAllAdmins = async (): Promise<User[]> => {
     const userRepository = dataSource.getRepository(User);
 
-    return await userRepository.find({
-      where: { role: In(["admin", "analist"]) },
-    });
+    return await userRepository.find();
   };
 
   static findUserByEmail = async (email: string): Promise<User | null> => {

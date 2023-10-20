@@ -5,8 +5,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Session } from "./session.entity";
-import { Competence } from "../../competencies/entity/competence.entity";
 import { Answer } from "../../answer/entity/answer.entity";
 
 @Entity()

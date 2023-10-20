@@ -10,7 +10,6 @@ import { School } from "../../school/entity/school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { Answer } from "../../answer/entity/answer.entity";
 import { Coach } from "../../coach/entity/coach.entity";
-import { Feedback } from "./feedback.entity";
 
 @Entity()
 export class Session {

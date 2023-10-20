@@ -1,4 +1,4 @@
-import { EntityTarget, MoreThan, ObjectLiteral } from "typeorm";
+import { EntityTarget, In, MoreThan, ObjectLiteral } from "typeorm";
 import { Feedback } from "../../session/entity/feedback.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { Session } from "../../session/entity/session.entity";
@@ -44,7 +44,7 @@ export class SyncService {
       const { coaches, coachSchools } = await this.getCoachDataToSync(school);
       const teachers = await this.getDataToSync(Teacher, undefined, school);
       const sessions = await this.getDataToSync(Session, lastSync, school);
-      const answers = await this.getDataToSync(Answer, lastSync, school);
+      const answers = await this.getAnswerToSync(sessions);
       const feedbacks = await this.getFeedbackToSync(school, lastSync);
 
       return {
@@ -84,6 +84,13 @@ export class SyncService {
         })
       )
     );
+  };
+
+  static getAnswerToSync = async (sessions: Session[]) => {
+    const repository = await dataSource.getRepository(Answer);
+    return await repository.find({
+      where: { session_id: In(sessions.map((item) => item.id)) },
+    });
   };
 
   static getDataToSync = async (
