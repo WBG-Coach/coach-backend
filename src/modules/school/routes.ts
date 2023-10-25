@@ -21,6 +21,11 @@ const schoolRouter = (app: Application): void => {
     SchoolController.generateKey
   );
   app.get("/school", Authentication.authenticate, SchoolController.findAll);
+  app.get(
+    "/school/:region/districts",
+    Authentication.authenticate,
+    SchoolController.findAllDistrictsByRegion
+  );
 };
 
 export default schoolRouter;

@@ -13,20 +13,27 @@ export default class DashboardController {
       unknown,
       unknown,
       unknown,
-      { region?: School["region"]; schoolId?: string }
+      { region?: School["region"]; district?: string; schoolId?: string }
     >,
     res: Response
   ): Promise<any> => {
     try {
-      const { region, schoolId } = req.query;
+      const { region, district, schoolId } = req.query;
 
       if (schoolId) {
         const data = await DashboardService.getDataBySchoolId(schoolId);
         return res.status(HTTP_STATUS_OK).send(data);
-      } else if (region) {
-        const data = await DashboardService.getDataRegionRegion(region);
+      }
+
+      if (district) {
+        const data = await DashboardService.getDataByDistrict(district);
         const schools = await SchoolService.findByRegion(region);
         return res.status(HTTP_STATUS_OK).send({ ...data, schools });
+      }
+
+      if (region) {
+        const data = await DashboardService.getDataRegionRegion(region);
+        return res.status(HTTP_STATUS_OK).send(data);
       }
 
       const data = await DashboardService.getData();

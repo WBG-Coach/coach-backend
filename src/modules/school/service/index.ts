@@ -69,4 +69,15 @@ export class SchoolService {
     decrypted += decipher.final("utf8");
     return decrypted;
   };
+
+  static findAllDistrictsFromSchool = async (region: string) => {
+    const schoolRepository = await dataSource.getRepository(School);
+    const results = await schoolRepository
+      .createQueryBuilder("school")
+      .select("DISTINCT(school.district)", "district")
+      .where(`region = '${region}'`)
+      .getRawMany();
+
+    return results.map((result) => result.district);
+  };
 }

@@ -89,10 +89,27 @@ export default class SchoolController {
     res: Response
   ): Promise<any> => {
     try {
-      console.log(req.params.id);
       const key = SchoolService.encryptId(req.params.id);
       return res.status(HTTP_STATUS_OK).send(key);
     } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
+  public static findAllDistrictsByRegion = async (
+    req: Request,
+    res: Response
+  ) => {
+    try {
+      const { region } = req.params;
+      return res
+        .status(HTTP_STATUS_OK)
+        .send(await SchoolService.findAllDistrictsFromSchool(region));
+    } catch (error) {
+      console.log(error);
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
         error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
         message: (error as any).message,
