@@ -83,4 +83,47 @@ export default class SessionController {
       });
     }
   };
+
+  public static getSessionData = async (
+    req: Request<
+      any,
+      any,
+      any,
+      { period?: string; region?: string; schoolId?: string }
+    >,
+    res: Response
+  ) => {
+    try {
+      const { period, region, schoolId } = req.query;
+
+      const list = await SessionService.getSessionData(
+        period,
+        region,
+        schoolId
+      );
+      return res.status(HTTP_STATUS_OK).send(list);
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
+  public static getSessionOverTime = async (
+    req: Request<any, any, any, { region?: string; schoolId?: string }>,
+    res: Response
+  ) => {
+    try {
+      const { region, schoolId } = req.query;
+
+      const list = await SessionService.getSessionOverTime(region, schoolId);
+      return res.status(HTTP_STATUS_OK).send(list);
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
 }

@@ -20,7 +20,7 @@ export class User {
   @Column({ nullable: true })
   name?: string;
 
-  @Column({ nullable: true, default: "analyst" })
+  @Column({ nullable: true, default: "admin" })
   role?: string;
 
   @Column({ nullable: true })

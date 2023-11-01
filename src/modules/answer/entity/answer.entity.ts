@@ -29,9 +29,6 @@ export class Answer {
   session_id?: string;
 
   @Column({ nullable: true })
-  school_id?: string;
-
-  @Column({ nullable: true })
   created_at?: Date;
 
   @Column({ nullable: true })

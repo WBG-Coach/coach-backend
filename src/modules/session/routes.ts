@@ -16,6 +16,16 @@ const sessionRouter = (app: Application): void => {
     SessionController.findById
   );
   app.get("/session", Authentication.authenticate, SessionController.findAll);
+  app.get(
+    "/session-data",
+    Authentication.authenticate,
+    SessionController.getSessionData
+  );
+  app.get(
+    "/session-over-time",
+    Authentication.authenticate,
+    SessionController.getSessionOverTime
+  );
 };
 
 export default sessionRouter;

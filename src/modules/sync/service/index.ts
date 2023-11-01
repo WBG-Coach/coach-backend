@@ -143,12 +143,14 @@ export class SyncService {
     const repository = await dataSource.getRepository(Feedback);
     if (!lastSync) {
       return await repository.find(
-        school ? { where: { answer: { school_id: school?.id } } } : undefined
+        school
+          ? { where: { answer: { session: { school_id: school?.id } } } }
+          : undefined
       );
     } else {
       return await repository.find({
         where: {
-          answer: { school_id: school?.id },
+          answer: { session: { school_id: school?.id } },
           created_at: MoreThan(new Date(lastSync)),
         },
       });
