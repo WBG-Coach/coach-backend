@@ -89,17 +89,23 @@ export default class SessionController {
       any,
       any,
       any,
-      { period?: string; region?: string; schoolId?: string }
+      {
+        period?: string;
+        region?: string;
+        schoolId?: string;
+        showOnlyWithValues?: string;
+      }
     >,
     res: Response
   ) => {
     try {
-      const { period, region, schoolId } = req.query;
+      const { period, region, schoolId, showOnlyWithValues } = req.query;
 
       const list = await SessionService.getSessionData(
         period,
         region,
-        schoolId
+        schoolId,
+        showOnlyWithValues
       );
       return res.status(HTTP_STATUS_OK).send(list);
     } catch (error) {
@@ -111,13 +117,22 @@ export default class SessionController {
   };
 
   public static getSessionOverTime = async (
-    req: Request<any, any, any, { region?: string; schoolId?: string }>,
+    req: Request<
+      any,
+      any,
+      any,
+      { region?: string; schoolId?: string; showOnlyWithValues?: string }
+    >,
     res: Response
   ) => {
     try {
-      const { region, schoolId } = req.query;
+      const { region, schoolId, showOnlyWithValues } = req.query;
 
-      const list = await SessionService.getSessionOverTime(region, schoolId);
+      const list = await SessionService.getSessionOverTime(
+        region,
+        schoolId,
+        showOnlyWithValues
+      );
       return res.status(HTTP_STATUS_OK).send(list);
     } catch (error) {
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({

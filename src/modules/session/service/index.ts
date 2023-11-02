@@ -36,7 +36,8 @@ export class SessionService {
   static getSessionData = async (
     period?: string,
     region?: string,
-    schoolId?: string
+    schoolId?: string,
+    showOnlyWithValues?: string
   ): Promise<any[]> => {
     const sessionRepository = await dataSource.getRepository(Session);
 
@@ -70,20 +71,23 @@ export class SessionService {
             LEFT JOIN public.competence c ON q.competence_id = c.id
           
         WHERE
-          cs.coach_id IS NOT null
+          1 = 1
+          ${showOnlyWithValues === "true" ? "AND cs.coach_id IS NOT null" : ""}
           ${period ? `AND ses.created_at >= NOW() - INTERVAL '${period}'` : ""}
           ${region ? `AND s.region = '${region}'` : ""}
           ${schoolId ? `AND s.id = '${schoolId}'` : ""}
         GROUP BY 
             s.id;
     `);
+    console.log(showOnlyWithValues);
 
     return result;
   };
 
   static getSessionOverTime = async (
     region?: string,
-    schoolId?: string
+    schoolId?: string,
+    showOnlyWithValues?: string
   ): Promise<any[]> => {
     const sessionRepository = await dataSource.getRepository(Session);
 
@@ -112,13 +116,15 @@ export class SessionService {
           LEFT JOIN public.feedback f ON a.id = f.answer_id
 
         WHERE
-          cs.coach_id IS NOT null
+          1 = 1
+          ${showOnlyWithValues === "true" ? "AND cs.coach_id IS NOT null" : ""}
           ${region ? `AND s.region = '${region}'` : ""}
           ${schoolId ? `AND s.id = '${schoolId}'` : ""}
 
         GROUP BY 
             s.id;
     `);
+    console.log(showOnlyWithValues);
 
     return result;
   };
