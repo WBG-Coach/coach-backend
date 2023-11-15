@@ -9,21 +9,7 @@ jobs:
   build:
     name: Deploy to server
     runs-on: ubuntu-latest
-    env:
-      DB_HOST: ""
-      DB_PORT: ""
-      DB_USERNAME: ""
-      DB_PASSWORD: ""
-      DB_DATABASE: ""
-      PASSWORD_SALT: ""
-      JWT_SECRET: "secret"
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install
-      - run: npm run test
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -31,7 +17,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-            cd containers/coach-backend-sl
+            cd /home/ubuntu/apps/coach-backend-sl
             git pull
             sudo docker build -t coach-backend-sl .
             sudo docker-compose up -d
