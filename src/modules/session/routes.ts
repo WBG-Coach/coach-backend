@@ -3,26 +3,26 @@ import Authentication from "../auth/service";
 import SessionController from "./controller";
 
 const sessionRouter = (app: Application): void => {
-  app.post("/session", Authentication.authenticate, SessionController.create);
-  app.put("/session", Authentication.authenticate, SessionController.update);
+  app.post("/sl/api/session", Authentication.authenticate, SessionController.create);
+  app.put("/sl/api/session", Authentication.authenticate, SessionController.update);
   app.delete(
-    "/session/:id",
+    "/sl/api/session/:id",
     Authentication.authenticate,
     SessionController.delete
   );
   app.get(
-    "/session/:id",
+    "/sl/api/session/:id",
     Authentication.authenticate,
     SessionController.findById
   );
-  app.get("/session", Authentication.authenticate, SessionController.findAll);
+  app.get("/sl/api/session", Authentication.authenticate, SessionController.findAll);
   app.get(
-    "/session-data",
+    "/sl/api/session-data",
     Authentication.authenticate,
     SessionController.getSessionData
   );
   app.get(
-    "/session-over-time",
+    "/sl/api/session-over-time",
     Authentication.authenticate,
     SessionController.getSessionOverTime
   );

@@ -3,7 +3,7 @@ import LogsController from "./controller";
 import Authentication from "../auth/service";
 
 const LogRouter = (app: Application): void => {
-  app.get("/logs", Authentication.authenticate, LogsController.findAll);
+  app.get("/sl/api/logs", Authentication.authenticate, LogsController.findAll);
 };
 
 export default LogRouter;

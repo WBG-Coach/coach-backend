@@ -32,11 +32,11 @@ const Routes = {
     competenceRouter(app);
     logRouter(app);
 
-    app.get("/", (_req: Request, res: Response) => {
+    app.get("/sl/api/", (_req: Request, res: Response) => {
       res.send(`Coach API v${packageJson?.version} is running.`);
     });
 
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
+    app.use("/sl/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.all(
       "*",

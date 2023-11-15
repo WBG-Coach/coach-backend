@@ -3,12 +3,12 @@ import Authentication from "./service";
 import AuthenticationController from "./controller";
 
 const AuthRouter = (app: Application): void => {
-  app.post("/auth", AuthenticationController.login);
-  app.get("/auth", Authentication.authenticate, (_req, res) =>
+  app.post("/sl/api/auth", AuthenticationController.login);
+  app.get("/sl/api/auth", Authentication.authenticate, (_req, res) =>
     res.status(200).send(res.locals?.authUser)
   );
   app.get(
-    "/auth/superset",
+    "/sl/api/auth/superset",
     Authentication.authenticate,
     AuthenticationController.supertsetLogin
   );

@@ -3,25 +3,25 @@ import UserController from "./controller";
 import Authentication from "../auth/service";
 
 const UserRouter = (app: Application): void => {
-  app.get("/users/coach", UserController.findAllCoaches);
-  app.post("/users/coach/sign-up", () => {});
+  app.get("/sl/api/users/coach", UserController.findAllCoaches);
+  app.post("/sl/api/users/coach/sign-up", () => {});
   app.post(
-    "/users/admin/sign-up",
+    "/sl/api/users/admin/sign-up",
     Authentication.authenticate,
     UserController.signUpAdmin
   );
   app.get(
-    "/users/admin",
+    "/sl/api/users/admin",
     Authentication.authenticate,
     UserController.findAllAdmins
   );
   app.patch(
-    "/users/admin/:user_id",
+    "/sl/api/users/admin/:user_id",
     Authentication.authenticate,
     UserController.updateAdmin
   );
   app.delete(
-    "/users/admin/:user_id",
+    "/sl/api/users/admin/:user_id",
     Authentication.authenticate,
     UserController.removeAdmin
   );

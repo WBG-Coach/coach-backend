@@ -4,27 +4,27 @@ import QuestionnaireController from "./controller";
 
 const questionnaireRouter = (app: Application): void => {
   app.post(
-    "/questionnaire",
+    "/sl/api/questionnaire",
     Authentication.authenticate,
     QuestionnaireController.create
   );
   app.put(
-    "/questionnaire",
+    "/sl/api/questionnaire",
     Authentication.authenticate,
     QuestionnaireController.update
   );
   app.delete(
-    "/questionnaire/:id",
+    "/sl/api/questionnaire/:id",
     Authentication.authenticate,
     QuestionnaireController.delete
   );
   app.get(
-    "/questionnaire/:id",
+    "/sl/api/questionnaire/:id",
     Authentication.authenticate,
     QuestionnaireController.findById
   );
   app.get(
-    "/questionnaire",
+    "/sl/api/questionnaire",
     Authentication.authenticate,
     QuestionnaireController.findAll
   );

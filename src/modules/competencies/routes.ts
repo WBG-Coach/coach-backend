@@ -4,27 +4,27 @@ import CompetenceController from "./controller";
 
 const competenceRouter = (app: Application): void => {
   app.post(
-    "/competence",
+    "/sl/api/competence",
     Authentication.authenticate,
     CompetenceController.create
   );
   app.put(
-    "/competence",
+    "/sl/api/competence",
     Authentication.authenticate,
     CompetenceController.update
   );
   app.delete(
-    "/competence/:id",
+    "/sl/api/competence/:id",
     Authentication.authenticate,
     CompetenceController.delete
   );
   app.get(
-    "/competence/:id",
+    "/sl/api/competence/:id",
     Authentication.authenticate,
     CompetenceController.findById
   );
   app.get(
-    "/competence",
+    "/sl/api/competence",
     Authentication.authenticate,
     CompetenceController.findAll
   );

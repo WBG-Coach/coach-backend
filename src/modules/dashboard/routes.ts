@@ -4,12 +4,12 @@ import DashboardController from "./controller";
 
 const dashboardRouter = (app: Application): void => {
   app.get(
-    "/dashboard",
+    "/sl/api/dashboard",
     Authentication.authenticate,
     DashboardController.getData
   );
   app.get(
-    "/dashboard/insert-mock",
+    "/sl/api/dashboard/insert-mock",
     // Authentication.authenticate,
     DashboardController.insertMock
   );
