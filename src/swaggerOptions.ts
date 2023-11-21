@@ -1,8 +1,12 @@
+import config from "./config";
+
+const packageJson: any = require("../package.json");
+
 export default {
   openapi: "3.0.1",
   info: {
-    title: "REST API for Coach digital SL",
-    version: "1.0.0",
+    title: `REST API for Coach digital ${config.country?.toUpperCase()}`,
+    version: packageJson?.version,
   },
   paths: {
     "/auth": {
