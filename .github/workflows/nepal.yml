@@ -29,6 +29,9 @@ jobs:
         run: npm install
 
       - name: Run Migrations
+        run: npm run build
+
+      - name: Run Migrations
         run: npm run migration:run
 
       - name: Copy public folder
