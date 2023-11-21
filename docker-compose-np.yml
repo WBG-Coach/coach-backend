@@ -1,0 +1,7 @@
+version: "3.3"
+
+services:
+  coach-backend-sl:
+    image: coach-backend-np
+    ports:
+      - "5000:3000"

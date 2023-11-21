@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Deploy to server
+    runs-on: ubuntu-latest
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_DATABASE: ${{ secrets.DB_DATABASE_NP }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v1
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install dependencies
+        run: npm run migration:run
+
+      - name: Copy public folder
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "src,package.json,Dockerfile,docker-compose-np.yml"
+          target: "/home/ubuntu/apps/coach-backend-np"
+
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /home/ubuntu/apps/coach-backend-np
+            sudo docker build -t coach-backend-np .
+            sudo docker-compose -f docker-compose-np.yml up -d
