@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy NEPAL
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Deploy to server
+    name: Deploy to nepal server
     runs-on: ubuntu-latest
     env:
       DB_HOST: ${{ secrets.DB_HOST }}
@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install dependencies
+      - name: Run Migrations
         run: npm run migration:run
 
       - name: Copy public folder
@@ -37,7 +37,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          source: "src,package.json,Dockerfile,docker-compose-np.yml"
+          source: "src,node_modules,build,package.json,Dockerfile,docker-compose-np.yml"
           target: "/home/ubuntu/apps/coach-backend-np"
 
       - name: executing remote ssh commands using ssh key
