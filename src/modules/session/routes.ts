@@ -1,28 +1,41 @@
 import { Application } from "express";
 import Authentication from "../auth/service";
 import SessionController from "./controller";
+import config from "../../config";
 
 const sessionRouter = (app: Application): void => {
-  app.post("/sl/api/session", Authentication.authenticate, SessionController.create);
-  app.put("/sl/api/session", Authentication.authenticate, SessionController.update);
+  app.post(
+    `/${config.country}/api/session`,
+    Authentication.authenticate,
+    SessionController.create
+  );
+  app.put(
+    `/${config.country}/api/session`,
+    Authentication.authenticate,
+    SessionController.update
+  );
   app.delete(
-    "/sl/api/session/:id",
+    `/${config.country}/api/session/:id`,
     Authentication.authenticate,
     SessionController.delete
   );
   app.get(
-    "/sl/api/session/:id",
+    `/${config.country}/api/session/:id`,
     Authentication.authenticate,
     SessionController.findById
   );
-  app.get("/sl/api/session", Authentication.authenticate, SessionController.findAll);
   app.get(
-    "/sl/api/session-data",
+    `/${config.country}/api/session`,
+    Authentication.authenticate,
+    SessionController.findAll
+  );
+  app.get(
+    `/${config.country}/api/session-data`,
     Authentication.authenticate,
     SessionController.getSessionData
   );
   app.get(
-    "/sl/api/session-over-time",
+    `/${config.country}/api/session-over-time`,
     Authentication.authenticate,
     SessionController.getSessionOverTime
   );

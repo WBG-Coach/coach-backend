@@ -46,19 +46,4 @@ export default class DashboardController {
       });
     }
   };
-
-  public static insertMock = async (
-    _req: Request,
-    res: Response
-  ): Promise<any> => {
-    try {
-      const data = await DashboardService.getData();
-      return res.status(HTTP_STATUS_OK).send(data);
-    } catch (error) {
-      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
-        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-        message: (error as any).message,
-      });
-    }
-  };
 }

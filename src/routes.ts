@@ -14,6 +14,7 @@ import coachRouter from "./modules/coach/routes";
 import imageRouter from "./modules/image/routes";
 import logRouter from "./modules/logs/routes";
 import dashboardRouter from "./modules/dashboard/routes";
+import config from "./config";
 
 const packageJson: any = require("../package.json");
 
@@ -32,11 +33,17 @@ const Routes = {
     competenceRouter(app);
     logRouter(app);
 
-    app.get("/sl/api/", (_req: Request, res: Response) => {
-      res.send(`Coach API v${packageJson?.version} is running.`);
+    app.get(`/${config.country}/api/`, (_req: Request, res: Response) => {
+      res.send(
+        `Coach API ${config.country} v${packageJson?.version} is running.`
+      );
     });
 
-    app.use("/sl/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
+    app.use(
+      `/${config.country}/api/docs`,
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerOptions)
+    );
 
     app.all(
       "*",

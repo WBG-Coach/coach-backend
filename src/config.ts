@@ -8,6 +8,8 @@ const port = process.env.PORT || 3000;
 const config = {
   port,
 
+  country: process.env.COUNTRY,
+
   env: process.env.NODE_ENV || "production",
 
   allowedOrigins: process.env.ALLOWED_ORIGINS

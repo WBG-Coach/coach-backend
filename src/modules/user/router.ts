@@ -1,27 +1,28 @@
 import { Application } from "express";
 import UserController from "./controller";
 import Authentication from "../auth/service";
+import config from "../../config";
 
 const UserRouter = (app: Application): void => {
-  app.get("/sl/api/users/coach", UserController.findAllCoaches);
-  app.post("/sl/api/users/coach/sign-up", () => {});
+  app.get(`/${config.country}/api/users/coach`, UserController.findAllCoaches);
+  app.post(`/${config.country}/api/users/coach/sign-up`, () => {});
   app.post(
-    "/sl/api/users/admin/sign-up",
+    `/${config.country}/api/users/admin/sign-up`,
     Authentication.authenticate,
     UserController.signUpAdmin
   );
   app.get(
-    "/sl/api/users/admin",
+    `/${config.country}/api/users/admin`,
     Authentication.authenticate,
     UserController.findAllAdmins
   );
   app.patch(
-    "/sl/api/users/admin/:user_id",
+    `/${config.country}/api/users/admin/:user_id`,
     Authentication.authenticate,
     UserController.updateAdmin
   );
   app.delete(
-    "/sl/api/users/admin/:user_id",
+    `/${config.country}/api/users/admin/:user_id`,
     Authentication.authenticate,
     UserController.removeAdmin
   );

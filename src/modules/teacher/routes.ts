@@ -1,21 +1,34 @@
 import { Application } from "express";
 import Authentication from "../auth/service";
 import TeacherController from "./controller";
+import config from "../../config";
 
 const teacherRouter = (app: Application): void => {
-  app.post("/sl/api/teacher", Authentication.authenticate, TeacherController.create);
-  app.put("/sl/api/teacher", Authentication.authenticate, TeacherController.update);
+  app.post(
+    `/${config.country}/api/teacher`,
+    Authentication.authenticate,
+    TeacherController.create
+  );
+  app.put(
+    `/${config.country}/api/teacher`,
+    Authentication.authenticate,
+    TeacherController.update
+  );
   app.delete(
-    "/sl/api/teacher/:id",
+    `/${config.country}/api/teacher/:id`,
     Authentication.authenticate,
     TeacherController.delete
   );
   app.get(
-    "/sl/api/teacher/:id",
+    `/${config.country}/api/teacher/:id`,
     Authentication.authenticate,
     TeacherController.findById
   );
-  app.get("/sl/api/teacher", Authentication.authenticate, TeacherController.findAll);
+  app.get(
+    `/${config.country}/api/teacher`,
+    Authentication.authenticate,
+    TeacherController.findAll
+  );
 };
 
 export default teacherRouter;
