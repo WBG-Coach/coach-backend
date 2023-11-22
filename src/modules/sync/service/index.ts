@@ -11,6 +11,8 @@ import { Sync } from "../entity";
 import { School } from "../../school/entity/school.entity";
 import { Question } from "../../question/entity/question.entity";
 import { CoachSchool } from "../../coach/entity/coach-school.entity";
+import { CompetenceService } from "../../competencies/service";
+import { QuestionService } from "../../question/service";
 
 export class SyncService {
   static findAll = async (): Promise<Teacher[]> => {
@@ -40,15 +42,17 @@ export class SyncService {
       await this.saveSyncByEntity(Answer, changes.answers || []);
       await this.saveSyncByEntity(Feedback, changes.feedbacks || []);
 
-      const questions = await this.getDataToSync(Question, lastSync);
       const { coaches, coachSchools } = await this.getCoachDataToSync(school);
       const teachers = await this.getDataToSync(Teacher, undefined, school);
       const sessions = await this.getDataToSync(Session, lastSync, school);
       const answers = await this.getAnswerToSync(sessions);
       const feedbacks = await this.getFeedbackToSync(school, lastSync);
+      const competencies = await CompetenceService.findAll();
+      const questions = await QuestionService.findAll();
 
       return {
         coaches,
+        competencies,
         coachSchools,
         feedbacks,
         questions,

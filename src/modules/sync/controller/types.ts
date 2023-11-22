@@ -30,6 +30,7 @@ export type DataToSync = {
 
 export type SyncData = {
   coaches: Coach[];
+  competencies: Competence[];
   coachSchools: CoachSchool[];
   sessions: Session[];
   questions: Question[];
