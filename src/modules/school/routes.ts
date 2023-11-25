@@ -9,6 +9,11 @@ const schoolRouter = (app: Application): void => {
     Authentication.authenticate,
     SchoolController.create
   );
+  app.post(
+    `/${config.country}/api/school/region`,
+    Authentication.authenticate,
+    SchoolController.createRegion
+  );
   app.put(
     `/${config.country}/api/school`,
     Authentication.authenticate,
@@ -33,6 +38,11 @@ const schoolRouter = (app: Application): void => {
     `/${config.country}/api/school`,
     Authentication.authenticate,
     SchoolController.findAll
+  );
+  app.get(
+    `/${config.country}/api/school/region`,
+    Authentication.authenticate,
+    SchoolController.findAllRegions
   );
   app.get(
     `/${config.country}/api/school/:region/districts`,

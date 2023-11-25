@@ -3,6 +3,7 @@ import dataSource from "../../../database/config/ormconfig";
 import { School } from "../entity/school.entity";
 import crypto from "crypto";
 import config from "../../../config";
+import { Region } from "../entity/region.entity";
 
 const algorithm = "aes-256-ecb";
 
@@ -11,6 +12,12 @@ export class SchoolService {
     const schoolRepository = await dataSource.getRepository(School);
 
     return schoolRepository.save(data);
+  };
+
+  static createRegion = async (data: Region): Promise<Region> => {
+    const regionRepository = await dataSource.getRepository(Region);
+
+    return regionRepository.save(data);
   };
 
   static update = async (id: string, data: School): Promise<UpdateResult> => {
@@ -25,16 +32,22 @@ export class SchoolService {
     return schoolRepository.delete(id);
   };
 
-  static findByRegion = async (region: School["region"]): Promise<School[]> => {
+  static findByRegion = async (id: Region["id"]): Promise<School[]> => {
     const schoolRepository = await dataSource.getRepository(School);
 
-    return schoolRepository.find({ where: { region }, order: { name: "ASC" } });
+    return schoolRepository.find({
+      where: { region: { id } },
+      order: { name: "ASC" },
+    });
   };
 
   static findByID = async (id: string): Promise<School | null> => {
     const schoolRepository = await dataSource.getRepository(School);
 
-    return schoolRepository.findOne({ where: { id } });
+    return schoolRepository.findOne({
+      where: { id },
+      relations: { region: true },
+    });
   };
 
   static findAll = async (): Promise<School[]> => {
@@ -44,8 +57,15 @@ export class SchoolService {
       relations: {
         teachers: true,
         coachSchools: true,
+        region: true,
       },
     });
+  };
+
+  static findAllRegions = async (): Promise<Region[]> => {
+    const regionRepository = await dataSource.getRepository(Region);
+
+    return regionRepository.find();
   };
 
   static encryptId = (id: string): string => {

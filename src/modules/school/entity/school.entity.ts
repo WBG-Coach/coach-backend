@@ -1,6 +1,14 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { CoachSchool } from "../../coach/entity/coach-school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
+import { Region } from "./region.entity";
 
 @Entity()
 export class School {
@@ -12,10 +20,22 @@ export class School {
   id?: string;
 
   @Column({ nullable: true })
+  region_id?: string;
+
+  @ManyToOne(() => Region, (region) => region.id)
+  @JoinColumn({ name: "region_id" })
+  region?: Region;
+
+  @Column({ nullable: true })
   name?: string;
 
   @Column({ nullable: true })
-  region?: "EASTERN" | "NORTHERN" | "NORTH WESTERN" | "WESTERN" | "SOUTHERN";
+  region_old?:
+    | "EASTERN"
+    | "NORTHERN"
+    | "NORTH WESTERN"
+    | "WESTERN"
+    | "SOUTHERN";
 
   @Column({ nullable: true })
   district?: string;
