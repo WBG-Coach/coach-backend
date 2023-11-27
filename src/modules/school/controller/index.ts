@@ -22,21 +22,6 @@ export default class SchoolController {
     }
   };
 
-  public static createRegion = async (
-    req: Request,
-    res: Response
-  ): Promise<any> => {
-    try {
-      const newItem = await SchoolService.createRegion(req.body);
-      return res.status(HTTP_STATUS_CREATED).send(newItem);
-    } catch (error) {
-      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
-        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-        message: (error as any).message,
-      });
-    }
-  };
-
   public static delete = async (req: Request, res: Response): Promise<any> => {
     try {
       const deletedItem = await SchoolService.delete(req.params.id);
@@ -67,21 +52,6 @@ export default class SchoolController {
   ): Promise<any> => {
     try {
       const list = await SchoolService.findAll();
-      return res.status(HTTP_STATUS_OK).send(list);
-    } catch (error) {
-      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
-        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-        message: (error as any).message,
-      });
-    }
-  };
-
-  public static findAllRegions = async (
-    _req: Request,
-    res: Response
-  ): Promise<any> => {
-    try {
-      const list = await SchoolService.findAllRegions();
       return res.status(HTTP_STATUS_OK).send(list);
     } catch (error) {
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
@@ -129,15 +99,17 @@ export default class SchoolController {
     }
   };
 
-  public static findAllDistrictsByRegion = async (
+  public static findAllDistrictsByRegionId = async (
     req: Request,
     res: Response
   ) => {
     try {
-      const { region } = req.params;
+      const { regionId } = req.params;
       return res
         .status(HTTP_STATUS_OK)
-        .send(await SchoolService.findAllDistrictsFromSchool(region));
+        .send(
+          await SchoolService.findAllDistrictsFromSchoolByRegionId(regionId)
+        );
     } catch (error) {
       console.log(error);
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({

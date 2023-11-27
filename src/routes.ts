@@ -5,6 +5,7 @@ import swaggerOptions from "./swaggerOptions";
 import authRouter from "./modules/auth/routes";
 import userRouter from "./modules/user/router";
 import schoolRouter from "./modules/school/routes";
+import regionRouter from "./modules/region/routes";
 import teacherRouter from "./modules/teacher/routes";
 import sessionRouter from "./modules/session/routes";
 import questionRouter from "./modules/question/routes";
@@ -26,6 +27,8 @@ const Routes = {
     imageRouter(app);
     coachRouter(app);
     schoolRouter(app);
+    regionRouter(app);
+    schoolRouter(app);
     sessionRouter(app);
     teacherRouter(app);
     questionRouter(app);
@@ -45,11 +48,12 @@ const Routes = {
       swaggerUi.setup(swaggerOptions)
     );
 
-    app.all(
-      "*",
-      (_req: Request, res: Response): Response =>
-        res.status(404).send({ error: 404, message: "Check your URL please" })
-    );
+    app.all("*", (req: Request, res: Response): Response => {
+      console.log(req.path);
+      return res
+        .status(404)
+        .send({ error: 404, message: "Check your URL please" });
+    });
   },
 };
 

@@ -9,11 +9,6 @@ const schoolRouter = (app: Application): void => {
     Authentication.authenticate,
     SchoolController.create
   );
-  app.post(
-    `/${config.country}/api/school/region`,
-    Authentication.authenticate,
-    SchoolController.createRegion
-  );
   app.put(
     `/${config.country}/api/school`,
     Authentication.authenticate,
@@ -40,14 +35,14 @@ const schoolRouter = (app: Application): void => {
     SchoolController.findAll
   );
   app.get(
-    `/${config.country}/api/school/region`,
+    `/${config.country}/api/school/:regionId`,
     Authentication.authenticate,
-    SchoolController.findAllRegions
+    SchoolController.findAll
   );
   app.get(
-    `/${config.country}/api/school/:region/districts`,
+    `/${config.country}/api/school/:regionId/districts`,
     Authentication.authenticate,
-    SchoolController.findAllDistrictsByRegion
+    SchoolController.findAllDistrictsByRegionId
   );
 };
 

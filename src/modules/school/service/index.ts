@@ -14,12 +14,6 @@ export class SchoolService {
     return schoolRepository.save(data);
   };
 
-  static createRegion = async (data: Region): Promise<Region> => {
-    const regionRepository = await dataSource.getRepository(Region);
-
-    return regionRepository.save(data);
-  };
-
   static update = async (id: string, data: School): Promise<UpdateResult> => {
     const schoolRepository = await dataSource.getRepository(School);
 
@@ -32,12 +26,13 @@ export class SchoolService {
     return schoolRepository.delete(id);
   };
 
-  static findByRegion = async (id: Region["id"]): Promise<School[]> => {
+  static findByRegionId = async (id: Region["id"]): Promise<School[]> => {
     const schoolRepository = await dataSource.getRepository(School);
 
     return schoolRepository.find({
       where: { region: { id } },
       order: { name: "ASC" },
+      relations: { region: true },
     });
   };
 
@@ -62,12 +57,6 @@ export class SchoolService {
     });
   };
 
-  static findAllRegions = async (): Promise<Region[]> => {
-    const regionRepository = await dataSource.getRepository(Region);
-
-    return regionRepository.find();
-  };
-
   static encryptId = (id: string): string => {
     const cipher = crypto.createCipheriv(
       algorithm,
@@ -90,12 +79,12 @@ export class SchoolService {
     return decrypted;
   };
 
-  static findAllDistrictsFromSchool = async (region: string) => {
+  static findAllDistrictsFromSchoolByRegionId = async (regionId: string) => {
     const schoolRepository = await dataSource.getRepository(School);
     const results = await schoolRepository
       .createQueryBuilder("school")
       .select("DISTINCT(school.district)", "district")
-      .where(`region = '${region}'`)
+      .where(`region_id = '${regionId}'`)
       .getRawMany();
 
     return results.map((result) => result.district);
