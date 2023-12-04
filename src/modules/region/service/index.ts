@@ -1,7 +1,6 @@
-import { DeleteResult, UpdateResult } from "typeorm";
+import { DeleteResult, IsNull, UpdateResult } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { Region } from "../entity/region.entity";
-import { School } from "../../school/entity/school.entity";
 
 export class RegionService {
   static create = async (data: Region): Promise<Region> => {
@@ -12,26 +11,57 @@ export class RegionService {
 
   static update = async (
     id: string,
-    { name }: Region
-  ): Promise<UpdateResult> => {
+    { name, children }: Region
+  ): Promise<any | null> => {
     const regionRepository = await dataSource.getRepository(Region);
 
-    return regionRepository.update(id, { name });
+    return regionRepository.save({ id, name, children });
   };
 
   static delete = async (id: string): Promise<DeleteResult> => {
-    const schoolRepository = await dataSource.getRepository(Region);
+    const regionRepository = await dataSource.getRepository(Region);
 
-    return schoolRepository.delete(id);
+    return regionRepository.delete(id);
+  };
+
+  static findById = async (id: string): Promise<Region | null> => {
+    const regionRepository = await dataSource.getRepository(Region);
+
+    return regionRepository.findOne({
+      where: { id },
+      relations: { parent: true, children: { children: true } },
+      order: {
+        name: "ASC",
+        children: { name: "ASC", children: { name: "ASC" } },
+      },
+    });
+  };
+
+  static findByParentId = async (parent_id?: string): Promise<Region[]> => {
+    const regionRepository = await dataSource.getRepository(Region);
+
+    if (parent_id) {
+      return regionRepository.find({
+        where: { parent_id },
+        relations: { children: true },
+        order: { name: "ASC" },
+      });
+    } else {
+      return regionRepository.find({
+        where: { parent_id: IsNull() },
+        relations: { children: true },
+        order: { name: "ASC" },
+      });
+    }
   };
 
   static findAll = async (): Promise<Region[]> => {
     const regionRepository = await dataSource.getRepository(Region);
 
-    return regionRepository
-      .createQueryBuilder("region")
-      .leftJoinAndSelect(School, "school", "school.region_id = region.id")
-      .loadRelationCountAndMap("region.schoolsCount", "region.schools")
-      .getMany();
+    return regionRepository.find({
+      where: { parent_id: IsNull() },
+      relations: { children: true },
+      order: { name: "ASC" },
+    });
   };
 }

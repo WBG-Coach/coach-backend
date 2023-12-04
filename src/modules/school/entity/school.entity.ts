@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { CoachSchool } from "../../coach/entity/coach-school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
-import { Region } from "./region.entity";
+import { Region } from "../../region/entity/region.entity";
 
 @Entity()
 export class School {
@@ -28,17 +28,6 @@ export class School {
 
   @Column({ nullable: true })
   name?: string;
-
-  @Column({ nullable: true })
-  region_old?:
-    | "EASTERN"
-    | "NORTHERN"
-    | "NORTH WESTERN"
-    | "WESTERN"
-    | "SOUTHERN";
-
-  @Column({ nullable: true })
-  district?: string;
 
   @Column({ nullable: true })
   emis_number?: string;

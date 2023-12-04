@@ -3,7 +3,7 @@ import dataSource from "../../../database/config/ormconfig";
 import { School } from "../entity/school.entity";
 import crypto from "crypto";
 import config from "../../../config";
-import { Region } from "../entity/region.entity";
+import { Region } from "../../region/entity/region.entity";
 
 const algorithm = "aes-256-ecb";
 
@@ -14,10 +14,13 @@ export class SchoolService {
     return schoolRepository.save(data);
   };
 
-  static update = async (id: string, data: School): Promise<UpdateResult> => {
+  static update = async (
+    id: string,
+    { name, emis_number, region_id }: School
+  ): Promise<School> => {
     const schoolRepository = await dataSource.getRepository(School);
 
-    return schoolRepository.update(id, data);
+    return schoolRepository.save({ id, region_id, emis_number, name });
   };
 
   static delete = async (id: string): Promise<DeleteResult> => {

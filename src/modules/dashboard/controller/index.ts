@@ -3,8 +3,7 @@ import { DashboardService } from "../service";
 
 import { constants } from "http2";
 import { SchoolService } from "../../school/service";
-import { School } from "../../school/entity/school.entity";
-import { Region } from "../../school/entity/region.entity";
+import { Region } from "../../region/entity/region.entity";
 
 const { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = constants;
 

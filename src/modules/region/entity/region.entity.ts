@@ -1,6 +1,8 @@
 import {
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -19,7 +21,27 @@ export class Region {
   @Column({ nullable: true })
   name?: string;
 
-  schoolsCount?: number;
+  @Column({ nullable: true })
+  level?: number;
+
+  @Column({ nullable: true })
+  parent_id?: string;
+
+  @ManyToOne(() => Region, (region) => region.children, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+    orphanedRowAction: "delete",
+  })
+  @JoinColumn({ name: "parent_id" })
+  parent?: Region;
+
+  @OneToMany(() => Region, (region) => region.parent, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+    orphanedRowAction: "delete",
+  })
+  children?: Region[];
 
   @OneToMany(() => School, (school) => school.region)
   schools?: School[];
@@ -30,4 +52,6 @@ export class Region {
 
   @Column({ nullable: true })
   deleted_at?: Date;
+
+  schoolsCount?: number;
 }

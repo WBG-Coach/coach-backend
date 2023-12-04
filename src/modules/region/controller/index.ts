@@ -46,13 +46,45 @@ export default class SchoolController {
     }
   };
 
-  public static findAll = async (
+  public static findAllParents = async (
     _req: Request,
     res: Response
   ): Promise<any> => {
     try {
       const list = await RegionService.findAll();
       return res.status(HTTP_STATUS_OK).send(list);
+    } catch (error) {
+      console.log({ error });
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
+  public static findAllByParent = async (
+    req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const list = await RegionService.findByParentId(req.params.id);
+      return res.status(HTTP_STATUS_OK).send(list);
+    } catch (error) {
+      console.log({ error });
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
+  public static findById = async (
+    req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const item = await RegionService.findById(req.params.id);
+      return res.status(HTTP_STATUS_OK).send(item);
     } catch (error) {
       console.log({ error });
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({

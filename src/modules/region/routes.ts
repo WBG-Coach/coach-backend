@@ -22,7 +22,22 @@ const schoolRouter = (app: Application): void => {
   app.get(
     `/${config.country}/api/region`,
     Authentication.authenticate,
-    RegionController.findAll
+    RegionController.findAllParents
+  );
+  app.get(
+    `/${config.country}/api/region/parent/:id`,
+    Authentication.authenticate,
+    RegionController.findAllByParent
+  );
+  app.get(
+    `/${config.country}/api/region/parent`,
+    Authentication.authenticate,
+    RegionController.findAllByParent
+  );
+  app.get(
+    `/${config.country}/api/region/:id`,
+    Authentication.authenticate,
+    RegionController.findById
   );
 };
 
