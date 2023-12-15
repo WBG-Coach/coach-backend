@@ -98,24 +98,4 @@ export default class SchoolController {
       });
     }
   };
-
-  public static findAllDistrictsByRegionId = async (
-    req: Request,
-    res: Response
-  ) => {
-    try {
-      const { regionId } = req.params;
-      return res
-        .status(HTTP_STATUS_OK)
-        .send(
-          await SchoolService.findAllDistrictsFromSchoolByRegionId(regionId)
-        );
-    } catch (error) {
-      console.log(error);
-      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
-        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-        message: (error as any).message,
-      });
-    }
-  };
 }

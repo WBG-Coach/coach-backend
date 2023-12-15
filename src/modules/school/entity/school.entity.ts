@@ -29,7 +29,7 @@ export class School {
   @Column({ nullable: true })
   name?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, unique: true })
   emis_number?: string;
 
   @Column({ nullable: true })

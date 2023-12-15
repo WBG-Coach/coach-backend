@@ -1,18 +1,20 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  Tree,
+  TreeChildren,
+  TreeParent,
   UpdateDateColumn,
 } from "typeorm";
 import { School } from "../../school/entity/school.entity";
 
 @Entity()
+@Tree("materialized-path")
 export class Region {
-  constructor(school?: Partial<Region>) {
-    Object.assign(this, school);
+  constructor(region?: Partial<Region>) {
+    Object.assign(this, region);
   }
 
   @PrimaryGeneratedColumn("uuid")
@@ -24,23 +26,10 @@ export class Region {
   @Column({ nullable: true })
   level?: number;
 
-  @Column({ nullable: true })
-  parent_id?: string;
-
-  @ManyToOne(() => Region, (region) => region.children, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-    orphanedRowAction: "delete",
-  })
-  @JoinColumn({ name: "parent_id" })
+  @TreeParent({ onDelete: "CASCADE" })
   parent?: Region;
 
-  @OneToMany(() => Region, (region) => region.parent, {
-    cascade: true,
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-    orphanedRowAction: "delete",
-  })
+  @TreeChildren({ cascade: true })
   children?: Region[];
 
   @OneToMany(() => School, (school) => school.region)

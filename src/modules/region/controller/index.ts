@@ -5,14 +5,13 @@ import { RegionService } from "../service";
 const {
   HTTP_STATUS_OK,
   HTTP_STATUS_CREATED,
-  HTTP_STATUS_NOT_FOUND,
   HTTP_STATUS_INTERNAL_SERVER_ERROR,
 } = constants;
 
 export default class SchoolController {
-  public static create = async (req: Request, res: Response): Promise<any> => {
+  public static save = async (req: Request, res: Response): Promise<any> => {
     try {
-      const newItem = await RegionService.create(req.body);
+      const newItem = await RegionService.createAndUpdate(req.body);
       return res.status(HTTP_STATUS_CREATED).send(newItem);
     } catch (error) {
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
@@ -34,19 +33,7 @@ export default class SchoolController {
     }
   };
 
-  public static update = async (req: Request, res: Response): Promise<any> => {
-    try {
-      const updatedItem = await RegionService.update(req.params.id, req.body);
-      return res.status(HTTP_STATUS_CREATED).send(updatedItem);
-    } catch (error) {
-      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
-        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-        message: (error as any).message,
-      });
-    }
-  };
-
-  public static findAllParents = async (
+  public static findAll = async (
     _req: Request,
     res: Response
   ): Promise<any> => {
@@ -61,13 +48,12 @@ export default class SchoolController {
       });
     }
   };
-
-  public static findAllByParent = async (
-    req: Request,
+  public static findAllTree = async (
+    _req: Request,
     res: Response
   ): Promise<any> => {
     try {
-      const list = await RegionService.findByParentId(req.params.id);
+      const list = await RegionService.findAllTrees();
       return res.status(HTTP_STATUS_OK).send(list);
     } catch (error) {
       console.log({ error });

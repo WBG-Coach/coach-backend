@@ -1,67 +1,72 @@
-import { DeleteResult, IsNull, UpdateResult } from "typeorm";
+import { DeleteResult, IsNull, MoreThan } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { Region } from "../entity/region.entity";
 
 export class RegionService {
-  static create = async (data: Region): Promise<Region> => {
-    const regionRepository = await dataSource.getRepository(Region);
+  static createAndUpdate = async ({
+    id,
+    name,
+    children,
+  }: Region): Promise<Region | null> => {
+    const regionRepository = await dataSource.getTreeRepository(Region);
 
-    return regionRepository.save(data);
-  };
+    const region = await regionRepository.save({
+      id,
+      name,
+      children,
+    });
 
-  static update = async (
-    id: string,
-    { name, children }: Region
-  ): Promise<any | null> => {
-    const regionRepository = await dataSource.getRepository(Region);
+    await regionRepository.delete({
+      parent: { id: IsNull() },
+      level: MoreThan(0),
+    });
 
-    return regionRepository.save({ id, name, children });
+    return region;
   };
 
   static delete = async (id: string): Promise<DeleteResult> => {
-    const regionRepository = await dataSource.getRepository(Region);
+    const regionRepository = await dataSource.getTreeRepository(Region);
 
     return regionRepository.delete(id);
   };
 
   static findById = async (id: string): Promise<Region | null> => {
-    const regionRepository = await dataSource.getRepository(Region);
-
-    return regionRepository.findOne({
-      where: { id },
-      relations: { parent: true, children: { children: true } },
-      order: {
-        name: "ASC",
-        children: { name: "ASC", children: { name: "ASC" } },
-      },
-    });
+    const regionRepository = await dataSource.getTreeRepository(Region);
+    const region = await regionRepository.findOneBy({ id });
+    return {
+      ...region,
+      ...(await regionRepository.findDescendantsTree({ id })),
+    };
   };
 
-  static findByParentId = async (parent_id?: string): Promise<Region[]> => {
-    const regionRepository = await dataSource.getRepository(Region);
+  static findAllTrees = async (): Promise<Region[]> => {
+    const regionRepository = await dataSource.getTreeRepository(Region);
 
-    if (parent_id) {
-      return regionRepository.find({
-        where: { parent_id },
-        relations: { children: true },
-        order: { name: "ASC" },
-      });
-    } else {
-      return regionRepository.find({
-        where: { parent_id: IsNull() },
-        relations: { children: true },
-        order: { name: "ASC" },
-      });
-    }
+    return regionRepository.findTrees();
+  };
+
+  static countSchools = async (root: Region): Promise<number> => {
+    const regionRepository = await dataSource.getTreeRepository(Region);
+    const children = await regionRepository.findDescendants(root, {
+      relations: ["schools"],
+    });
+
+    return children.reduce(
+      (sum: number, region: Region): number =>
+        sum + (region.schools?.length || 0),
+      0
+    );
   };
 
   static findAll = async (): Promise<Region[]> => {
-    const regionRepository = await dataSource.getRepository(Region);
+    const regionRepository = await dataSource.getTreeRepository(Region);
 
-    return regionRepository.find({
-      where: { parent_id: IsNull() },
-      relations: { children: true },
-      order: { name: "ASC" },
-    });
+    const roots = await regionRepository.findRoots();
+
+    return Promise.all(
+      roots.map(async (region): Promise<Region> => {
+        return { ...region, schoolsCount: await this.countSchools(region) };
+      })
+    );
   };
 }

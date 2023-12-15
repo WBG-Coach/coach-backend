@@ -7,12 +7,7 @@ const schoolRouter = (app: Application): void => {
   app.post(
     `/${config.country}/api/region`,
     Authentication.authenticate,
-    RegionController.create
-  );
-  app.patch(
-    `/${config.country}/api/region/:id`,
-    Authentication.authenticate,
-    RegionController.update
+    RegionController.save
   );
   app.delete(
     `/${config.country}/api/region/:id`,
@@ -22,17 +17,12 @@ const schoolRouter = (app: Application): void => {
   app.get(
     `/${config.country}/api/region`,
     Authentication.authenticate,
-    RegionController.findAllParents
+    RegionController.findAll
   );
   app.get(
-    `/${config.country}/api/region/parent/:id`,
+    `/${config.country}/api/region/tree`,
     Authentication.authenticate,
-    RegionController.findAllByParent
-  );
-  app.get(
-    `/${config.country}/api/region/parent`,
-    Authentication.authenticate,
-    RegionController.findAllByParent
+    RegionController.findAllTree
   );
   app.get(
     `/${config.country}/api/region/:id`,

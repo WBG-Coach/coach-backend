@@ -39,11 +39,6 @@ const schoolRouter = (app: Application): void => {
     Authentication.authenticate,
     SchoolController.findAll
   );
-  app.get(
-    `/${config.country}/api/school/:regionId/districts`,
-    Authentication.authenticate,
-    SchoolController.findAllDistrictsByRegionId
-  );
 };
 
 export default schoolRouter;

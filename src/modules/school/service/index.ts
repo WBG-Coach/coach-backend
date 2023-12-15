@@ -1,4 +1,4 @@
-import { DeleteResult, UpdateResult } from "typeorm";
+import { DeleteResult } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { School } from "../entity/school.entity";
 import crypto from "crypto";
@@ -35,7 +35,11 @@ export class SchoolService {
     return schoolRepository.find({
       where: { region: { id } },
       order: { name: "ASC" },
-      relations: { region: true },
+      relations: {
+        region: {
+          parent: { parent: { parent: { parent: { parent: true } } } },
+        },
+      },
     });
   };
 
@@ -44,7 +48,11 @@ export class SchoolService {
 
     return schoolRepository.findOne({
       where: { id },
-      relations: { region: true },
+      relations: {
+        region: {
+          parent: { parent: { parent: { parent: { parent: true } } } },
+        },
+      },
     });
   };
 
@@ -53,9 +61,9 @@ export class SchoolService {
 
     return schoolRepository.find({
       relations: {
-        teachers: true,
-        coachSchools: true,
-        region: true,
+        region: {
+          parent: { parent: { parent: { parent: { parent: true } } } },
+        },
       },
     });
   };
@@ -80,16 +88,5 @@ export class SchoolService {
     let decrypted = decipher.update(key, "hex", "utf8");
     decrypted += decipher.final("utf8");
     return decrypted;
-  };
-
-  static findAllDistrictsFromSchoolByRegionId = async (regionId: string) => {
-    const schoolRepository = await dataSource.getRepository(School);
-    const results = await schoolRepository
-      .createQueryBuilder("school")
-      .select("DISTINCT(school.district)", "district")
-      .where(`region_id = '${regionId}'`)
-      .getRawMany();
-
-    return results.map((result) => result.district);
   };
 }
