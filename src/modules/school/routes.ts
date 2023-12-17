@@ -39,6 +39,11 @@ const schoolRouter = (app: Application): void => {
     Authentication.authenticate,
     SchoolController.findAll
   );
+  app.post(
+    `/${config.country}/api/school/batch`,
+    Authentication.authenticate,
+    SchoolController.createBatch
+  );
 };
 
 export default schoolRouter;

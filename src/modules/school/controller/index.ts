@@ -22,6 +22,21 @@ export default class SchoolController {
     }
   };
 
+  public static createBatch = async (
+    req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const response = await SchoolService.createInBatch(req.body.batch);
+      return res.status(HTTP_STATUS_CREATED).send(response);
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
   public static delete = async (req: Request, res: Response): Promise<any> => {
     try {
       const deletedItem = await SchoolService.delete(req.params.id);

@@ -24,6 +24,49 @@ export class RegionService {
     return region;
   };
 
+  static findOrCreateLeafRegionByNamePath = async (
+    path: string[],
+    father?: Region
+  ): Promise<Region | undefined> => {
+    const regionRepository = await dataSource.getTreeRepository(Region);
+    const [currentRegion, ...children] = path;
+
+    if (!currentRegion) return father;
+
+    if (!father) {
+      const root = await regionRepository.findOne({
+        where: { name: currentRegion, parent: IsNull() },
+      });
+
+      if (root) {
+        return this.findOrCreateLeafRegionByNamePath(children, root);
+      } else {
+        const newRegion = await regionRepository.save({ name: currentRegion });
+        if (children.length > 0)
+          return this.findOrCreateLeafRegionByNamePath(children, newRegion);
+
+        return newRegion;
+      }
+    } else {
+      const branch = await regionRepository.findOne({
+        where: { name: currentRegion, parent: { id: father.id } },
+      });
+
+      if (branch) {
+        return this.findOrCreateLeafRegionByNamePath(children, branch);
+      } else {
+        const newRegion = await regionRepository.save({
+          name: currentRegion,
+          parent: { id: father.id },
+        });
+        if (children.length > 0)
+          return this.findOrCreateLeafRegionByNamePath(children, newRegion);
+
+        return newRegion;
+      }
+    }
+  };
+
   static delete = async (id: string): Promise<DeleteResult> => {
     const regionRepository = await dataSource.getTreeRepository(Region);
 

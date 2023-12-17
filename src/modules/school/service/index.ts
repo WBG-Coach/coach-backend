@@ -4,14 +4,60 @@ import { School } from "../entity/school.entity";
 import crypto from "crypto";
 import config from "../../../config";
 import { Region } from "../../region/entity/region.entity";
+import { RegionService } from "../../region/service";
 
 const algorithm = "aes-256-ecb";
+
+type SchoolBatchResponse = {
+  successCount: number;
+  failItems: string[][];
+};
 
 export class SchoolService {
   static create = async (data: School): Promise<School> => {
     const schoolRepository = await dataSource.getRepository(School);
 
     return schoolRepository.save(data);
+  };
+
+  static createInBatch = async (batch: string[][]): Promise<any> => {
+    const schoolRepository = await dataSource.getRepository(School);
+
+    const response = await batch.reduce(
+      async (
+        acc: Promise<SchoolBatchResponse>,
+        row: Array<string>
+      ): Promise<SchoolBatchResponse> => {
+        const oldState = await acc;
+        const [emis_number, name, ...regionPath] = row;
+
+        const region = await RegionService.findOrCreateLeafRegionByNamePath(
+          regionPath
+        );
+
+        if (!region?.id) {
+          return { ...oldState, failItems: [...oldState.failItems, row] };
+        }
+
+        try {
+          await schoolRepository.save({
+            emis_number,
+            name,
+            region_id: region.id,
+          });
+        } catch {
+          return { ...oldState, failItems: [...oldState.failItems, row] };
+        }
+
+        return { ...oldState, successCount: oldState.successCount + 1 };
+      },
+      Promise.resolve({
+        successCount: 0,
+        failItems: [],
+      })
+    );
+
+    return response;
   };
 
   static update = async (
