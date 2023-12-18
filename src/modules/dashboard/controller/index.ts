@@ -4,6 +4,7 @@ import { DashboardService } from "../service";
 import { constants } from "http2";
 import { SchoolService } from "../../school/service";
 import { Region } from "../../region/entity/region.entity";
+import { RegionService } from "../../region/service";
 
 const { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = constants;
 
@@ -18,21 +19,13 @@ export default class DashboardController {
     res: Response
   ): Promise<any> => {
     try {
-      const { regionId, district, schoolId } = req.query;
-
-      if (schoolId) {
-        const data = await DashboardService.getDataBySchoolId(schoolId);
-        return res.status(HTTP_STATUS_OK).send(data);
-      }
-
-      if (district) {
-        const data = await DashboardService.getDataByDistrict(district);
-        const schools = await SchoolService.findByRegionId(regionId);
-        return res.status(HTTP_STATUS_OK).send({ ...data, schools });
-      }
+      const { regionId } = req.query;
 
       if (regionId) {
-        const data = await DashboardService.getDataRegionRegion(regionId);
+        const regions = await RegionService.getChildren(regionId);
+        const data = await DashboardService.getDataRegionRegion(
+          regions.map((item) => `'${item.id}'`).join()
+        );
         return res.status(HTTP_STATUS_OK).send(data);
       }
 

@@ -116,10 +116,12 @@ export class RegionService {
   static getParents = async (region_id: string): Promise<Region[]> => {
     const regionRepository = await dataSource.getTreeRepository(Region);
 
-    const a = await regionRepository.findAncestors({ id: region_id });
+    return regionRepository.findAncestors({ id: region_id });
+  };
 
-    console.log(a);
+  static getChildren = async (region_id: string): Promise<Region[]> => {
+    const regionRepository = await dataSource.getTreeRepository(Region);
 
-    return [];
+    return regionRepository.findDescendants({ id: region_id });
   };
 }
