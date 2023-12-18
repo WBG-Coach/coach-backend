@@ -38,6 +38,7 @@ export default class Authentication {
 
   public static authenticateUser = async (req: Request): Promise<User> => {
     const { email, password }: { email: string; password: string } = req.body;
+
     if (!email) {
       return Promise.reject(new UnauthorizedException("Email not found."));
     }
@@ -47,6 +48,11 @@ export default class Authentication {
 
       const user = await userRepository.findOne({
         where: { email },
+        relations: {
+          region: {
+            parent: { parent: { parent: { parent: { parent: true } } } },
+          },
+        },
       });
 
       if (!user)
@@ -63,7 +69,6 @@ export default class Authentication {
           );
         });
     } catch (error) {
-      console.log({ error });
       return Promise.reject(new InternalServerError("Internal server error."));
     }
   };

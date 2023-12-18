@@ -12,13 +12,21 @@ export class UserService {
   static findAllUsers = async (): Promise<User[]> => {
     const userRepository = await dataSource.getRepository(User);
 
-    return userRepository.find();
+    return userRepository.find({
+      relations: {
+        region: { parent: { parent: { parent: { parent: true } } } },
+      },
+    });
   };
 
   static findAllAdmins = async (): Promise<User[]> => {
     const userRepository = dataSource.getRepository(User);
 
-    return await userRepository.find();
+    return await userRepository.find({
+      relations: {
+        region: { parent: { parent: { parent: { parent: true } } } },
+      },
+    });
   };
 
   static findUserByEmail = async (email: string): Promise<User | null> => {
@@ -45,7 +53,13 @@ export class UserService {
       throw new Error("Current password wrong.");
     }
 
-    await userRepository.update(user_id as string, newUser);
+    const { name, email, role, region_id } = newUser;
+    await userRepository.update(user_id as string, {
+      name,
+      email,
+      role,
+      region_id,
+    });
   };
 
   static signUpAdmin = async (newUser: Partial<User>): Promise<User> => {

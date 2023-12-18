@@ -112,4 +112,14 @@ export class RegionService {
       })
     );
   };
+
+  static getParents = async (region_id: string): Promise<Region[]> => {
+    const regionRepository = await dataSource.getTreeRepository(Region);
+
+    const a = await regionRepository.findAncestors({ id: region_id });
+
+    console.log(a);
+
+    return [];
+  };
 }

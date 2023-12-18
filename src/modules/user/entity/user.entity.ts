@@ -3,10 +3,13 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import config from "../../../config";
 import Encryption from "../../encryption/controller";
+import { Region } from "../../region/entity/region.entity";
 
 @Entity()
 export class User {
@@ -30,10 +33,11 @@ export class User {
   password?: string;
 
   @Column({ nullable: true })
-  region?: string;
+  region_id?: string;
 
-  @Column({ nullable: true })
-  district?: string;
+  @ManyToOne(() => Region, (region) => region.id)
+  @JoinColumn({ name: "region_id" })
+  region?: Region;
 
   @Column({ nullable: true })
   created_at?: Date;

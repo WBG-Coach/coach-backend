@@ -5,16 +5,18 @@ import Authentication from "../service";
 import axios from "axios";
 import config from "../../../config";
 import { LogsService } from "../../logs/service";
+import { RegionService } from "../../region/service";
 
 export default class AuthenticationController {
   public static login = async (req: Request, res: Response): Promise<any> => {
     try {
       const user = await Authentication.authenticateUser(req);
+      if (user.region_id) await RegionService.getParents(user.region_id);
       await LogsService.create(user, "login");
       res.locals.authUser = user;
       Authentication.signUser(user, res);
 
-      const { id, name, email, role, region, district } = user;
+      const { id, name, email, role, region } = user;
 
       const result = {
         id,
@@ -22,7 +24,6 @@ export default class AuthenticationController {
         email,
         role,
         region,
-        district,
       };
 
       return res.status(HTTP_STATUS_OK).send(result);
