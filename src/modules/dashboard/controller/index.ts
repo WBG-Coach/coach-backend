@@ -14,22 +14,24 @@ export default class DashboardController {
       unknown,
       unknown,
       unknown,
-      { regionId?: Region["id"]; district?: string; schoolId?: string }
+      { regionId?: Region["id"]; startDate?: string; endDate?: string }
     >,
     res: Response
   ): Promise<any> => {
     try {
-      const { regionId } = req.query;
+      const { regionId, startDate, endDate } = req.query;
 
       if (regionId) {
         const regions = await RegionService.getChildren(regionId);
         const data = await DashboardService.getDataRegionRegion(
-          regions.map((item) => `'${item.id}'`).join()
+          regions.map((item) => `'${item.id}'`).join(),
+          startDate,
+          endDate
         );
         return res.status(HTTP_STATUS_OK).send(data);
       }
 
-      const data = await DashboardService.getData();
+      const data = await DashboardService.getData(startDate, endDate);
       return res.status(HTTP_STATUS_OK).send(data);
     } catch (error) {
       console.log({ error });
