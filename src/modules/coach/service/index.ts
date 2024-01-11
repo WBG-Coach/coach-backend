@@ -27,6 +27,12 @@ export class CoachService {
     return userRepository.findOne({ where: { id } });
   };
 
+  static findByEmail = async (email: string): Promise<Coach | null> => {
+    const userRepository = await dataSource.getRepository(Coach);
+
+    return userRepository.findOne({ where: { email } });
+  };
+
   static findAll = async (): Promise<Coach[]> => {
     const userRepository = await dataSource.getRepository(Coach);
 

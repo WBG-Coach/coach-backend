@@ -17,6 +17,12 @@ export class Coach {
   surname?: string;
 
   @Column({ nullable: true })
+  email?: string;
+
+  @Column({ nullable: true })
+  phone?: string;
+
+  @Column({ nullable: true })
   pin?: string;
 
   @Column({ nullable: true })

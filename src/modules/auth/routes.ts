@@ -15,6 +15,12 @@ const AuthRouter = (app: Application): void => {
     Authentication.authenticate,
     AuthenticationController.supertsetLogin
   );
+  app.post(`/${config.country}/api/auth/otp`, AuthenticationController.otp);
+
+  app.post(
+    `/${config.country}/api/auth/otp/verify`,
+    AuthenticationController.verifyOtp
+  );
 };
 
 export default AuthRouter;

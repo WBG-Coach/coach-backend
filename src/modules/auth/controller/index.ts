@@ -6,6 +6,7 @@ import axios from "axios";
 import config from "../../../config";
 import { LogsService } from "../../logs/service";
 import { RegionService } from "../../region/service";
+import { CoachService } from "../../coach/service";
 
 export default class AuthenticationController {
   public static login = async (req: Request, res: Response): Promise<any> => {
@@ -33,7 +34,7 @@ export default class AuthenticationController {
   };
 
   public static supertsetLogin = async (
-    req: Request,
+    _req: Request,
     res: Response
   ): Promise<any> => {
     try {
@@ -73,5 +74,45 @@ export default class AuthenticationController {
     } catch (error) {
       Authentication.unauthorize(res, error);
     }
+  };
+
+  public static otp = async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    if (email) {
+      const coach = await CoachService.findByEmail(email);
+
+      if (!coach) {
+        return res.status(404).send({ coach });
+      }
+
+      await Authentication.sendEmailOTP(coach);
+
+      return res.status(200).send(email);
+    }
+
+    return res.status(404).send({ email });
+  };
+
+  public static verifyOtp = async (req: Request, res: Response) => {
+    const { email, code } = req.body;
+
+    if (email && code) {
+      const coach = await CoachService.findByEmail(email);
+
+      if (!coach) {
+        return res.status(404).send({ coach });
+      }
+
+      const otp = await Authentication.verifyOTP(coach, code);
+
+      if (otp) {
+        return res.status(200).send({ coach });
+      }
+
+      return res.status(404).send({ otp });
+    }
+
+    return res.status(404).send({ email, code });
   };
 }
