@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { constants } from "http2";
 import { CoachService } from "../service";
+import Authentication from "../../auth/service";
 
 const {
   HTTP_STATUS_OK,
@@ -10,6 +11,20 @@ const {
 } = constants;
 
 export default class CoachController {
+  public static signUp = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const newCoach = await CoachService.create(req.body);
+      await Authentication.sendEmailOTP(newCoach);
+
+      return res.status(HTTP_STATUS_CREATED).send(newCoach);
+    } catch (error) {
+      res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
+        error: HTTP_STATUS_INTERNAL_SERVER_ERROR,
+        message: (error as any).message,
+      });
+    }
+  };
+
   public static create = async (req: Request, res: Response): Promise<any> => {
     try {
       const newItem = await CoachService.create(req.body);

@@ -4,6 +4,7 @@ import CoachController from "./controller";
 import config from "../../config";
 
 const coachRouter = (app: Application): void => {
+  app.post(`/${config.country}/api/coach/signup`, CoachController.signUp);
   app.post(
     `/${config.country}/api/coach`,
     Authentication.authenticate,

@@ -5,6 +5,13 @@ import { Coach } from "../entity/coach.entity";
 export class CoachService {
   static create = async (data: Coach): Promise<Coach> => {
     const userRepository = await dataSource.getRepository(Coach);
+    if (!data.email) {
+      throw Error("Email is required");
+    }
+
+    if (await userRepository.exist({ where: { email: data.email } })) {
+      throw Error("Exists a coach with this email");
+    }
 
     return userRepository.save(data);
   };
