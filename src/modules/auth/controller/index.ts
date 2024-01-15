@@ -62,7 +62,7 @@ export default class AuthenticationController {
         return res.status(404).send({ user });
       }
 
-      await Authentication.sendEmailOTP(user.email);
+      await Authentication.sendEmailOTP(user.email, 8);
 
       return res.status(200).send(email);
     }

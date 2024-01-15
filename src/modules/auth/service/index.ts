@@ -94,10 +94,19 @@ export default class Authentication {
     }
   };
 
-  public static sendEmailOTP = async (email: string) => {
+  public static generateOTPCode = (size: number) => {
+    let code = "";
+    for (let i = 0; i < size; i++) {
+      code += Math.floor(Math.random() * 10).toString();
+    }
+    return code;
+  };
+
+  public static sendEmailOTP = async (email: string, size = 6) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
-    const code = Math.floor(1000 + Math.random() * 9000).toString();
+    const code = this.generateOTPCode(size);
+
     const msg = {
       to: email,
       from: "noreply@quanti.ca",
