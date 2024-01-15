@@ -112,6 +112,7 @@ export default class Authentication {
       from: "noreply@quanti.ca",
       subject: "Coach Digital - OTP",
       html: OTP_EMAIL.replace("#{code}", code),
+      text: `Code: code`,
     };
 
     const otpRepository = await dataSource.getRepository(Otp);
