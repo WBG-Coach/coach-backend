@@ -19,10 +19,9 @@ export class Otp {
   @Column()
   code?: string;
 
+  @Column()
+  email?: string;
+
   @Column({ type: "bigint" })
   created_at?: number;
-
-  @ManyToOne(() => Coach, (coach) => coach.id)
-  @JoinColumn({ name: "coach_id" })
-  coach?: Coach;
 }

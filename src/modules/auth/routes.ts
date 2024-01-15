@@ -4,7 +4,11 @@ import AuthenticationController from "./controller";
 import config from "../../config";
 
 const AuthRouter = (app: Application): void => {
-  app.post(`/${config.country}/api/auth`, AuthenticationController.login);
+  app.post(`/${config.country}/api/auth`, AuthenticationController.otpAdmin);
+  app.post(
+    `/${config.country}/api/auth/verify`,
+    AuthenticationController.verifyOtpAdmin
+  );
   app.get(
     `/${config.country}/api/auth`,
     Authentication.authenticate,

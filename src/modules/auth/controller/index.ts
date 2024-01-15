@@ -7,32 +7,9 @@ import config from "../../../config";
 import { LogsService } from "../../logs/service";
 import { RegionService } from "../../region/service";
 import { CoachService } from "../../coach/service";
+import { UserService } from "../../user/service";
 
 export default class AuthenticationController {
-  public static login = async (req: Request, res: Response): Promise<any> => {
-    try {
-      const user = await Authentication.authenticateUser(req);
-      if (user.region_id) await RegionService.getParents(user.region_id);
-      await LogsService.create(user, "login");
-      res.locals.authUser = user;
-      Authentication.signUser(user, res);
-
-      const { id, name, email, role, region } = user;
-
-      const result = {
-        id,
-        name,
-        email,
-        role,
-        region,
-      };
-
-      return res.status(HTTP_STATUS_OK).send(result);
-    } catch (error) {
-      Authentication.unauthorize(res, error);
-    }
-  };
-
   public static supertsetLogin = async (
     _req: Request,
     res: Response
@@ -76,17 +53,65 @@ export default class AuthenticationController {
     }
   };
 
+  public static otpAdmin = async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    if (email) {
+      const user = await UserService.findUserByEmail(email);
+
+      if (!user?.email) {
+        return res.status(404).send({ user });
+      }
+
+      await Authentication.sendEmailOTP(user.email);
+
+      return res.status(200).send(email);
+    }
+
+    return res.status(404).send({ email });
+  };
+
+  public static verifyOtpAdmin = async (req: Request, res: Response) => {
+    const { email, code } = req.body;
+
+    if (email && code) {
+      const user = await UserService.findUserByEmail(email);
+
+      if (!user?.email) {
+        return res.status(404).send({ user });
+      }
+
+      const otp = await Authentication.verifyOTP(user.email, code);
+
+      const { id, name, role, region } = user;
+
+      if (otp) {
+        return res.status(200).send({
+          id,
+          name,
+          role,
+          email,
+          region,
+        });
+      }
+
+      return res.status(404).send({ otp });
+    }
+
+    return res.status(404).send({ email, code });
+  };
+
   public static otp = async (req: Request, res: Response) => {
     const { email } = req.body;
 
     if (email) {
       const coach = await CoachService.findByEmail(email);
 
-      if (!coach) {
+      if (!coach?.email) {
         return res.status(404).send({ coach });
       }
 
-      await Authentication.sendEmailOTP(coach);
+      await Authentication.sendEmailOTP(coach.email);
 
       return res.status(200).send(email);
     }
@@ -100,11 +125,11 @@ export default class AuthenticationController {
     if (email && code) {
       const coach = await CoachService.findByEmail(email);
 
-      if (!coach) {
+      if (!coach?.email) {
         return res.status(404).send({ coach });
       }
 
-      const otp = await Authentication.verifyOTP(coach, code);
+      const otp = await Authentication.verifyOTP(coach.email, code);
 
       if (otp) {
         return res.status(200).send({ coach });

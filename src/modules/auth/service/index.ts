@@ -131,12 +131,12 @@ export default class Authentication {
     }
   };
 
-  public static sendEmailOTP = async (coach: Coach) => {
+  public static sendEmailOTP = async (email: string) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
     const code = Math.floor(1000 + Math.random() * 9000).toString();
     const msg = {
-      to: coach.email,
+      to: email,
       from: "noreply@quanti.ca",
       subject: "Coach Digital - OTP",
       html: OTP_EMAIL.replace("#{code}", code),
@@ -147,18 +147,18 @@ export default class Authentication {
     await sgMail.send(msg);
 
     return await otpRepository.save({
-      coach,
+      email,
       code,
       created_at: new Date().getTime(),
     });
   };
 
-  public static verifyOTP = async (coach: Coach, code: string) => {
+  public static verifyOTP = async (email: string, code: string) => {
     const otpRepository = await dataSource.getRepository(Otp);
     const tenMinutesAgo = new Date().getTime() - 10 * 60 * 1000;
 
     return await otpRepository.findOneBy({
-      coach,
+      email,
       code,
       created_at: MoreThan(tenMinutesAgo),
     });
