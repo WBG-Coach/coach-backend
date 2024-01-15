@@ -6,6 +6,7 @@ import axios from "axios";
 import config from "../../../config";
 import { CoachService } from "../../coach/service";
 import { UserService } from "../../user/service";
+import { LogsService } from "../../logs/service";
 
 export default class AuthenticationController {
   public static supertsetLogin = async (
@@ -84,6 +85,10 @@ export default class AuthenticationController {
       const { id, name, role, region } = user;
 
       if (otp) {
+        await LogsService.create(user, "login");
+        res.locals.authUser = user;
+        Authentication.signUser(user, res);
+
         return res.status(200).send({
           id,
           name,
