@@ -44,8 +44,6 @@ export class UserService {
       if (!!newUser.currentPassword) {
         const userDb = await userRepository.findOne({ where: { id: user_id } });
         if (!userDb) throw new Error("User not found");
-        await userDb.verifyIsSamePassword(newUser.currentPassword);
-        userDb.password = newUser.password;
         await userRepository.update(user_id as string, userDb);
         return;
       }

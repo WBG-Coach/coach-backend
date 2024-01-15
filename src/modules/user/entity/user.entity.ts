@@ -22,7 +22,7 @@ export class User {
   @Column({ nullable: true, default: "admin" })
   role?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false, unique: true })
   email?: string;
 
   @Column({ nullable: true })

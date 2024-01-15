@@ -41,43 +41,6 @@ export default class Authentication {
     });
   };
 
-  public static authenticateUser = async (req: Request): Promise<User> => {
-    const { email, password }: { email: string; password: string } = req.body;
-
-    if (!email) {
-      return Promise.reject(new UnauthorizedException("Email not found."));
-    }
-
-    try {
-      const userRepository = await dataSource.getRepository(User);
-
-      const user = await userRepository.findOne({
-        where: { email },
-        relations: {
-          region: {
-            parent: { parent: { parent: { parent: { parent: true } } } },
-          },
-        },
-      });
-
-      if (!user)
-        return Promise.reject(
-          new UnauthorizedException("Email or password is invalid.")
-        );
-
-      return user
-        .verifyIsSamePassword(password)
-        .then(() => user)
-        .catch(() => {
-          return Promise.reject(
-            new UnauthorizedException("Email ou Senha incorretos.")
-          );
-        });
-    } catch (error) {
-      return Promise.reject(new InternalServerError("Internal server error."));
-    }
-  };
-
   private static getAuthenticatedUser = async (
     email: string
   ): Promise<User> => {
@@ -88,7 +51,7 @@ export default class Authentication {
       throw new UnauthorizedException("Invalid token");
     }
 
-    const { password, ...userWithoutPassword } = user;
+    const { ...userWithoutPassword } = user;
 
     return new User(userWithoutPassword);
   };
