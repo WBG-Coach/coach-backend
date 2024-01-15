@@ -37,32 +37,28 @@ export class UserService {
 
   static updateAdmin = async (
     user_id: User["id"],
-    newUser: Partial<User & { currentPassword?: string }>
+    newUser: Partial<User>
   ): Promise<void> => {
     const userRepository = dataSource.getRepository(User);
-    try {
-      if (!!newUser.currentPassword) {
-        const userDb = await userRepository.findOne({ where: { id: user_id } });
-        if (!userDb) throw new Error("User not found");
-        await userRepository.update(user_id as string, userDb);
-        return;
-      }
-    } catch (err) {
-      throw new Error("Current password wrong.");
-    }
 
     const { name, email, role, region_id } = newUser;
+
     await userRepository.update(user_id as string, {
       name,
       email,
       role,
-      region_id,
+      region_id: role === "admin" ? null : region_id,
     });
   };
 
   static signUpAdmin = async (newUser: Partial<User>): Promise<User> => {
     const userRepository = dataSource.getRepository(User);
-    return await userRepository.save(userRepository.create(newUser));
+    return await userRepository.save(
+      userRepository.create({
+        ...newUser,
+        region_id: newUser.role === "admin" ? undefined : newUser.region_id,
+      })
+    );
   };
 
   static removeAdmin = async (id: User["id"]): Promise<void> => {
