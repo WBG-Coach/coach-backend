@@ -4,7 +4,6 @@
   "description": "Coach SL API",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "start:dev": "npx nodemon",
     "build": "tsc",
     "start": "npm run build && node build/index.js",
