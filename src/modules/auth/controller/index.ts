@@ -4,8 +4,6 @@ const { HTTP_STATUS_OK } = constants;
 import Authentication from "../service";
 import axios from "axios";
 import config from "../../../config";
-import { LogsService } from "../../logs/service";
-import { RegionService } from "../../region/service";
 import { CoachService } from "../../coach/service";
 import { UserService } from "../../user/service";
 
