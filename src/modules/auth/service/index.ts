@@ -3,15 +3,13 @@ import config from "../../../config";
 import { constants } from "http2";
 import jwt from "jsonwebtoken";
 import UnauthorizedException from "../../helpers/errors/unauthorized-exception";
-import InternalServerError from "../../helpers/errors/internal-server-error";
 import { User } from "../../user/entity/user.entity";
 import dataSource from "../../../database/config/ormconfig";
 import { LogsService } from "../../logs/service";
-import { Coach } from "../../coach/entity/coach.entity";
 import sgMail from "@sendgrid/mail";
 import { OTP_EMAIL } from "./template-email";
 import { Otp } from "../entity/otp.entity";
-import { LessThan, MoreThan } from "typeorm";
+import { MoreThan } from "typeorm";
 
 const { HTTP_STATUS_INTERNAL_SERVER_ERROR, HTTP_STATUS_UNAUTHORIZED } =
   constants;
