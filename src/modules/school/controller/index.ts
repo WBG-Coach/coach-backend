@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { constants } from "http2";
 import { SchoolService } from "../service";
+import { RegionService } from "../../region/service";
 
 const {
   HTTP_STATUS_OK,
@@ -66,7 +67,17 @@ export default class SchoolController {
     res: Response
   ): Promise<any> => {
     try {
-      const list = await SchoolService.findAll();
+      let list = [];
+      if (res.locals?.authUser?.region_id) {
+        const regions = await RegionService.getChildren(
+          res.locals?.authUser.region_id
+        );
+
+        list = await SchoolService.findAll(regions.map((item) => `${item.id}`));
+      } else {
+        list = await SchoolService.findAll();
+      }
+
       return res.status(HTTP_STATUS_OK).send(list);
     } catch (error) {
       res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send({

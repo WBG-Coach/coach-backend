@@ -1,4 +1,4 @@
-import { DeleteResult, UpdateResult } from "typeorm";
+import { DeleteResult, In, UpdateResult } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { Session } from "../entity/session.entity";
 
@@ -27,15 +27,26 @@ export class SessionService {
     return sessionRepository.findOne({ where: { id } });
   };
 
-  static findAll = async (): Promise<Session[]> => {
+  static findAll = async (regionIds?: string[]): Promise<Session[]> => {
     const sessionRepository = await dataSource.getRepository(Session);
 
-    return sessionRepository.find();
+    if (!regionIds) {
+      return sessionRepository.find();
+    }
+
+    console.log(regionIds);
+    return sessionRepository.find({
+      where: {
+        school: {
+          region_id: In(regionIds),
+        },
+      },
+    });
   };
 
   static getSessionData = async (
     period?: string,
-    region?: string,
+    regionIds?: string,
     schoolId?: string,
     showOnlyWithValues?: string
   ): Promise<any[]> => {
@@ -74,7 +85,7 @@ export class SessionService {
           1 = 1
           ${showOnlyWithValues === "true" ? "AND cs.coach_id IS NOT null" : ""}
           ${period ? `AND ses.created_at >= NOW() - INTERVAL '${period}'` : ""}
-          ${region ? `AND s.region = '${region}'` : ""}
+          ${regionIds ? `AND s.region_id in (${regionIds})` : ""}
           ${schoolId ? `AND s.id = '${schoolId}'` : ""}
         GROUP BY 
             s.id;
@@ -85,7 +96,7 @@ export class SessionService {
   };
 
   static getSessionOverTime = async (
-    region?: string,
+    regionIds?: string,
     schoolId?: string,
     showOnlyWithValues?: string
   ): Promise<any[]> => {
@@ -118,7 +129,7 @@ export class SessionService {
         WHERE
           1 = 1
           ${showOnlyWithValues === "true" ? "AND cs.coach_id IS NOT null" : ""}
-          ${region ? `AND s.region = '${region}'` : ""}
+          ${regionIds ? `AND s.region_id in (${regionIds})` : ""}
           ${schoolId ? `AND s.id = '${schoolId}'` : ""}
 
         GROUP BY 

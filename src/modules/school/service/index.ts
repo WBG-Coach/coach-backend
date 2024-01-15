@@ -1,4 +1,4 @@
-import { DeleteResult } from "typeorm";
+import { DeleteResult, In } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { School } from "../entity/school.entity";
 import crypto from "crypto";
@@ -102,14 +102,15 @@ export class SchoolService {
     });
   };
 
-  static findAll = async (): Promise<School[]> => {
+  static findAll = async (regionIds?: string[]): Promise<School[]> => {
     const schoolRepository = await dataSource.getRepository(School);
+    if (!regionIds) {
+      return schoolRepository.find();
+    }
 
     return schoolRepository.find({
-      relations: {
-        region: {
-          parent: { parent: { parent: { parent: { parent: true } } } },
-        },
+      where: {
+        region_id: In(regionIds),
       },
     });
   };
