@@ -100,7 +100,11 @@ export default class Authentication {
     return code;
   };
 
-  public static sendEmailOTP = async (email: string, size = 6) => {
+  public static sendEmailOTP = async (
+    email: string,
+    userName: string,
+    size: number
+  ) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
     const code = this.generateOTPCode(size);
@@ -108,9 +112,11 @@ export default class Authentication {
     const msg = {
       to: email,
       from: "noreply@quanti.ca",
-      subject: "Coach Digital - OTP",
-      html: OTP_EMAIL.replace("#{code}", code),
-      text: `Code: code`,
+      subject: `${process.env.APP_NAME} - one-time passcode`,
+      text: OTP_EMAIL.replace("#{code}", code)
+        .replace("#{userName}", userName)
+        .replace("#{appName}", process.env.APP_NAME || "Coach Digital")
+        .replace("#{email}", email),
     };
 
     const otpRepository = await dataSource.getRepository(Otp);

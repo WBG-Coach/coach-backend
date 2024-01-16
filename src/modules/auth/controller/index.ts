@@ -62,7 +62,7 @@ export default class AuthenticationController {
         return res.status(404).send({ user });
       }
 
-      await Authentication.sendEmailOTP(user.email, 8);
+      await Authentication.sendEmailOTP(user.email, user?.name || "", 8);
 
       return res.status(200).send(email);
     }
@@ -114,7 +114,7 @@ export default class AuthenticationController {
         return res.status(404).send({ coach });
       }
 
-      await Authentication.sendEmailOTP(coach.email);
+      await Authentication.sendEmailOTP(coach.email, coach?.name || "", 6);
 
       return res.status(200).send(email);
     }

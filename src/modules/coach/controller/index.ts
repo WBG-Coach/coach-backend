@@ -14,7 +14,12 @@ export default class CoachController {
   public static signUp = async (req: Request, res: Response): Promise<any> => {
     try {
       const newCoach = await CoachService.create(req.body);
-      if (newCoach?.email) await Authentication.sendEmailOTP(newCoach.email);
+      if (newCoach?.email)
+        await Authentication.sendEmailOTP(
+          newCoach.email,
+          newCoach?.name || "",
+          6
+        );
 
       return res.status(HTTP_STATUS_CREATED).send(newCoach);
     } catch (error) {
