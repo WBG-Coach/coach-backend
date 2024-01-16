@@ -32,7 +32,10 @@ export class UserService {
   static findUserByEmail = async (email: string): Promise<User | null> => {
     const userRepository = dataSource.getRepository(User);
 
-    return userRepository.findOne({ where: { email } });
+    return userRepository.findOne({
+      where: { email },
+      relations: { region: { parent: { parent: { parent: true } } } },
+    });
   };
 
   static updateAdmin = async (
