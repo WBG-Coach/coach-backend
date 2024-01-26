@@ -1,6 +1,8 @@
 import { In } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { User } from "../entity";
+import sgMail from "@sendgrid/mail";
+import { WELCOME_ADMIN_NP, WELCOME_ADMIN_SL } from "./template-email";
 
 export class UserService {
   static findUserByID = async (id: string): Promise<User | null> => {
@@ -56,6 +58,9 @@ export class UserService {
 
   static signUpAdmin = async (newUser: Partial<User>): Promise<User> => {
     const userRepository = dataSource.getRepository(User);
+
+    await this.sendAdminWelcome(newUser);
+
     return await userRepository.save(
       userRepository.create({
         ...newUser,
@@ -68,5 +73,35 @@ export class UserService {
     const userRepository = dataSource.getRepository(User);
     await userRepository.delete({ id });
     return;
+  };
+
+  private static sendAdminWelcome = async (user: User) => {
+    try {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
+
+      const msg = {
+        to: user.email,
+        from: "noreply@quanti.ca",
+        subject: `${process.env.APP_NAME} - ${
+          process.env.COUNTRY === "np" ? "एक-पटकको पासकोड" : "one-time passcode"
+        }`,
+        text: (process.env.COUNTRY === "np"
+          ? WELCOME_ADMIN_NP
+          : WELCOME_ADMIN_SL
+        )
+          .replace("#{userName}", user?.name || "")
+          .replace("#{appName}", process.env.APP_NAME || "Coach Digital")
+          .replace("#{appName}", process.env.APP_NAME || "Coach Digital")
+          .replace("#{email}", user?.email || "")
+          .replace(
+            "#{url}",
+            `https://coachdigital.org/${process.env.COUNTRY}/admin/`
+          ),
+      };
+
+      await sgMail.send(msg);
+    } catch (err) {
+      console.log(err);
+    }
   };
 }
