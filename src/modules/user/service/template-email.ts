@@ -12,8 +12,6 @@ export const WELCOME_ADMIN_NP = `
 `;
 
 export const WELCOME_ADMIN_SL = `
-traduza para nepali:
-
 Dear #{userName},
 
 We are pleased to inform you that you have been invited to join #{appName}! Please access the link below and log in with the email: #{email}.
