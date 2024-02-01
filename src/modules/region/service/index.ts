@@ -2,6 +2,11 @@ import { DeleteResult, IsNull, MoreThan } from "typeorm";
 import dataSource from "../../../database/config/ormconfig";
 import { Region } from "../entity/region.entity";
 
+type RegionBatchResponse = {
+  successCount: number;
+  failItems: string[][];
+};
+
 export class RegionService {
   static createAndUpdate = async ({
     id,
@@ -22,6 +27,33 @@ export class RegionService {
     });
 
     return region;
+  };
+
+  static createInBatch = async (batch: string[][]): Promise<any> => {
+    const response = await batch.reduce(
+      async (
+        acc: Promise<RegionBatchResponse>,
+        row: Array<string>
+      ): Promise<RegionBatchResponse> => {
+        const oldState = await acc;
+
+        const region = await RegionService.findOrCreateLeafRegionByNamePath(
+          row
+        );
+
+        if (!region?.id) {
+          return { ...oldState, failItems: [...oldState.failItems, row] };
+        }
+
+        return { ...oldState, successCount: oldState.successCount + 1 };
+      },
+      Promise.resolve({
+        successCount: 0,
+        failItems: [],
+      })
+    );
+
+    return response;
   };
 
   static findOrCreateLeafRegionByNamePath = async (

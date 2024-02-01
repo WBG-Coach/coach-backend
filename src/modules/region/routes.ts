@@ -29,6 +29,11 @@ const schoolRouter = (app: Application): void => {
     Authentication.authenticate,
     RegionController.findById
   );
+  app.post(
+    `/${config.country}/api/region/batch`,
+    Authentication.authenticate,
+    RegionController.createBatch
+  );
 };
 
 export default schoolRouter;

@@ -14,12 +14,12 @@ export const WELCOME_ADMIN_NP = `
 export const WELCOME_ADMIN_SL = `
 Dear #{userName},
 
-We are pleased to inform you that you have been invited to join #{appName}! Please access the link below and log in with the email: #{email}.
+Welcome to #{appName}! Your account is set up and ready to go.
 
-You can access your account in this link: #{url}
+To access your account, simply log in using your email (#{email}) at: #{url}.
 
-If you didn't request this, you can safely ignore this email or let us know.
+If you didn't request an account, please disregard this email or contact us for assistance.
 
 Thank you,
-#{appName} team
+The #{appName} Team
 `;

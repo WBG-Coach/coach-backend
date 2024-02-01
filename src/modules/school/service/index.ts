@@ -22,8 +22,10 @@ export class SchoolService {
 
   static createInBatch = async (batch: string[][]): Promise<any> => {
     const schoolRepository = await dataSource.getRepository(School);
+    const [header, ...data] = batch;
+    console.log(header);
 
-    const response = await batch.reduce(
+    const response = await data.reduce(
       async (
         acc: Promise<SchoolBatchResponse>,
         row: Array<string>
