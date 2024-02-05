@@ -16,10 +16,21 @@ export class CoachService {
     return userRepository.save(data);
   };
 
-  static update = async (id: string, data: Coach): Promise<UpdateResult> => {
+  static update = async (
+    id: string,
+    { name, surname, email, phone, birthdate, nin, pin }: Coach
+  ): Promise<UpdateResult> => {
     const userRepository = await dataSource.getRepository(Coach);
 
-    return userRepository.update(id, data);
+    return userRepository.update(id, {
+      name,
+      surname,
+      email,
+      phone,
+      birthdate,
+      nin,
+      pin,
+    });
   };
 
   static delete = async (id: string): Promise<DeleteResult> => {
@@ -43,6 +54,8 @@ export class CoachService {
   static findAll = async (): Promise<Coach[]> => {
     const userRepository = await dataSource.getRepository(Coach);
 
-    return userRepository.find({ relations: { coachSchools: true } });
+    return userRepository.find({
+      relations: { sessions: { teacher: true, school: true } },
+    });
   };
 }

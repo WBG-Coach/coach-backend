@@ -59,19 +59,19 @@ export class Session {
   @Column({ nullable: true, type: "float8" })
   longitude?: number;
 
-  @ManyToOne(() => Coach, (coach: Coach) => coach.id, { eager: true })
+  @ManyToOne(() => Coach, (coach: Coach) => coach.id)
   @JoinColumn({ name: "coach_id" })
   coach?: Coach;
 
-  @ManyToOne(() => School, (school) => school.id, { eager: true })
+  @ManyToOne(() => School, (school) => school.id)
   @JoinColumn({ name: "school_id" })
   school?: School;
 
-  @ManyToOne(() => Teacher, (teacher) => teacher.id, { eager: true })
+  @ManyToOne(() => Teacher, (teacher) => teacher.id)
   @JoinColumn({ name: "teacher_id" })
   teacher?: Teacher;
 
-  @OneToMany(() => Answer, (answer) => answer.session, { eager: true })
+  @OneToMany(() => Answer, (answer) => answer.session)
   answers?: Answer[];
 
   @Column({ nullable: true })

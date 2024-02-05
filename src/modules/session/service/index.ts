@@ -24,23 +24,28 @@ export class SessionService {
   static findByID = async (id: string): Promise<Session | null> => {
     const sessionRepository = await dataSource.getRepository(Session);
 
-    return sessionRepository.findOne({ where: { id } });
+    return sessionRepository.findOne({
+      where: { id },
+      relations: { coach: true, school: true, answers: true, teacher: true },
+    });
   };
 
   static findAll = async (regionIds?: string[]): Promise<Session[]> => {
     const sessionRepository = await dataSource.getRepository(Session);
 
     if (!regionIds) {
-      return sessionRepository.find();
+      return sessionRepository.find({
+        relations: { coach: true, school: true, answers: true, teacher: true },
+      });
     }
 
-    console.log(regionIds);
     return sessionRepository.find({
       where: {
         school: {
           region_id: In(regionIds),
         },
       },
+      relations: { coach: true, school: true, answers: true, teacher: true },
     });
   };
 
@@ -90,7 +95,6 @@ export class SessionService {
         GROUP BY 
             s.id;
     `);
-    console.log(showOnlyWithValues);
 
     return result;
   };
@@ -135,7 +139,6 @@ export class SessionService {
         GROUP BY 
             s.id;
     `);
-    console.log(showOnlyWithValues);
 
     return result;
   };
