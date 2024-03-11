@@ -7,6 +7,9 @@ import config from "../../../config";
 import { CoachService } from "../../coach/service";
 import { UserService } from "../../user/service";
 import { LogsService } from "../../logs/service";
+import { SchoolService } from "../../school/service";
+import { CompetenceService } from "../../competencies/service";
+import { QuestionService } from "../../question/service";
 
 export default class AuthenticationController {
   public static supertsetLogin = async (
@@ -135,7 +138,23 @@ export default class AuthenticationController {
       const otp = await Authentication.verifyOTP(coach.email, code);
 
       if (otp) {
-        return res.status(200).send({ coach });
+        const competencies = await CompetenceService.findAll();
+        const questions = await QuestionService.findAll();
+
+        return res.status(200).send({
+          competencies,
+          questions,
+          coach: {
+            ...coach,
+            coachSchools: coach.coachSchools?.map((coachSchool) => ({
+              ...coachSchool,
+              school: {
+                ...coachSchool.school,
+                key: SchoolService.encryptId(coachSchool?.school?.id || ""),
+              },
+            })),
+          },
+        });
       }
 
       return res.status(404).send({ otp });

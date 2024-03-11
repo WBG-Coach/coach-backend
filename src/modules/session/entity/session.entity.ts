@@ -10,6 +10,7 @@ import { School } from "../../school/entity/school.entity";
 import { Teacher } from "../../teacher/entity/teacher.entity";
 import { Answer } from "../../answer/entity/answer.entity";
 import { Coach } from "../../coach/entity/coach.entity";
+import { Feedback } from "./feedback.entity";
 
 @Entity()
 export class Session {
@@ -70,6 +71,10 @@ export class Session {
   @ManyToOne(() => Teacher, (teacher) => teacher.id)
   @JoinColumn({ name: "teacher_id" })
   teacher?: Teacher;
+
+  @ManyToOne(() => Feedback, (feedback: Feedback) => feedback.id)
+  @JoinColumn({ name: "feedback_id" })
+  feedback?: Feedback;
 
   @OneToMany(() => Answer, (answer) => answer.session)
   answers?: Answer[];

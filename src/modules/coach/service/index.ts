@@ -5,6 +5,7 @@ import { Coach } from "../entity/coach.entity";
 export class CoachService {
   static create = async (data: Coach): Promise<Coach> => {
     const userRepository = await dataSource.getRepository(Coach);
+
     if (!data.email) {
       throw Error("Email is required");
     }
@@ -48,7 +49,13 @@ export class CoachService {
   static findByEmail = async (email: string): Promise<Coach | null> => {
     const userRepository = await dataSource.getRepository(Coach);
 
-    return userRepository.findOne({ where: { email } });
+    return userRepository.findOne({
+      where: { email },
+      relations: {
+        coachSchools: { school: true },
+        sessions: { feedback: true, answers: true },
+      },
+    });
   };
 
   static findAll = async (): Promise<Coach[]> => {

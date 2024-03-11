@@ -14,6 +14,7 @@ export default class CoachController {
   public static signUp = async (req: Request, res: Response): Promise<any> => {
     try {
       const newCoach = await CoachService.create(req.body);
+
       if (newCoach?.email)
         await Authentication.sendEmailOTP(
           newCoach.email,

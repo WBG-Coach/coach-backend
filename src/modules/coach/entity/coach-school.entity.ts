@@ -3,6 +3,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { School } from "../../school/entity/school.entity";
@@ -14,13 +15,10 @@ export class CoachSchool {
     Object.assign(this, coach);
   }
 
-  @PrimaryGeneratedColumn("uuid")
-  id?: string;
-
-  @Column({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid" })
   school_id?: string;
 
-  @Column({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid" })
   coach_id?: string;
 
   @ManyToOne(() => School, (school) => school.id)
