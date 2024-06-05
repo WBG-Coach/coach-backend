@@ -57,7 +57,7 @@ export default class Authentication {
   public static signUser = (user: User, res: Response): void => {
     const payload = { email: user.email, sub: user.id };
     const newToken = jwt.sign(payload, secret, {
-      expiresIn: 604800, // expires in 7 days
+      expiresIn: 60480, // 1 Day
     });
     res.setHeader("token", newToken);
     res.setHeader("Access-Control-Allow-Headers", "true");
@@ -137,10 +137,17 @@ export default class Authentication {
     const otpRepository = await dataSource.getRepository(Otp);
     const tenMinutesAgo = new Date().getTime() - 10 * 60 * 1000;
 
-    return await otpRepository.findOneBy({
+    const otpCode = await otpRepository.findOneBy({
       email,
       code,
+      used: false,
       created_at: MoreThan(tenMinutesAgo),
     });
+
+    if (otpCode?.id) {
+      await otpRepository.update(otpCode?.id, { used: true });
+    }
+
+    return otpCode;
   };
 }

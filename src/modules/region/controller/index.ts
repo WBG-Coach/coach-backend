@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { constants } from "http2";
 import { RegionService } from "../service";
+import { User } from "../../user/entity";
 
 const {
   HTTP_STATUS_OK,
@@ -38,6 +39,12 @@ export default class SchoolController {
 
   public static delete = async (req: Request, res: Response): Promise<any> => {
     try {
+      const currentUser: User = res.locals.authUser;
+
+      if (currentUser.role !== "admin") {
+        throw new Error("You can not do that.");
+      }
+
       const deletedItem = await RegionService.delete(req.params.id);
       return res.status(HTTP_STATUS_CREATED).send(deletedItem);
     } catch (error) {

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserService } from "../service";
 import { constants } from "http2";
+import { User } from "../entity";
 
 const {
   HTTP_STATUS_OK,
@@ -29,6 +30,12 @@ export default class UserController {
     res: Response
   ): Promise<any> => {
     try {
+      const currentUser: User = res.locals.authUser;
+
+      if (currentUser.role !== "admin") {
+        throw new Error("You can not do that.");
+      }
+
       const list = await UserService.findAllAdmins();
       return res.status(HTTP_STATUS_OK).send(list);
     } catch (error) {
@@ -50,6 +57,16 @@ export default class UserController {
         throw new Error("Identifier of user not found.");
       }
 
+      const currentUser: User = res.locals.authUser;
+
+      if (user_id !== currentUser.id && currentUser.role !== "admin") {
+        throw new Error("You can not do that.");
+      }
+
+      if (newUser.role && currentUser.role !== "admin") {
+        throw new Error("You can not do that.");
+      }
+
       await UserService.updateAdmin(user_id, newUser);
 
       return res.status(HTTP_STATUS_OK).send({});
@@ -66,6 +83,12 @@ export default class UserController {
     res: Response
   ): Promise<any> => {
     try {
+      const currentUser: User = res.locals.authUser;
+
+      if (currentUser.role !== "admin") {
+        throw new Error("You can not do that.");
+      }
+
       const newUser = _req.body;
 
       return res

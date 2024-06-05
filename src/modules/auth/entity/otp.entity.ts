@@ -19,6 +19,9 @@ export class Otp {
   @Column()
   code?: string;
 
+  @Column({ default: false })
+  used?: boolean;
+
   @Column()
   email?: string;
 
