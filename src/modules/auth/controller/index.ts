@@ -82,6 +82,13 @@ export default class AuthenticationController {
       if (!user?.email) {
         return res.status(404).send({ user });
       }
+      const loginAttempts = await Authentication.countLoginAttempt(user.email);
+
+      if (loginAttempts >= 10) {
+        return res
+          .status(400)
+          .send({ error: "Number of attempts exceeded, try again later" });
+      }
 
       const otp = await Authentication.verifyOTP(user.email, code);
 
@@ -133,6 +140,13 @@ export default class AuthenticationController {
 
       if (!coach?.email) {
         return res.status(404).send({ coach });
+      }
+      const loginAttempts = await Authentication.countLoginAttempt(coach.email);
+
+      if (loginAttempts >= 10) {
+        return res
+          .status(400)
+          .send({ error: "Number of attempts exceeded, try again later" });
       }
 
       const otp = await Authentication.verifyOTP(coach.email, code);

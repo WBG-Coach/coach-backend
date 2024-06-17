@@ -7,7 +7,7 @@ export class LogsService {
   static findAll = async (): Promise<Teacher[]> => {
     const userRepository = await dataSource.getRepository(Log);
 
-    return userRepository.find();
+    return userRepository.find({ take: 50 });
   };
 
   static create = async (user: User, description: string) => {

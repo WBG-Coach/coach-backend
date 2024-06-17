@@ -28,6 +28,9 @@ export class User {
   @Column({ nullable: true })
   region_id?: string;
 
+  @Column({ default: false })
+  force_logout?: boolean;
+
   @ManyToOne(() => Region, (region) => region.id)
   @JoinColumn({ name: "region_id" })
   region?: Region;

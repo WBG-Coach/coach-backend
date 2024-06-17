@@ -10,6 +10,8 @@ import sgMail from "@sendgrid/mail";
 import { OTP_EMAIL_NP, OTP_EMAIL_SL } from "./template-email";
 import { Otp } from "../entity/otp.entity";
 import { MoreThan } from "typeorm";
+import { UserService } from "../../user/service";
+import { LoginAttempt } from "../entity/login_attempt.entity";
 
 const { HTTP_STATUS_INTERNAL_SERVER_ERROR, HTTP_STATUS_UNAUTHORIZED } =
   constants;
@@ -47,6 +49,11 @@ export default class Authentication {
 
     if (!user) {
       throw new UnauthorizedException("Invalid token");
+    }
+
+    if (user.force_logout) {
+      await UserService.updateAdmin(user.id, { ...user, force_logout: false });
+      throw new UnauthorizedException("This user was updated");
     }
 
     const { ...userWithoutPassword } = user;
@@ -133,6 +140,22 @@ export default class Authentication {
     });
   };
 
+  public static saveLoginAttempt = async (email: string) => {
+    const otpRepository = await dataSource.getRepository(LoginAttempt);
+
+    await otpRepository.save({ email, created_at: new Date().getTime() });
+  };
+
+  public static countLoginAttempt = async (email: string) => {
+    const otpRepository = await dataSource.getRepository(LoginAttempt);
+    const tenMinutesAgo = new Date().getTime() - 10 * 60 * 1000;
+
+    return await otpRepository.countBy({
+      email,
+      created_at: MoreThan(tenMinutesAgo),
+    });
+  };
+
   public static verifyOTP = async (email: string, code: string) => {
     const otpRepository = await dataSource.getRepository(Otp);
     const tenMinutesAgo = new Date().getTime() - 10 * 60 * 1000;
@@ -143,6 +166,8 @@ export default class Authentication {
       used: false,
       created_at: MoreThan(tenMinutesAgo),
     });
+
+    await this.saveLoginAttempt(email);
 
     if (otpCode?.id) {
       await otpRepository.update(otpCode?.id, { used: true });

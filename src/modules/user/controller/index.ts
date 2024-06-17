@@ -67,7 +67,11 @@ export default class UserController {
         throw new Error("You can not do that.");
       }
 
-      await UserService.updateAdmin(user_id, newUser);
+      await UserService.updateAdmin(
+        user_id,
+        newUser,
+        user_id === currentUser.id
+      );
 
       return res.status(HTTP_STATUS_OK).send({});
     } catch (error) {

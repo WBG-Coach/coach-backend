@@ -42,7 +42,8 @@ export class UserService {
 
   static updateAdmin = async (
     user_id: User["id"],
-    newUser: Partial<User>
+    newUser: Partial<User>,
+    force_logout = false
   ): Promise<void> => {
     const userRepository = dataSource.getRepository(User);
 
@@ -52,6 +53,7 @@ export class UserService {
       name,
       email,
       role,
+      force_logout,
       region_id: role === "admin" ? null : region_id,
     });
   };
@@ -72,7 +74,6 @@ export class UserService {
   static removeAdmin = async (id: User["id"]): Promise<void> => {
     const userRepository = dataSource.getRepository(User);
     await userRepository.delete({ id });
-    return;
   };
 
   private static sendAdminWelcome = async (user: User) => {
