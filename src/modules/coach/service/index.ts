@@ -10,11 +10,18 @@ export class CoachService {
       throw Error("Email is required");
     }
 
-    if (await userRepository.exist({ where: { email: data.email } })) {
+    if (
+      await userRepository.exist({
+        where: { email: data.email.toLocaleLowerCase().trim() },
+      })
+    ) {
       throw Error("Exists a coach with this email");
     }
 
-    return userRepository.save(data);
+    return userRepository.save({
+      ...data,
+      email: data.email.toLocaleLowerCase().trim(),
+    });
   };
 
   static update = async (
